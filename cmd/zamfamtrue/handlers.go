@@ -16,9 +16,8 @@ func statusCheck(w http.ResponseWriter, r *http.Request) {
 	godotenv.Load()
 	eligibilityCheckId := r.URL.Query().Get("eligibilityCheckId")
 	APIKEY := os.Getenv("APIKEY");
-
 	client := &http.Client{
-		
+
 	}
 	
 	values := map[string]string{"repId":"","repNotAssisted":"1","carrierUrl":"https://enrollments-gotruewireless.telgoo5.com/national-verifier-callback/"}
