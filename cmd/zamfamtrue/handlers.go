@@ -60,35 +60,27 @@ func createApplication(w http.ResponseWriter, r *http.Request) {
 }
 
 func statusCheck(w http.ResponseWriter, r *http.Request) {
-	godotenv.Load()
-	eligibilityCheckId := r.URL.Query().Get("eligibilityCheckId")
 	APIKEY := os.Getenv("APIKEY");
-	client := &http.Client{
+	eligibilityCheckId := r.URL.Query().Get("eligibilityCheckId");
+	url := "https://api.universalservice.org/nvca-svc/consumer/eligibility-check/"+eligibilityCheckId+"/status";
+  	method := "POST"
+  	payload := strings.NewReader("{\n    \"repId\": \"\",\n    \"repNotAssisted\": \"\",\n    \"carrierUrl\": \"https://enrollments-gotruewireless.telgoo5.com/national-verifier-callback/\"\n}")
+  	
+  	client := &http.Client {}
+  	req, err := http.NewRequest(method, url, payload)
 
-	}
-	
-	values := map[string]string{"repId":"","repNotAssisted":"1","carrierUrl":"https://enrollments-gotruewireless.telgoo5.com/national-verifier-callback/"}
-	jsonValue, _ := json.Marshal(values);
-
-	var url = "https://api.universalservice.org/nvca-svc/consumer/eligibility-check/"+eligibilityCheckId+"/status";
-
-	response, err := client.Post(url, string(jsonValue), bytes.NewBuffer(jsonValue));
-	req, err := http.NewRequest("POST", url, nil);
-	req.Header.Add("authorization", APIKEY);
-    req.Header.Add("accept", "application/json");
-    req.Header.Add("accept-encoding", "gzip, deflate");
-    req.Header.Add("accept-language", "en-US,en;q=0.8");
-    req.Header.Add("content-type", "application/json");
-	response, err = client.Do(req)
-
-	   
-    if err != nil {
-        log.Printf("The HTTP request failed with error %s\n", err)
-    } else {
-        data, _ := ioutil.ReadAll(response.Body)
-        log.Println(string(data));
-        json.NewEncoder(w).Encode(string(data));
-    }
+  	if err != nil {
+		fmt.Println(err)
+  	} 
+  	req.Header.Add("authorization", APIKEY)
+  	req.Header.Add("accept", "application/json")
+  	req.Header.Add("accept-language", "en-US,en;q=0.8")
+  	req.Header.Add("content-type", "application/json")
+  	res, err := client.Do(req)
+  	defer res.Body.Close()
+  	body, err := ioutil.ReadAll(res.Body)
+	fmt.Println("heeeellooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo")
+	json.NewEncoder(w).Encode(string(body))
 }
 
 func home(w http.ResponseWriter, r *http.Request) {
