@@ -17,11 +17,15 @@ func createApplication(w http.ResponseWriter, r *http.Request) {
 	benefit := r.URL.Query().Get("benefit");
 	fname := r.URL.Query().Get("fname");
 	lname := r.URL.Query().Get("lname");
+	phone := r.URl.Query().Get("phone");
 	dob := r.URL.Query().Get("dob");
 	tribalID := r.URL.Query().Get("tribalID");
 	address := r.URL.Query().Get("address");
+	city := r.URL.Query().Get("city");
+	state := r.URL.Query().Get("state");
 	zip := r.URL.Query().Get("zip");
-	ssn := r.URL.Query().Get("zip");
+	ssn := r.URL.Query().Get("ssn");
+	
 	APIKEY := os.Getenv("APIKEY");
 
 	client := &http.Client{

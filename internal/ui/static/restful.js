@@ -12,9 +12,12 @@ function createApplication(){
     benefit=document.getElementById("benefits").value;
     fname = document.getElementById("fname").value;
     lname = document.getElementById("lname").value;
+    phone = document.getElementById("phone").value;
     dob = document.getElementById("dob").value;
     tribalID = document.getElementById("tribalID").value;
     address = document.getElementById("address").value;
+    city = document.getElementById("city").value;
+    state = document.getElementById("state").value;
     zip = document.getElementById("zip").value;
     ssn = document.getElementById("ssn").value;
 
