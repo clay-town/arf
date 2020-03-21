@@ -1,12 +1,13 @@
 document.addEventListener("DOMContentLoaded", function() {
   createApplication();
-  //statusCheck();
+  statusCheck();
+  submitApplication();
 });
 
 
 function createApplication(){
   button = document.getElementById("nv_submit");
-  
+
   button.addEventListener("click", function(){
     benefit=document.getElementById("benefits").value;
     fname = document.getElementById("fname").value;
@@ -27,28 +28,44 @@ function createApplication(){
   });
 }
 
-function getUrlVars() {
-  var vars = {};
-  var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
-    vars[key] = value;
-  });
-  return vars;
-}
 
 function statusCheck(eligibilityCheckId = "62265B7E2DCFF1B7C9A1A47890A72E72E02F6341DED39B6784CC11D071182F3A") {
-  var request = new XMLHttpRequest();
-  console.log("status check js function");
-  var url = "/status?eligibilityCheckId="+eligibilityCheckId;
+  button = document.getElementById("status_submit");
 
-  request.open('POST', url, true);
-  request.onload = function(){
-    var data = this.response;
-    console.log(data);
-    console.log(JSON.parse(data));
-    
-    }
-    request.send();
+  button.addEventListener("click", function(){
+    var request = new XMLHttpRequest();
+    console.log("status check js function");
+    var url = "/status?eligibilityCheckId="+eligibilityCheckId;
+
+    request.open('POST', url, true);
+    request.onload = function(){
+      var data = this.response;
+      console.log(data);
+      console.log(JSON.parse(data));
+      
+      }
+      request.send();
+
+  });
 }
+
+function submitApplication(){
+  button = document.getElementById("ucare_submit");
+
+  button.addEventListener("click", function(){
+      //TO DO
+
+  });
+}
+
+// function getUrlVars() {
+//   var vars = {};
+//   var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
+//     vars[key] = value;
+//   });
+//   return vars;
+// }
+
 
 // document.getElementById("nv_submit").addEventListener("click", function() {
 //     alert("Hello World!");
