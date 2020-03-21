@@ -17,14 +17,20 @@ function createApplication(){
     address = document.getElementById("address").value;
     zip = document.getElementById("zip").value;
     ssn = document.getElementById("ssn").value;
-    console.log(benefit);
-    console.log(fname);
-    console.log(lname);
-    console.log(dob);
-    console.log(tribalID);
-    console.log(address);
-    console.log(zip);
-    console.log(ssn);
+
+    var request = new XMLHttpRequest();
+    console.log("create app js function");
+    var url = "/createApplication?benefit="+benefit+"fname="+fname+"lname="+lname+"dob="+dob+"trabalID="+trabalID+"address="
+    +address+"zip="+zip+"ssn="+ssn;
+
+    request.open('POST', url, true);
+    request.onload = function(){
+      var data = this.response;
+      console.log(data);
+      console.log(JSON.parse(data));
+    }
+    request.send();
+
   });
 }
 

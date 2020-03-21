@@ -11,6 +11,23 @@ import (
 	"github.com/joho/godotenv"
 )
 
+func createApplication(w http.ResponseWriter, r *http.Request) {
+	godotenv.Load()
+
+	benefit := r.URL.Query().Get("benefit");
+	fname := r.URL.Query().Get("fname");
+	lname := r.URL.Query().Get("lname");
+	dob := r.URL.Query().Get("dob");
+	tribalID := r.URL.Query().Get("tribalID");
+	address := r.URL.Query().Get("address");
+	zip := r.URL.Query().Get("zip");
+	ssn := r.URL.Query().Get("zip");
+	APIKEY := os.Getenv("APIKEY");
+
+	client := &http.Client{
+
+	}
+}
 
 func statusCheck(w http.ResponseWriter, r *http.Request) {
 	godotenv.Load()
@@ -52,7 +69,7 @@ func home(w http.ResponseWriter, r *http.Request) {
 	ts, err := template.ParseFiles("internal/ui/html/home.page.tmpl")
 	if err != nil {
 		log.Println(err.Error())
-		http.Error(w, "Internal Serer Error", 500)
+		http.Error(w, "Internal Server Error", 500)
 		return
 	}	
 	err = ts.Execute (w, nil)
