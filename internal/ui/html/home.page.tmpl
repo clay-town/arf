@@ -7,15 +7,92 @@
         <title>Home</title>
     </head>
     <body>
-        <div>
-            <button type="button" id="buttonbutton">Click Me!</button>
-            Hello world!
-        </div>
+        
+        <form action="/action_page.php">
+          <div class="form-group">
+
+            <label for="benefits">Please Select What Benefits They Recieve:</label>
+
+            <div class="radio">
+              <label><input type="radio" name="optradio">Medicaid/CMS</label>
+            </div>
+
+            <div class="radio">
+              <label><input type="radio" name="optradio">FPHA/HUD</label>
+            </div>
+
+            <div class="radio">
+              <label><input type="radio" name="optradio">SNAP</label>
+            </div>
+
+            <div class="radio">
+              <label><input type="radio" name="optradio">SSI</label>
+            </div>
+            
+            <div class="radio">
+              <label><input type="radio" name="optradio">Veteran's Pension</label>
+            </div>
+            
+            <div class="radio">
+              <label><input type="radio" name="optradio">Tribal Programs</label>
+            </div>
+            
+            <div class="radio">
+              <label><input type="radio" name="optradio">Low Income Qualify</label>
+            </div>
+          
+          </div>
+          
+
+          <div class="form-group">
+            <label for="fname">First Name:</label>
+            <input type="fname" class="form-control" id="fname">
+          </div>
+          
+          <div class="form-group">
+            <label for="lname">Last Name:</label>
+            <input type="lname" class="form-control" id="lname">
+          </div>
+          
+          <div class="form-group">
+            <label for="dob">Date of Birth:</label>
+            <input type="dob" class="form-control" id="dob">
+          </div>
+          
+          <div class="form-group">
+            <label for="tribalID">Tribal ID (optional):</label>
+            <input type="tribalID" class="form-control" id="tribalID">
+          </div>
+          
+          <div class="form-group">
+            <label for="address">Street Address:</label>
+            <input type="address" class="form-control" id="address">
+          </div>
+          
+          <div class="form-group">
+            <label for="zip">zip code:</label>
+            <input type="zip" class="form-control" id="zip">
+          </div>
+          
+          <div class="form-group">
+            <label for="ssn">Last 4 digits of SSN:</label>
+            <input type="ssn" class="form-control" id="ssn">
+          </div>
+          
+          <button type="submit" class="btn btn-default">Submit</button>
+        </form>
     </body>
-    <script type="text/javascript">
-             
-        
-   
-        
-    </script>
+
+    <script type="text/javascript"></script>
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+
 </html>
