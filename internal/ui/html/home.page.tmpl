@@ -4,83 +4,79 @@
         <script type="text/javascript" src="./../static/restful.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
         <meta charset='utf-8'>
-        <title>Home</title>
+        <title>True Wireless Form</title>
     </head>
     <body>
+      <br>
+      <h2>Step 1: Applicational for National Verifier </h2>  
         
-        <form action="/action_page.php">
+        <form id= "inital_nv" >
+
           <div class="form-group">
 
             <label for="benefits">Please Select What Benefits They Recieve:</label>
 
-            <div class="radio">
-              <label><input type="radio" name="optradio">Medicaid/CMS</label>
-            </div>
-
-            <div class="radio">
-              <label><input type="radio" name="optradio">FPHA/HUD</label>
-            </div>
-
-            <div class="radio">
-              <label><input type="radio" name="optradio">SNAP</label>
-            </div>
-
-            <div class="radio">
-              <label><input type="radio" name="optradio">SSI</label>
-            </div>
-            
-            <div class="radio">
-              <label><input type="radio" name="optradio">Veteran's Pension</label>
-            </div>
-            
-            <div class="radio">
-              <label><input type="radio" name="optradio">Tribal Programs</label>
-            </div>
-            
-            <div class="radio">
-              <label><input type="radio" name="optradio">Low Income Qualify</label>
-            </div>
+            <select class="form-control" id="benefits" placeholer= "Optional">
+              <option>No Benefits</option>
+              <option>Medicaid/CMS</option>
+              <option>FPHA/HUD</option>
+              <option>SNAP</option>
+              <option>Veteran's Pension</option>
+              <option>Tribal Programs</option>
+              <option>Low Income Qualify</option>
+            </select>
           
           </div>
           
 
           <div class="form-group">
             <label for="fname">First Name:</label>
-            <input type="fname" class="form-control" id="fname">
+            <input type="text" class="form-control" id="fname" placeholder="John">
           </div>
-          
+           
           <div class="form-group">
             <label for="lname">Last Name:</label>
-            <input type="lname" class="form-control" id="lname">
+            <input type="text" class="form-control" id="lname" placeholder="Doe">
           </div>
           
           <div class="form-group">
             <label for="dob">Date of Birth:</label>
-            <input type="dob" class="form-control" id="dob">
+            <input type="text" class="form-control" id="dob" placeholder="12/03/45">
           </div>
           
           <div class="form-group">
             <label for="tribalID">Tribal ID (optional):</label>
-            <input type="tribalID" class="form-control" id="tribalID">
+            <input type="text" class="form-control" id="tribalID">
           </div>
           
           <div class="form-group">
             <label for="address">Street Address:</label>
-            <input type="address" class="form-control" id="address">
+            <input type="text" class="form-control" id="address" placeholder="336 SW Lane Way, Boring, Oregon">
           </div>
           
           <div class="form-group">
             <label for="zip">zip code:</label>
-            <input type="zip" class="form-control" id="zip">
+            <input type="text" class="form-control" id="zip" placeholder="12345">
           </div>
           
           <div class="form-group">
             <label for="ssn">Last 4 digits of SSN:</label>
-            <input type="ssn" class="form-control" id="ssn">
+            <input type="text" class="form-control" id="ssn" placeholder="1234">
           </div>
           
-          <button type="submit" class="btn btn-default">Submit</button>
-        </form>
+       </form>
+
+        <br>
+        <button class="submit_button" id="nv_submit">Submit to National Verifier</button>
+
+        <br>
+        <h2>Step 2: Submit Status Check</h2>
+        <button class="submit_button" id="status_submit">Submit Status Check</button>
+
+        <br>
+        <h2>Step 3: Submit Application to Ucare</h2>
+        <button class="submit_button" id="ucare_submit">Submit to Ucare</button>
+
     </body>
 
     <script type="text/javascript"></script>
