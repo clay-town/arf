@@ -22,8 +22,7 @@ function createApplication(){
 
     var request = new XMLHttpRequest();
     console.log("create app js function");
-    var url = "/createApplication?benefit="+benefit+"fname="+fname+"lname="+lname+"dob="+dob+"tribalID="+tribalID+"address="
-    +address+"zip="+zip+"ssn="+ssn;
+    var url = "/createApplication?benefit="+benefit+"&fname="+fname+"&lname="+lname+"&dob="+dob+"&tribalID="+tribalID+"&address="+address+"&zip="+zip+"&ssn="+ssn;
 
     request.open('POST', url, true);
     request.onload = function(){

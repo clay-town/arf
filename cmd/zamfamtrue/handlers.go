@@ -40,16 +40,16 @@ func createApplication(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 	fmt.Println(err)
 	}
-	req.Header.Add("authorization", APIKEY)
-  	req.Header.Add("accept", "application/json")
-  	req.Header.Add("accept-language", "en-US,en;q=0.8")
-  	req.Header.Add("content-type", "application/json")
+	req.Header.Add("Content-Type:", "application/json")
+	req.Header.Add("authorization",APIKEY)
+	req.Header.Add("accept-language", "en-US,en;q=0.8")
+	req.Header.Add("content-type", "application/json")
+
 	res, err := client.Do(req)
 	defer res.Body.Close()
 	body, err := ioutil.ReadAll(res.Body)
 
-	//fmt.Println(string(body))
-	fmt.Println("heeeellooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo")
+	fmt.Println(string(body))
 	json.NewEncoder(w).Encode(string(body))
 }
 
