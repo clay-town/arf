@@ -28,7 +28,7 @@ function createApplication(){
     request.onload = function(){
       var data = this.response;
       console.log(data);
-      console.log(JSON.parse(data));
+      //console.log(JSON.parse(data));
     }
     request.send();
 
@@ -48,6 +48,8 @@ function statusCheck(eligibilityCheckId = "62265B7E2DCFF1B7C9A1A47890A72E72E02F6
     request.onload = function(){
       var data = this.response;
       console.log(data);
+      obj=JSON.parse(data)
+      document.getElementById("status").innerHTML = JSON.parse(obj).message;
       console.log(JSON.parse(data));
       
       }
