@@ -59,7 +59,7 @@ function statusCheck(eligibilityCheckId = "62265B7E2DCFF1B7C9A1A47890A72E72E02F6
 }
 
 function submitApplication(){
-  button = document.getElementById("ucare_submit");
+  button = document.getElementById("vcare_submit");
 
   button.addEventListener("click", function(){
       //TO DO
