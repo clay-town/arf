@@ -15,11 +15,6 @@ import (
 func createCustomer(w http.ResponseWriter, r *http.Request) {
 	godotenv.Load()
 
-url = "/createcustomer?zipcode="+zipCode+"&state="+state+"&tribal="+tribal+"&planid="+planId
-            +"&enrollmentId="+enrollmentId+"&fname="+fname+"&mname="+mname+"&lname="+lname+"&dob="+dob
-            +"&tribalid="+tribalId+"&preffcontact="+preffContact+"&address="+address+"&city="+city
-            +"&ssn="+ssn+"&programcode="+programCode;
-
 	zipCode := r.URL.Query().Get("zipcode")
     state := r.URL.Query().Get("state")
     tribal := r.URL.Query().Get("tribal")
