@@ -152,11 +152,17 @@
         
 
         <div class="form-group">
-            <label for="vcare_fname">Plan ID STUFF HERE:</label>
-            <input type="text" class="form-control" id="vcare_fname" placeholder="John">
+            <label for="get_plan_state">Two-letter State Code:</label>
+            <input type="text" class="form-control" id="get_plan_state" placeholder="OR">
         </div>
+        <div class="form-group">
+            <label for="get_plan_state">Check box if this is a tribal customer:</label>
+            <input type="checkbox" id="vcare_tribal" name="tribalID" value="Y">
+        </div>
+
+        <h5 id="get_plan_error_description"></h5>
         <h5 id="plan_id"></h5>
-        <button class="submit_button" id="check_sevice_submit">Get Plan ID</button>
+        <button class="submit_button" id="plan_id_submit">Get Plan ID</button>
         
 
         <form id= "vcare_form" >
@@ -185,7 +191,7 @@
 
           <div class="form-group">
             <label for="vcare_plan_id">Plan ID:</label>
-            <input type="text" class="form-control" id="vcare_ssn" placeholder="1234">
+            <input type="text" class="form-control" id="vcare_plan_id" placeholder="1234">
           </div>
 
           <div class="form-group">
@@ -209,13 +215,13 @@
           </div>
           
           <div class="form-group">
-            <label for="vcare_tribalID">Tribal ID (optional):</label>
-            <input type="text" class="form-control" id="vcare_tribalID" placeholder=" ">
+            <label for="vcare_tribal_ID">Tribal ID (optional):</label>
+            <input type="text" class="form-control" id="vcare_tribal_ID" placeholder=" ">
           </div>
 
            <div class="form-group">
             <label for="vcare_preff_conact">Best Way to Contact:</label>
-            <input type="text" class="form-control" id="vcare_preff_conact" placeholder="YYYY-MM-DD">
+            <input type="text" class="form-control" id="vcare_preff_contact" placeholder="Phone">
           </div>
           
           <div class="form-group">
@@ -226,16 +232,6 @@
           <div class="form-group">
             <label for="vcare_city">City:</label>
             <input type="text" class="form-control" id="vcare_city" placeholder="Portland">
-          </div>
-
-          <div class="form-group">
-            <label for="vcare_state">State:</label>
-            <input type="text" class="form-control" id="vcare_state" placeholder="OR">
-          </div>
-
-          <div class="form-group">
-            <label for="vcare_zip_b">Zip Code:</label>
-            <input type="text" class="form-control" id="vcare_zip_b" placeholder="12345">
           </div>
           
           <div class="form-group">
@@ -249,11 +245,13 @@
           </div>
 
           <div class="form-group">
-            <label for="vcare_insurance">Proof of Insurance URL:</label>
+            <label for="vcare_insurance">Proof of Benefits URL:</label>
             <input type="text" class="form-control" id="vcare_insurance">
           </div>
                    
        </form>
+        <h5 id="final_display_window"></h5>
+        <h5 id="error_final_display_window"></h5>
         <button class="submit_button" id="vcare_submit">Submit to Vcare</button>
         
       </div>

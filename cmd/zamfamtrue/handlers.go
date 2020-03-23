@@ -12,11 +12,92 @@ import (
 	"strings"
 )
 
+func createCustomer(w http.ResponseWriter, r *http.Request) {
+	godotenv.Load()
+
+	zipCode := r.URL.Query().Get("vcare_zip_a")
+    state := r.URL.Query().Get("get_plan_state")
+    tribal := r.URL.Query().Get("vcare_tribal")
+    planId := r.URL.Query().Get("vcare_plan_id")
+    enrollmentId := r.URL.Query().Get("enrollment_id_b")
+    fname := r.URL.Query().Get("vcare_fname")
+    mname := r.URL.Query().Get("vcare_mname")
+    lname := r.URL.Query().Get("vcare_lname")
+    dob := r.URL.Query().Get("vcare_dob")
+   // tribalId := r.URL.Query().Get("vcare_tribal_ID")
+    preffContact := r.URL.Query().Get("vcare_preff_contact")
+    address := r.URL.Query().Get("vcare_address")
+    city := r.URL.Query().Get("vcare_city")
+    ssn := r.URL.Query().Get("vcare_ssn")
+    programCode := r.URL.Query().Get("programCode")
+
+    agentLogin := os.Getenv("AGENTLOGIN")
+    agentPassword := os.Getenv("AGENTPASSWORD")
+  //  vendorId := os.Getenv("VENDORID")
+    //username := os.Getenv("USERNAME")
+   // password := os.Getenv("PASSWORD")
+   // pin := os.Getenv("PIN")
+	
+
+
+	refNumber := os.Getenv("123456")
+
+
+  	url := "https://www.vcareapi.com/vcareOssApi/CreateCustomer/"
+  	method := "POST"
+
+	payload := strings.NewReader("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<VCAREOSSAPI xmlns=\"http://www.oss.vcarecorporation.com/oss\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">\n  <CREDENTIALS>\n  <VENDORID>Demo-Truewireless</VENDORID>\n  <USERNAME>Demo-TruewireUser</USERNAME>\n  <PASSWORD>Demo-TruewirewtK123hyutrw09</PASSWORD>\n  <PIN>Demo-63216741646566</PIN>\n  <REFERENCENUMBER>"+refNumber+"</REFERENCENUMBER>\n</CREDENTIALS>\n<VCAREOSS>\n<CREATECUSTOMER>\n<COMPANY_ID>54</COMPANY_ID>\n  <ENROLLMENTID>"+enrollmentId+"</ENROLLMENTID>\n  <SUFFIX_NAME></SUFFIX_NAME>\n  <FIRSTNAME>"+fname+"</FIRSTNAME>\n  <MIDDLENAME>"+mname+"</MIDDLENAME>\n  <LASTNAME>"+lname+"</LASTNAME>\n  <DOB>"+dob+"</DOB>\n  <SSN>"+ssn+"</SSN>\n  <BENEFICIARYSAMEASCUSTOMER>Y</BENEFICIARYSAMEASCUSTOMER>\n  <BENEFICIARYSUFFIX></BENEFICIARYSUFFIX>\n  <BENEFICIARYFIRSTNAME></BENEFICIARYFIRSTNAME>\n  <BENEFICIARYMIDDLENAME></BENEFICIARYMIDDLENAME>\n  <BENEFICIARYLASTNAME></BENEFICIARYLASTNAME>\n  <BENEFICIARYDOB></BENEFICIARYDOB>\n  <BENEFICIARYSSN></BENEFICIARYSSN>\n  <BENEFICIARYTRIBALID></BENEFICIARYTRIBALID>\n  <BESTWAYTOREACH>"+preffContact+"</BESTWAYTOREACH>\n  <ALTERNATIVEEMAIL></ALTERNATIVEEMAIL>\n  <ALTERNATIVECONTACTNAME></ALTERNATIVECONTACTNAME>\n  <ALTERNATIVECONTACTNUMBER></ALTERNATIVECONTACTNUMBER>\n  <PHYSICALADDRESS>\n<ADDRESS1>"+address+"</ADDRESS1>\n  <ADDRESS2></ADDRESS2>\n  <CITY>"+city+"</CITY>\n  <STATE>"+state+"</STATE>\n  <ZIP>"+zipCode+"</ZIP>\n  </PHYSICALADDRESS>\n<MAILINGADDRESS>\n<ADDRESS1>"+address+"</ADDRESS1>\n  <ADDRESS2></ADDRESS2>\n  <CITY>"+city+"</CITY>\n  <STATE>"+state+"</STATE>\n  <ZIP>"+zipCode+"</ZIP>\n  </MAILINGADDRESS>\n<LIFELINE>\n<PROGRAMCODE>"+programCode+"</PROGRAMCODE>\n  <INCOMECERTIFY></INCOMECERTIFY>\n  <TEMPORARYADDRESS>N</TEMPORARYADDRESS>\n  <TRIBAL>"+tribal+"</TRIBAL>\n  <HOUSEHOLDCOUNT></HOUSEHOLDCOUNT>\n  <MULTIPLEHOUSEHOLDS></MULTIPLEHOUSEHOLDS>\n  </LIFELINE>\n<CLAIMNUMBER></CLAIMNUMBER>\n  <ISSUEDATEONPROOF></ISSUEDATEONPROOF>\n  <EXPIRATIONDATEONPROOF></EXPIRATIONDATEONPROOF>\n  <PLANID>"+planId+"</PLANID>\n  <ENROLLMENTTYPE>Shipment</ENROLLMENTTYPE>\n  <HOUSEHOLDLIFELINE></HOUSEHOLDLIFELINE>\n  <ADULT></ADULT>\n  <SHARE></SHARE>\n  <CERTIFI1></CERTIFI1>\n  <CERTIFI2></CERTIFI2>\n  <DSHSCLIENTID></DSHSCLIENTID>\n  <CUSTOMERINFOMATR></CUSTOMERINFOMATR>\n  <DRIVER_LICENSE_NUMBER></DRIVER_LICENSE_NUMBER>\n  <ADDRESSVALIDATION></ADDRESSVALIDATION>\n  <ISRURAL></ISRURAL>\n  <ISWEBPARTNER></ISWEBPARTNER>\n  <IPADDRESS></IPADDRESS>\n  <CUSTOMERCLASSIFICATION_ID></CUSTOMERCLASSIFICATION_ID>\n  <CUSTOMERPASSWORD></CUSTOMERPASSWORD>\n  <AGENTLOGIN>"+agentLogin+"</AGENTLOGIN>\n  <AGENTPASSWORD>"+agentPassword+"</AGENTPASSWORD>\n  <SOURCE></SOURCE>\n  </CREATECUSTOMER>\n</VCAREOSS>\n</VCAREOSSAPI>")
+
+  	client := &http.Client {
+  	}
+  	req, err := http.NewRequest(method, url, payload)
+
+  	if err != nil {
+    	fmt.Println(err)
+  	}
+  	req.Header.Add("Content-Type", "application/xml")
+
+  	res, err := client.Do(req)
+  	defer res.Body.Close()
+  	body, err := ioutil.ReadAll(res.Body)
+
+  	fmt.Println(string(body))
+	json.NewEncoder(w).Encode(string(body))
+}
+
+func getPlanService(w http.ResponseWriter, r *http.Request) {
+	godotenv.Load()
+	tribal := "N"
+	zipCode := r.URL.Query().Get("zipcode");
+	state 	:= r.URL.Query().Get("state");
+	tribal  = r.URL.Query().Get("tribal");
+
+	url := "https://www.vcareapi.com/vcareOssApi/GetPlanService/"
+	method := "POST"
+
+	payload := strings.NewReader("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<VCAREOSSAPI xmlns=\"http://www.oss.vcarecorporation.com/oss\" \n    xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">\n    <CREDENTIALS>\n        <VENDORID>Demo-Truewireless</VENDORID>\n  <USERNAME>Demo-TruewireUser</USERNAME>\n  <PASSWORD>Demo-TruewirewtK123hyutrw09</PASSWORD>\n  <PIN>Demo-63216741646566</PIN>\n  <REFERENCENUMBER>9541564622</REFERENCENUMBER>\n    </CREDENTIALS>\n    <VCAREOSS>\n        <GETPLANSERVICE>\n            <STATE>"+state+"</STATE>\n            <TYPE>LIFELINE</TYPE>\n            <TRANSACTIONTYPE></TRANSACTIONTYPE>\n            <AGENTID>justin</AGENTID>\n            <AGENTPASSWORD>Pass753.</AGENTPASSWORD>\n            <SOURCE></SOURCE>\n        </GETPLANSERVICE>\n        <CHECKSERVICEAVAILABILITY>\n            <TRIBAL>"+tribal+"</TRIBAL>\n            <ZIPCODE>"+zipCode+"</ZIPCODE>\n        </CHECKSERVICEAVAILABILITY>\n\n    </VCAREOSS>\n</VCAREOSSAPI>")
+
+	client := &http.Client {
+	}
+	req, err := http.NewRequest(method, url, payload)
+
+	if err != nil {
+	  fmt.Println(err)
+	}
+	req.Header.Add("Content-Type", "application/xml")
+
+	res, err := client.Do(req)
+	defer res.Body.Close()
+	body, err := ioutil.ReadAll(res.Body)
+
+ 	fmt.Println(string(body))
+	json.NewEncoder(w).Encode(string(body))
+}
+
 func checkServiceAvailability(w http.ResponseWriter, r *http.Request) {
 	godotenv.Load()
 	//APIKEY := os.Getenv("APIKEY");
 	zipCode := r.URL.Query().Get("zipcode");
-	fmt.Println(zipCode)
 	url := "https://www.vcareapi.com/vcareOssApi/CheckServiceAvailability/"
   	method := "POST"
 	payload := strings.NewReader("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<VCAREOSSAPI xmlns=\"http://www.oss.vcarecorporation.com/oss\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">\n	<CREDENTIALS>\n	<VENDORID>Demo-Truewireless</VENDORID>\n	<USERNAME>Demo-TruewireUser</USERNAME>\n	<PASSWORD>Demo-TruewirewtK123hyutrw09</PASSWORD>\n	<PIN>Demo-63216741646566</PIN>\n	<REFERENCENUMBER>94453456</REFERENCENUMBER>\n</CREDENTIALS>\n<VCAREOSS>\n<CHECKSERVICEAVAILABILITY>\n<ENROLLMENTTYPE>LIFELINE</ENROLLMENTTYPE>\n	<ZIPCODE> "+zipCode+"</ZIPCODE>\n	<COMPANYID>54</COMPANYID>\n	<ISENROLLMENT>y</ISENROLLMENT>\n	<ISWEBPARTNER></ISWEBPARTNER>\n	<SOURCE></SOURCE>\n	<AGENTID>justin</AGENTID>\n	<AGENTPASSWORD>Pass753.</AGENTPASSWORD>\n	</CHECKSERVICEAVAILABILITY>\n</VCAREOSS>\n</VCAREOSSAPI>")
@@ -36,14 +117,6 @@ func checkServiceAvailability(w http.ResponseWriter, r *http.Request) {
   	
   	fmt.Println(string(body))
 	json.NewEncoder(w).Encode(string(body))
-}
-
-func getPlanService(w http.ResponseWriter, r *http.Request) {
-	godotenv.Load()
-}
-
-func createCustomer(w http.ResponseWriter, r *http.Request) {
-	godotenv.Load()
 }
 
 func uploadProof(w http.ResponseWriter, r *http.Request) {

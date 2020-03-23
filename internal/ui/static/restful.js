@@ -4,7 +4,115 @@ document.addEventListener("DOMContentLoaded", function() {
   submitApplication();
   sendUserToManyChatFlowAfterApplicationCreation();
   checkServiceAvailability()
+  getPlanId();
+  createCustomer();
 });
+
+function createCustomer() {
+  button = document.getElementById("vcare_submit");
+
+  button.addEventListener("click", function(){
+    console.log("create customer js function");
+    var zipCode = document.getElementById("vcare_zip_a").value;
+    var state = document.getElementById("get_plan_state").value;
+    var tribal = document.getElementById("vcare_tribal").value;
+    var planId = document.getElementById("vcare_plan_id").value;
+    var enrollmentId = document.getElementById("enrollment_id_b").value;
+    var fname = document.getElementById("vcare_fname").value;
+    var mname = document.getElementById("vcare_mname").value;
+    var lname = document.getElementById("vcare_lname").value;
+    var dob = document.getElementById("vcare_dob").value;
+    var tribalId = document.getElementById("vcare_tribal_ID").value;
+    var preffContact= document.getElementById("vcare_preff_contact").value;
+    var address = document.getElementById("vcare_address").value;
+    var city = document.getElementById("vcare_city").value;
+    var ssn = document.getElementById("vcare_ssn").value;
+    var photoId = document.getElementById("vcare_photoID").value;
+    var pob = document.getElementById("vcare_insurance").value;
+    var programCode = "MEDIC";
+
+    // make call to another function that can encode the photos
+
+
+    var request = new XMLHttpRequest();
+    
+    var url = "/createcustomer?zipcode="+zipCode+"&state="+state+"&tribal="+tribal+"&planid="+planId
+            +"&enrollmentId="+enrollmentId+"&fname="+fname+"&mname="+mname+"&lname="+lname+"&dob="+dob
+            +"&tribalid="+tribalId+"&preffcontact="+preffContact+"&address="+address+"&city="+city
+            +"&ssn="+ssn+"&programcode="+programCode;
+
+    request.open('POST', url, true);
+    request.onload = function(){
+      var data = this.response;
+      console.log(data);
+      
+      response=JSON.parse(data);
+      console.log(response);
+
+      parser = new DOMParser();
+      xmlDoc = parser.parseFromString(response,"text/xml");
+
+      description = xmlDoc.getElementsByTagName("description")[0].innerHTML
+      document.getElementById("final_display_window").innerHTML = "Description: " + description
+
+      if(description == "SUCCESS") {
+          
+        document.getElementById("error_final_display_window").innerHTML = ""
+      } else if(description == "FAIL"){
+        errorDescription = xmlDoc.getElementsByTagName("errorDescription")[0].innerHTML
+        document.getElementById("error_final_display_window").innerHTML = "Error Description: " + errorDescription;
+      }
+      console.log(response)
+      }
+    request.send();
+
+  });
+}
+
+function getPlanId() {
+  button = document.getElementById("plan_id_submit");
+
+  button.addEventListener("click", function(){
+    console.log("get plan id js function");
+    var zipCode = document.getElementById("vcare_zip_a").value;
+    var tribal = "N"
+    var state = document.getElementById("get_plan_state").value;
+
+    if(document.getElementById("vcare_tribal").checked){
+      tribal = "Y"
+    }
+
+    var request = new XMLHttpRequest();
+    var url = "/getplan?zipcode="+zipCode+"&tribal="+tribal+"&state="+state;
+
+    request.open('POST', url, true);
+    request.onload = function(){
+      var data = this.response;
+      console.log(data);
+      response=JSON.parse(data);
+      console.log(response);
+
+      parser = new DOMParser();
+      xmlDoc = parser.parseFromString(response,"text/xml");
+
+      description = xmlDoc.getElementsByTagName("description")[0].innerHTML
+      document.getElementById("plan_id").innerHTML = "Description: " + description
+
+      if(description == "SUCCESS") {
+          // iterate through plan names, looking to match based on hierarchy we get from cheesecake
+          // if i understand correctly, "TRUEMETRO" is the plan name I want
+          // planid = 
+        document.getElementById("get_plan_error_description").innerHTML = "Plan ID: 16"
+        document.getElementById("vcare_plan_id").value = "16"
+      } else if(description == "FAIL"){
+        errorDescription = xmlDoc.getElementsByTagName("errorDescription")[0].innerHTML
+        document.getElementById("get_plan_error_description").innerHTML = "Error Description: " + errorDescription;
+      }
+      console.log(response)
+      }
+    request.send();
+  });
+}
 
 function checkServiceAvailability(){
   button = document.getElementById("check_sevice_submit");
@@ -35,7 +143,7 @@ function checkServiceAvailability(){
       }
       console.log(obj)
       }
-      request.send();
+    request.send();
   });
 }
 
