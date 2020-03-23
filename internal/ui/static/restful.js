@@ -39,9 +39,7 @@ function convertImgToBase64(url, output){
       } else if(output == "pob"){
         document.getElementById('pob_output').value = dataURL
         console.log("pob set")
-      }
-    
-      //console.log(dataURL)
+      }    
       canvas = null; 
   };
   
@@ -64,18 +62,15 @@ function uploadProof() {
     convertImgToBase64(pob, "pob");    
     
     wait(10*1000).then(() => { 
-      console.log("waited for 4 seconds"); 
       additionalProof = document.getElementById("additional_proof_output").value
       photoId = document.getElementById("photo_id_output").value
       pob = document.getElementById("pob_output").value
-      console.log(photoId)
-      console.log(additionalProof)
-      console.log(pob)
-
+      
       uploadPhotoID(photoId, enrollmentId)
       uploadPOB(pob, enrollmentId)
-      uploadProof(additionalProof, enrollmentId)
+      uploadProofVcare(additionalProof, enrollmentId)
     })
+}
 
 function uploadPhotoID(photoId, enrollmentId){
   var request = new XMLHttpRequest();
@@ -84,11 +79,8 @@ function uploadPhotoID(photoId, enrollmentId){
   request.open('POST', url, true);
   request.onload = function(){
     var data = this.response;
-    console.log(data);
-      
+          
     response=JSON.parse(data);
-    console.log(response);
-
     parser = new DOMParser();
     xmlDoc = parser.parseFromString(response,"text/xml");
 
@@ -102,8 +94,7 @@ function uploadPhotoID(photoId, enrollmentId){
           //errorDescription = xmlDoc.getElementsByTagName("errorDescription")[0].innerHTML
           //document.getElementById("error_final_display_window").innerHTML = "Error Description: " + errorDescription;
     }
-    console.log(response)
-    }
+  }
   request.send();
 }
 
@@ -114,11 +105,8 @@ function uploadPOB(pob, enrollmentId){
   request.open('POST', url, true);
   request.onload = function(){
     var data = this.response;
-    console.log(data);
       
     response=JSON.parse(data);
-    console.log(response);
-
     parser = new DOMParser();
     xmlDoc = parser.parseFromString(response,"text/xml");
 
@@ -132,24 +120,20 @@ function uploadPOB(pob, enrollmentId){
           //errorDescription = xmlDoc.getElementsByTagName("errorDescription")[0].innerHTML
           //document.getElementById("error_final_display_window").innerHTML = "Error Description: " + errorDescription;
     }
-    console.log(response)
-    }
+  }
   request.send();
 }
 
 
-function uploadProof(additionalProof, enrollmentId){
+function uploadProofVcare(additionalProof, enrollmentId){
   var request = new XMLHttpRequest();
   var url = "/uploadproof?additionalproof="+additionalProof+"&enrollmentid="+enrollmentId;
 
   request.open('POST', url, true);
   request.onload = function(){
     var data = this.response;
-    console.log(data);
       
     response=JSON.parse(data);
-    console.log(response);
-
     parser = new DOMParser();
     xmlDoc = parser.parseFromString(response,"text/xml");
 
@@ -163,8 +147,7 @@ function uploadProof(additionalProof, enrollmentId){
           //errorDescription = xmlDoc.getElementsByTagName("errorDescription")[0].innerHTML
           //document.getElementById("error_final_display_window").innerHTML = "Error Description: " + errorDescription;
     }
-    console.log(response)
-    }
+  }
   request.send();
 }
 
@@ -172,7 +155,6 @@ function createCustomer() {
   button = document.getElementById("vcare_submit");
 
   button.addEventListener("click", function(){
-    uploadProof()
 
     console.log("create customer js function");
     var zipCode = document.getElementById("vcare_zip_a").value;
@@ -204,9 +186,6 @@ function createCustomer() {
       var shipping_zip = document.getElementById("vcare_shipping_zip");
     }
 
-    // make call to another function that can encode the photos
-
-
     var request = new XMLHttpRequest();
     
     var url = "/createcustomer?zipcode="+zipCode+"&state="+state+"&tribal="+tribal+"&planid="+planId
@@ -219,30 +198,24 @@ function createCustomer() {
     request.open('POST', url, true);
     request.onload = function(){
       var data = this.response;
-      console.log(data);
-      
+            
       response=JSON.parse(data);
-      console.log(response);
-
+      
       parser = new DOMParser();
       xmlDoc = parser.parseFromString(response,"text/xml");
 
       description = xmlDoc.getElementsByTagName("description")[0].innerHTML
       document.getElementById("final_display_window").innerHTML = "Description: " + description
-
-      // move this call into 'success statement'
-      
+    
       if(description == "SUCCESS") {
-          // MAKE CALL TO ENCODE IMAGES && UPLOAD PROOF
+        uploadProof()
         document.getElementById("error_final_display_window").innerHTML = ""
       } else if(description == "FAIL"){
         errorDescription = xmlDoc.getElementsByTagName("errorDescription")[0].innerHTML
         document.getElementById("error_final_display_window").innerHTML = "Error Description: " + errorDescription;
       }
-      console.log(response)
-      }
+    }
     request.send();
-
   });
 }
 
@@ -265,10 +238,7 @@ function getPlanId() {
     request.open('POST', url, true);
     request.onload = function(){
       var data = this.response;
-      console.log(data);
       response=JSON.parse(data);
-      console.log(response);
-
       parser = new DOMParser();
       xmlDoc = parser.parseFromString(response,"text/xml");
 
@@ -285,8 +255,7 @@ function getPlanId() {
         errorDescription = xmlDoc.getElementsByTagName("errorDescription")[0].innerHTML
         document.getElementById("get_plan_error_description").innerHTML = "Error Description: " + errorDescription;
       }
-      console.log(response)
-      }
+    }
     request.send();
   });
 }
@@ -318,8 +287,7 @@ function checkServiceAvailability(){
         errorDescription = xmlDoc.getElementsByTagName("errorDescription")[0].innerHTML
         document.getElementById("enrollment_id_a").innerHTML = "Error Description: " + errorDescription;
       }
-      console.log(obj)
-      }
+    }
     request.send();
   });
 }
@@ -397,23 +365,14 @@ function createApplication(){
       request.open('POST', url, true);
       request.onload = function(){
         var data = this.response;
-        console.log("raw data:");
-        console.log(data);
         first_parse =JSON.parse(data);
-        console.log("data parsed once:");
-        console.log(first_parse);
         second_parse = JSON.parse(first_parse);
-        console.log("data parsed twice:");
-        console.log(second_parse);
         applicationResponse(second_parse, manychatid, fname, lname, tribalid, address, city, state, zip, ssn);
       }
       request.send();
     }else{
       document.getElementById("nv_status").innerHTML = "Must get user consent before submitting";
     }
-
-    
-
   });
 }
 
@@ -459,59 +418,13 @@ function statusCheck() {
     request.open('POST', url, true);
     request.onload = function(){
       var data = this.response;
-      console.log(data);
       response=JSON.parse(data);
-      console.log(response.message);
-      statusCheckResponse(response);
-      console.log(JSON.parse(response).status);
-      console.log(JSON.parse(data));
-      
-      }
-      request.send();
-
+      statusCheckResponse(response);     
+    }
+    request.send();
   });
 }
 
 function displayShippingFields(){
-    document.getElementById("shipping_form").style.visibility = "hidden";
+  document.getElementById("shipping_form").style.visibility = "hidden";
 }
-
-
-function submitApplication(){
-
-}
-
-
-
-// function getUrlVars() {
-//   var vars = {};
-//   var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
-//     vars[key] = value;
-//   });
-//   return vars;
-// }
-
-
-// document.getElementById("nv_submit").addEventListener("click", function() {
-//     alert("Hello World!");
-//   });
-
-// function viaJavaScript(eligibilityCheckId = "62265B7E2DCFF1B7C9A1A47890A72E72E02F6341DED39B6784CC11D071182F3A") {
-//   var data = {};
-//   var xhr = new XMLHttpRequest();
-//   var url = "https://api.universalservice.org/nvca-svc/consumer/eligibility-check/62265B7E2DCFF1B7C9A1A47890A72E72E02F6341DED39B6784CC11D071182F3A/status"
-
-//   //xhr.open(form.method, form.action, true);
-//   xhr.open("post", url, true);
-//   xhr.setRequestHeader('Content-type', 'application/json; charset=utf-8');
-//   xhr.setRequestHeader('accept-language', 'en-US,en;q=0.8');
-//   xhr.setRequestHeader('authorization', APIKEY);
-//   xhr.setRequestHeader('Access-Control-Request-Headers', 'Content-Type, Accept');
-  
-
-//   xhr.send(JSON.stringify(data))
-//   xhr.onloadend = function () {
-//     // do stuff here
-//   }
-// }
-
