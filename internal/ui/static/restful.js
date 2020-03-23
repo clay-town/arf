@@ -6,6 +6,7 @@ document.addEventListener("DOMContentLoaded", function() {
   checkServiceAvailability()
   getPlanId();
   createCustomer();
+  clearFields();
 });
 
 function createCustomer() {
@@ -321,8 +322,22 @@ function displayShippingFields(){
 }
 
 function uniqueIdentifierGenerator(){
-  return seconds = new Date().getTime() / 1000;
+  var seconds = new Date().getTime() / 1000;
+  return Math.trunc(seconds);
 }
+
+function clearFields(){
+  button = document.getElementById("clear");
+
+  button.addEventListener("click", function(){
+    document.getElementById('inital_nv').reset();
+    document.getElementById('manychatID_form').reset();
+    document.getElementById('status_form').reset();
+    document.getElementById('submit_vcare_form').reset();
+
+  });
+}
+
 /**
  * convertImgToBase64
  * @param  {String}   url
