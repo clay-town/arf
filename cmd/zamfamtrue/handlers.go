@@ -15,21 +15,26 @@ import (
 func createCustomer(w http.ResponseWriter, r *http.Request) {
 	godotenv.Load()
 
-	zipCode := r.URL.Query().Get("vcare_zip_a")
-    state := r.URL.Query().Get("get_plan_state")
-    tribal := r.URL.Query().Get("vcare_tribal")
-    planId := r.URL.Query().Get("vcare_plan_id")
-    enrollmentId := r.URL.Query().Get("enrollment_id_b")
-    fname := r.URL.Query().Get("vcare_fname")
-    mname := r.URL.Query().Get("vcare_mname")
-    lname := r.URL.Query().Get("vcare_lname")
-    dob := r.URL.Query().Get("vcare_dob")
-   // tribalId := r.URL.Query().Get("vcare_tribal_ID")
-    preffContact := r.URL.Query().Get("vcare_preff_contact")
-    address := r.URL.Query().Get("vcare_address")
-    city := r.URL.Query().Get("vcare_city")
-    ssn := r.URL.Query().Get("vcare_ssn")
-    programCode := r.URL.Query().Get("programCode")
+url = "/createcustomer?zipcode="+zipCode+"&state="+state+"&tribal="+tribal+"&planid="+planId
+            +"&enrollmentId="+enrollmentId+"&fname="+fname+"&mname="+mname+"&lname="+lname+"&dob="+dob
+            +"&tribalid="+tribalId+"&preffcontact="+preffContact+"&address="+address+"&city="+city
+            +"&ssn="+ssn+"&programcode="+programCode;
+
+	zipCode := r.URL.Query().Get("zipcode")
+    state := r.URL.Query().Get("state")
+    tribal := r.URL.Query().Get("tribal")
+    planId := r.URL.Query().Get("planid")
+    enrollmentId := r.URL.Query().Get("enrollmentId")
+    fname := r.URL.Query().Get("fname")
+    mname := r.URL.Query().Get("mname")
+    lname := r.URL.Query().Get("lname")
+    dob := r.URL.Query().Get("dob")
+   // tribalId := r.URL.Query().Get("tribalid")
+    preffContact := r.URL.Query().Get("preffcontact")
+    address := r.URL.Query().Get("address")
+    city := r.URL.Query().Get("city")
+    ssn := r.URL.Query().Get("ssn")
+    programCode := r.URL.Query().Get("programcode")
 
     agentLogin := os.Getenv("AGENTLOGIN")
     agentPassword := os.Getenv("AGENTPASSWORD")
