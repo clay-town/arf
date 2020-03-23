@@ -13,6 +13,7 @@ import (
 )
 
 func createApplication(w http.ResponseWriter, r *http.Request) {
+
 	godotenv.Load()
 
 	benefit := r.URL.Query().Get("benefit");
@@ -26,22 +27,23 @@ func createApplication(w http.ResponseWriter, r *http.Request) {
 	zip := r.URL.Query().Get("zip");
 	ssn := r.URL.Query().Get("ssn");
 
-	APIKEY := os.Getenv("APIKEY");
+	//APIKEY := os.Getenv("APIKEY");
 
-	url := "https://api.universalservice.org/nvca-svc/consumer/eligibility-check"
-	method := "PUT"
+	url := "https://api.universalservice.org/nvca-svc/consumer/eligibility-check/"
+	method := "POST"
 
-	payload := strings.NewReader("{\n\"firstName\": \""+fname+"\",\n\"lastName\": \""+lname+"\",\n\"address\": \""+address+"\",\n\"state\": \""+state+"\",\n\"city\": \""+city+"\",\n\"zipCode\": \""+zip+"\",\n\"dob\": \""+dob+"\",\n\"ssn4\": \""+ssn+"\",\n\"tribalId\": \""+tribalID+"\",\n\"eligibilityProgramCode\": \""+benefit+"\",\n\"consentInd\": \"Y\"}")
+	payload := strings.NewReader("{  \"firstName\": \""+fname+"\",  \"middleName\": \"\",  \"lastName\": \""+lname+"\",  \"address\": \""+address+"\",  \"state\": \""+state+"\",  \"city\": \""+city+"\",  \"zipCode\": \""+zip+"\",  \"urbanizationCode\": \"\",  \"dob\": \""+dob+"\",  \"ssn4\": \""+ssn+"\",  \"tribalId\": \""+tribalID+"\",  \"bqpFirstName\": \"\",  \"bqpLastName\": \"\",  \"bqpDob\": \"\",  \"bqpSsn4\": \"\",  \"bqpTribalId\": \"\",  \"eligibilityProgramCode\": \""+benefit+"\",  \"consentInd\": \"Y\",  \"contactPhoneNumber\": \"\",  \"contactEmail\": \"\",  \"contactAddress\": \" \",  \"contactCity\": \"\",  \"contactState\": \"\",  \"contactZipCode\": \"\",  \"contactUrbCode\": \"\",  \"carrierUrl\": \"https://enrollments-gotruewireless.telgoo5.com/national-verifier-callback/\"}")
 
 	client := &http.Client {
 	}
 	req, err := http.NewRequest(method, url, payload)
 
 	if err != nil {
-	fmt.Println(err)
+		fmt.Println(err)
 	}
-	req.Header.Add("Content-Type:", "application/json")
-	req.Header.Add("authorization",APIKEY)
+	req.Header.Add("authorization", "Basic ODdAbGhnOWN3NHRneDlqN2JqLnVxZm9kenlwenRybnA6eVVfKWFfMlNyJGpLbEgtXzRzXkBRVGJpTE45KV5GRno=")
+	req.Header.Add("accept", "application/json")
+	//req.Header.Add("accept-encoding", "gzip, deflate")
 	req.Header.Add("accept-language", "en-US,en;q=0.8")
 	req.Header.Add("content-type", "application/json")
 
@@ -51,6 +53,52 @@ func createApplication(w http.ResponseWriter, r *http.Request) {
 
 	fmt.Println(string(body))
 	json.NewEncoder(w).Encode(string(body))
+
+
+
+	// godotenv.Load()
+
+	// benefit := r.URL.Query().Get("benefit");
+	// fname := r.URL.Query().Get("fname");
+	// lname := r.URL.Query().Get("lname");
+	// dob := r.URL.Query().Get("dob");
+	// tribalID := r.URL.Query().Get("tribalID");
+	// address := r.URL.Query().Get("address");
+	// city := r.URL.Query().Get("city");
+	// state := r.URL.Query().Get("state");
+	// zip := r.URL.Query().Get("zip");
+	// ssn := r.URL.Query().Get("ssn");
+
+	// APIKEY := os.Getenv("APIKEY");
+
+	// url := "https://api.universalservice.org/nvca-svc/consumer/eligibility-check"
+	// method := "PUT"
+
+	// payload := strings.NewReader("{\n\"firstName\": \""+fname+"\",\n\"lastName\": \""+lname+"\",\n\"address\": \""+address+"\",\n\"state\": \""+state+"\",\n\"city\": \""+city+"\",\n\"zipCode\": \""+zip+"\",\n\"dob\": \""+dob+"\",\n\"ssn4\": \""+ssn+"\",\n\"tribalId\": \""+tribalID+"\",\n\"eligibilityProgramCode\": \""+benefit+"\",\n\"consentInd\": \"Y\"}")
+
+	// client := &http.Client {
+	// }
+	// req, err := http.NewRequest(method, url, payload)
+
+	// if err != nil {
+	// 	fmt.Println("Nooooooooooooooooooooooot so polite print message here")
+	// 	fmt.Println(err)
+	// }
+	// req.Header.Add("Content-Type:", "application/json")
+	// req.Header.Add("authorization",APIKEY)
+	// req.Header.Add("accept-language", "en-US,en;q=0.8")
+	// req.Header.Add("content-type", "application/json")
+
+	// res, err := client.Do(req)
+	// if err != nil {
+	// 	fmt.Println("Not so polite print message here")
+	// 	fmt.Println(err)
+	// }
+	// defer res.Body.Close()
+	// body, err := ioutil.ReadAll(res.Body)
+
+	// fmt.Println(string(body))
+	// json.NewEncoder(w).Encode("deeeeeeeeeeeeeeeeeebug")
 }
 
 func statusCheck(w http.ResponseWriter, r *http.Request) {
@@ -78,6 +126,7 @@ func statusCheck(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("heeeellooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo")
 	json.NewEncoder(w).Encode(string(body))
 }
+
 
 func home(w http.ResponseWriter, r *http.Request) {
 	if r.URL.Path != "/"{

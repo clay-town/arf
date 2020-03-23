@@ -14,6 +14,7 @@ func main() {
 	mux.Handle("/static/", http.StripPrefix("/static", fs))
 	mux.HandleFunc("/", home)
 	mux.HandleFunc("/status", statusCheck)
+	mux.HandleFunc("/createapplication", createApplication)
 
 	godotenv.Load()
 	log.Println("Starting server on :"+os.Getenv("PORT"))
