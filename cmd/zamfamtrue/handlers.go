@@ -57,7 +57,6 @@ func createApplication(w http.ResponseWriter, r *http.Request) {
 	}
 	req.Header.Add("authorization", APIKEY)
 	req.Header.Add("accept", "application/json")
-	//req.Header.Add("accept-encoding", "gzip, deflate")
 	req.Header.Add("accept-language", "en-US,en;q=0.8")
 	req.Header.Add("content-type", "application/json")
 
@@ -92,7 +91,6 @@ func statusCheck(w http.ResponseWriter, r *http.Request) {
   	res, err := client.Do(req)
   	defer res.Body.Close()
   	body, err := ioutil.ReadAll(res.Body)
-	fmt.Println("heeeellooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo")
 	json.NewEncoder(w).Encode(string(body))
 }
 
