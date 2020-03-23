@@ -14,10 +14,12 @@ import (
 
 func checkServiceAvailability(w http.ResponseWriter, r *http.Request) {
 	godotenv.Load()
-
+	//APIKEY := os.Getenv("APIKEY");
+	zipCode := r.URL.Query().Get("zipcode");
+	fmt.Println(zipCode)
 	url := "https://www.vcareapi.com/vcareOssApi/CheckServiceAvailability/"
   	method := "POST"
-	payload := strings.NewReader("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<VCAREOSSAPI xmlns=\"http://www.oss.vcarecorporation.com/oss\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">\n	<CREDENTIALS>\n	<VENDORID>Demo-Truewireless</VENDORID>\n	<USERNAME>Demo-TruewireUser</USERNAME>\n	<PASSWORD>Demo-TruewirewtK123hyutrw09</PASSWORD>\n	<PIN>Demo-63216741646566</PIN>\n	<REFERENCENUMBER>94453456</REFERENCENUMBER>\n</CREDENTIALS>\n<VCAREOSS>\n<CHECKSERVICEAVAILABILITY>\n<ENROLLMENTTYPE>LIFELINE</ENROLLMENTTYPE>\n	<ZIPCODE>74754</ZIPCODE>\n	<COMPANYID>54</COMPANYID>\n	<ISENROLLMENT>y</ISENROLLMENT>\n	<ISWEBPARTNER></ISWEBPARTNER>\n	<SOURCE></SOURCE>\n	<AGENTID>justin</AGENTID>\n	<AGENTPASSWORD>Pass753.</AGENTPASSWORD>\n	</CHECKSERVICEAVAILABILITY>\n</VCAREOSS>\n</VCAREOSSAPI>")
+	payload := strings.NewReader("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<VCAREOSSAPI xmlns=\"http://www.oss.vcarecorporation.com/oss\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">\n	<CREDENTIALS>\n	<VENDORID>Demo-Truewireless</VENDORID>\n	<USERNAME>Demo-TruewireUser</USERNAME>\n	<PASSWORD>Demo-TruewirewtK123hyutrw09</PASSWORD>\n	<PIN>Demo-63216741646566</PIN>\n	<REFERENCENUMBER>94453456</REFERENCENUMBER>\n</CREDENTIALS>\n<VCAREOSS>\n<CHECKSERVICEAVAILABILITY>\n<ENROLLMENTTYPE>LIFELINE</ENROLLMENTTYPE>\n	<ZIPCODE> "+zipCode+"</ZIPCODE>\n	<COMPANYID>54</COMPANYID>\n	<ISENROLLMENT>y</ISENROLLMENT>\n	<ISWEBPARTNER></ISWEBPARTNER>\n	<SOURCE></SOURCE>\n	<AGENTID>justin</AGENTID>\n	<AGENTPASSWORD>Pass753.</AGENTPASSWORD>\n	</CHECKSERVICEAVAILABILITY>\n</VCAREOSS>\n</VCAREOSSAPI>")
 
   	client := &http.Client {
   	}

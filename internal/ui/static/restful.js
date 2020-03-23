@@ -7,15 +7,12 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 function checkServiceAvailability(){
-  
   button = document.getElementById("check_sevice_submit");
-
   button.addEventListener("click", function(){
     console.log("check_service js function");
-    var zipCode = document.getElementById("zip").value;
+    var zipCode = document.getElementById("vcare_zip_a").value;
     var request = new XMLHttpRequest();
-    var url = "/checkservice";
-    var zipCode = 
+    var url = "/checkservice?zipcode="+zipCode;
 
     request.open('POST', url, true);
     request.onload = function(){
@@ -26,22 +23,20 @@ function checkServiceAvailability(){
       xmlDoc = parser.parseFromString(obj,"text/xml");
 
       description = xmlDoc.getElementsByTagName("description")[0].innerHTML
-      enrollmentId = xmlDoc.getElementsByTagName("enrollmentId")[0].innerHTML
-
       document.getElementById("check_service").innerHTML = "Description: " + description
-      // change this to populate the enrollment_id directly into the form after it's made
-      document.getElementById("enrollment_id_a").innerHTML = "Enrollment Id: " + enrollmentId
-      document.getElementById("enrollment_id_b").value = enrollmentId
-      
 
+      if(description == "SUCCESS") {
+        enrollmentId = xmlDoc.getElementsByTagName("enrollmentId")[0].innerHTML
+        document.getElementById("enrollment_id_a").innerHTML = "Enrollment Id: " + enrollmentId
+        document.getElementById("enrollment_id_b").value = enrollmentId
+      } else if(description == "FAIL"){
+        errorDescription = xmlDoc.getElementsByTagName("errorDescription")[0].innerHTML
+        document.getElementById("enrollment_id_a").innerHTML = "Error Description: " + errorDescription;
+      }
       console.log(obj)
-      console.log(xmlDoc.getElementsByTagName("description"))
-      console.log(xmlDoc.getElementsByTagName("description")[0].innerHTML)     
       }
       request.send();
-
   });
-  
 }
 
 
