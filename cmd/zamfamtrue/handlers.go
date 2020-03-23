@@ -12,17 +12,71 @@ import (
 	"strings"
 )
 
-func uploadProof(w http.ResponseWriter, r *http.Request) {
+func uploadPhotoID(w http.ResponseWriter, r *http.Request) {
 	godotenv.Load()
   	url := "https://www.vcareapi.com/vcareOssApi/UploadProof/"
   	method := "POST"
 	photoId:= r.URL.Query().Get("photoid")
+  
+    enrollmentId := r.URL.Query().Get("enrollmentid")
+  	
+  	payload := strings.NewReader("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<VCAREOSSAPI xmlns=\"http://www.oss.vcarecorporation.com/oss\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">\n	<CREDENTIALS>\n	<VENDORID>Demo-Truewireless</VENDORID>\n	<USERNAME>Demo-TruewireUser</USERNAME>\n	<PASSWORD>Demo-TruewirewtK123hyutrw09</PASSWORD>\n	<PIN>Demo-63216741646566</PIN>\n	<REFERENCENUMBER>1541564620</REFERENCENUMBER>\n</CREDENTIALS>\n<VCAREOSS>\n<UPLOADPROOF>\n<ENROLLMENTID>"+enrollmentId+"</ENROLLMENTID>\n	<SIGNATUREFILENAME></SIGNATUREFILENAME>\n	<PROOFFILE></PROOFFILE>\n	<BILLPROOF></BILLPROOF>\n	<IDPROOF>"+photoId+"</IDPROOF>\n	<ADDITIONALINFO></ADDITIONALINFO>\n	<ADDRESSPROOF></ADDRESSPROOF>\n	<ISBASE64CODE>Y</ISBASE64CODE>\n	<CUSTRESERT></CUSTRESERT>\n	<AGENTID>Justin</AGENTID>\n	<AGENTPASSWORD>Pass753.</AGENTPASSWORD>\n	<SOURCE></SOURCE>\n	</UPLOADPROOF>\n</VCAREOSS>\n</VCAREOSSAPI>")
+  	fmt.Println(payload)
+
+  	client := &http.Client {
+  	}
+  	req, err := http.NewRequest(method, url, payload)
+
+  	if err != nil {
+    	fmt.Println(err)
+  	}
+  	req.Header.Add("Content-Type", "application/xml")
+
+  	res, err := client.Do(req)
+  	defer res.Body.Close()
+  	body, err := ioutil.ReadAll(res.Body)
+  	
+  	fmt.Println(string(body))
+	json.NewEncoder(w).Encode(string(body))
+}
+
+func uploadPOB(w http.ResponseWriter, r *http.Request) {
+	godotenv.Load()
+  	url := "https://www.vcareapi.com/vcareOssApi/UploadProof/"
+  	method := "POST"
     pob := r.URL.Query().Get("pob")
+  
+    enrollmentId := r.URL.Query().Get("enrollmentid")
+  	
+  	payload := strings.NewReader("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<VCAREOSSAPI xmlns=\"http://www.oss.vcarecorporation.com/oss\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">\n	<CREDENTIALS>\n	<VENDORID>Demo-Truewireless</VENDORID>\n	<USERNAME>Demo-TruewireUser</USERNAME>\n	<PASSWORD>Demo-TruewirewtK123hyutrw09</PASSWORD>\n	<PIN>Demo-63216741646566</PIN>\n	<REFERENCENUMBER>1541564620</REFERENCENUMBER>\n</CREDENTIALS>\n<VCAREOSS>\n<UPLOADPROOF>\n<ENROLLMENTID>"+enrollmentId+"</ENROLLMENTID>\n	<SIGNATUREFILENAME></SIGNATUREFILENAME>\n	<PROOFFILE>"+pob+"</PROOFFILE>\n	<BILLPROOF></BILLPROOF>\n	<IDPROOF></IDPROOF>\n	<ADDITIONALINFO></ADDITIONALINFO>\n	<ADDRESSPROOF></ADDRESSPROOF>\n	<ISBASE64CODE>Y</ISBASE64CODE>\n	<CUSTRESERT></CUSTRESERT>\n	<AGENTID>Justin</AGENTID>\n	<AGENTPASSWORD>Pass753.</AGENTPASSWORD>\n	<SOURCE></SOURCE>\n	</UPLOADPROOF>\n</VCAREOSS>\n</VCAREOSSAPI>")
+  	fmt.Println(payload)
+
+  	client := &http.Client {
+  	}
+  	req, err := http.NewRequest(method, url, payload)
+
+  	if err != nil {
+    	fmt.Println(err)
+  	}
+  	req.Header.Add("Content-Type", "application/xml")
+
+  	res, err := client.Do(req)
+  	defer res.Body.Close()
+  	body, err := ioutil.ReadAll(res.Body)
+  	
+  	fmt.Println(string(body))
+	json.NewEncoder(w).Encode(string(body))
+}
+
+func uploadProof(w http.ResponseWriter, r *http.Request) {
+	godotenv.Load()
+  	url := "https://www.vcareapi.com/vcareOssApi/UploadProof/"
+  	method := "POST"
     additionalProof := r.URL.Query().Get("additionalproof")
     enrollmentId := r.URL.Query().Get("enrollmentid")
   	
 
-  	payload := strings.NewReader("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<VCAREOSSAPI xmlns=\"http://www.oss.vcarecorporation.com/oss\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">\n	<CREDENTIALS>\n	<VENDORID>Demo-Truewireless</VENDORID>\n	<USERNAME>Demo-TruewireUser</USERNAME>\n	<PASSWORD>Demo-TruewirewtK123hyutrw09</PASSWORD>\n	<PIN>Demo-63216741646566</PIN>\n	<REFERENCENUMBER>1541564620</REFERENCENUMBER>\n</CREDENTIALS>\n<VCAREOSS>\n<UPLOADPROOF>\n<ENROLLMENTID>"+enrollmentId+"</ENROLLMENTID>\n	<SIGNATUREFILENAME></SIGNATUREFILENAME>\n	<PROOFFILE>"+pob+"</PROOFFILE>\n	<BILLPROOF></BILLPROOF>\n	<IDPROOF>"+photoId+"</IDPROOF>\n	<ADDITIONALINFO>"+additionalProof+"</ADDITIONALINFO>\n	<ADDRESSPROOF></ADDRESSPROOF>\n	<ISBASE64CODE>Y</ISBASE64CODE>\n	<CUSTRESERT></CUSTRESERT>\n	<AGENTID>Justin</AGENTID>\n	<AGENTPASSWORD>Pass753.</AGENTPASSWORD>\n	<SOURCE></SOURCE>\n	</UPLOADPROOF>\n</VCAREOSS>\n</VCAREOSSAPI>")
+  	payload := strings.NewReader("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<VCAREOSSAPI xmlns=\"http://www.oss.vcarecorporation.com/oss\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">\n	<CREDENTIALS>\n	<VENDORID>Demo-Truewireless</VENDORID>\n	<USERNAME>Demo-TruewireUser</USERNAME>\n	<PASSWORD>Demo-TruewirewtK123hyutrw09</PASSWORD>\n	<PIN>Demo-63216741646566</PIN>\n	<REFERENCENUMBER>1541564620</REFERENCENUMBER>\n</CREDENTIALS>\n<VCAREOSS>\n<UPLOADPROOF>\n<ENROLLMENTID>"+enrollmentId+"</ENROLLMENTID>\n	<SIGNATUREFILENAME></SIGNATUREFILENAME>\n	<PROOFFILE></PROOFFILE>\n	<BILLPROOF></BILLPROOF>\n	<IDPROOF></IDPROOF>\n	<ADDITIONALINFO>"+additionalProof+"</ADDITIONALINFO>\n	<ADDRESSPROOF></ADDRESSPROOF>\n	<ISBASE64CODE>Y</ISBASE64CODE>\n	<CUSTRESERT></CUSTRESERT>\n	<AGENTID>Justin</AGENTID>\n	<AGENTPASSWORD>Pass753.</AGENTPASSWORD>\n	<SOURCE></SOURCE>\n	</UPLOADPROOF>\n</VCAREOSS>\n</VCAREOSSAPI>")
   	fmt.Println(payload)
 
   	client := &http.Client {

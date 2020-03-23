@@ -19,6 +19,8 @@ func main() {
 	mux.HandleFunc("/getplan", getPlanService)
 	mux.HandleFunc("/createcustomer", createCustomer)
 	mux.HandleFunc("/uploadproof", uploadProof)
+	mux.HandleFunc("/uploadpob", uploadPOB)
+	mux.HandleFunc("/uploadphotoid", uploadPhotoID)
 
 	godotenv.Load()
 	log.Println("Starting server on :"+os.Getenv("PORT"))
