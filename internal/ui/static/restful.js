@@ -56,6 +56,18 @@ function createCustomer() {
     var pob = document.getElementById("vcare_insurance").value;
     var programCode = "MEDIC";
 
+    if(document.getElementById("shipping_physical").checked){
+      var shipping_address = address;
+      var shipping_city = city;
+      var shipping_state = state;
+      var shipping_zip = zip;
+    }else{
+      var shipping_address = document.getElementById("vcare_shipping_address");
+      var shipping_city = document.getElementById("vcare_shipping_city");
+      var shipping_state = document.getElementById("vcare_shipping_state");
+      var shipping_zip = document.getElementById("vcare_shipping_zip");
+    }
+
     // make call to another function that can encode the photos
 
 
@@ -64,7 +76,9 @@ function createCustomer() {
     var url = "/createcustomer?zipcode="+zipCode+"&state="+state+"&tribal="+tribal+"&planid="+planId
             +"&enrollmentId="+enrollmentId+"&fname="+fname+"&mname="+mname+"&lname="+lname+"&dob="+dob
             +"&tribalid="+tribalId+"&preffcontact="+preffContact+"&address="+address+"&city="+city
-            +"&ssn="+ssn+"&programcode="+programCode;
+            +"&ssn="+ssn+"&programcode="+programCode+"&shipping_address="+shipping_address
+            +"&shipping_city="+shipping_city+"&shipping_state="+shipping_state+"&shipping_zip="
+            +shipping_zip;
 
     request.open('POST', url, true);
     request.onload = function(){
@@ -318,6 +332,10 @@ function statusCheck() {
       request.send();
 
   });
+}
+
+function displayShippingFields(){
+    document.getElementById("shipping_form").style.visibility = "hidden";
 }
 
 /**

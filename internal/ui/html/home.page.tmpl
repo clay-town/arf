@@ -236,6 +236,28 @@
             <label for="vcare_city">City:</label>
             <input type="text" class="form-control" id="vcare_city" placeholder="Portland">
           </div>
+
+          <div class="form-group">
+          <label for="shipping_physical">Is shipping address same as physical?</label>
+          <input type="checkbox" id="shipping_physical" name="shipping_physical" value="Y" select onchange="displayShippingFields()">
+          <label for="shipping_physical">Yes</label><br>
+          </div>
+
+          <div class="form-group" id="shipping_form">
+
+            <label for="vcare_shipping_address">Shipping Street Address:</label>
+            <input type="text" class="form-control" id="vcare_shipping_address" placeholder="336 SW Lane Way">
+       
+            <label for="vcare_shipping_city">Shipping City:</label>
+            <input type="text" class="form-control" id="vcare_shipping_city" placeholder="Portland">
+
+            <label for="vcare_shipping_state">Shipping State:</label>
+            <input type="text" class="form-control" id="vcare_shipping_state" placeholder="OR">
+
+            <label for="vcare_shipping_zip">Shipping zip:</label>
+            <input type="text" class="form-control" id="vcare_shipping_zip" placeholder="12345">
+
+          </div>
           
           <div class="form-group">
             <label for="vcare_ssn">Last 4 digits of SSN:</label>
