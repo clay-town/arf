@@ -119,17 +119,23 @@ function sendUserToManyChatFlowAfterApplicationCreation(){
 
 
 function statusCheckResponse(response){
+  response = JSON.parse(response);
   if(response.status ==  "BAD_REQUEST"){
-    document.getElementById("status").innerHTML = "Application Status: " + JSON.parse(response).message;
+    document.getElementById("status").innerHTML = "Application Status: " + response.status;
   } else if(response.status == "IN_PROGRESS" || response.status == "PENDING_REVIEW "){
     document.getElementById("status").innerHTML = "Application Status: " + response.status;
+  }else if(response.status == "PENDING_CERT" || response.status == "PENDING_ELIGIBILITY" || response.status == "PENDING_RESOLUTION"){
+    document.getElementById("status").innerHTML = "Application Status: " + response.status +" Please resend form to user.";
+  }else{
+     document.getElementById("status").innerHTML = "Application Status: " + response.message;
   }
 }
 
-function statusCheck(eligibilityCheckId) {
+function statusCheck() {
   button = document.getElementById("status_submit");
 
   button.addEventListener("click", function(){
+    var eligibilityCheckId = document.getElementById("status_check_id").value
     var request = new XMLHttpRequest();
     console.log("status check js function");
     var url = "/status?eligibilityCheckId="+eligibilityCheckId;
@@ -138,9 +144,11 @@ function statusCheck(eligibilityCheckId) {
     request.onload = function(){
       var data = this.response;
       console.log(data);
-      response=JSON.parse(data)
+      response=JSON.parse(data);
+      console.log(response.message);
       statusCheckResponse(response);
-      console.log(JSON.parse(response));
+      console.log(JSON.parse(response).status);
+      console.log(JSON.parse(data));
       
       }
       request.send();
