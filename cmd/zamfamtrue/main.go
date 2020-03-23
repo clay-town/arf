@@ -15,6 +15,10 @@ func main() {
 	mux.HandleFunc("/", home)
 	mux.HandleFunc("/status", statusCheck)
 	mux.HandleFunc("/createapplication", createApplication)
+	mux.HandleFunc("/checkservice", checkServiceAvailability)
+	mux.HandleFunc("/getplan", getPlanService)
+	mux.HandleFunc("/createcustomer", createCustomer)
+	mux.HandleFunc("/uploadproof", uploadProof)
 
 	godotenv.Load()
 	log.Println("Starting server on :"+os.Getenv("PORT"))

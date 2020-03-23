@@ -11,9 +11,23 @@ import (
 	"fmt"
 	"strings"
 )
+	
+func checkServiceAvailability(w http.ResponseWriter, r *http.Request) {
+	godotenv.Load()
+}
+func getPlanService(w http.ResponseWriter, r *http.Request) {
+	godotenv.Load()
+}
+func createCustomer(w http.ResponseWriter, r *http.Request) {
+	godotenv.Load()
+}
+func uploadProof(w http.ResponseWriter, r *http.Request) {
+	godotenv.Load()
+}
+
 
 func createApplication(w http.ResponseWriter, r *http.Request) {
-
+}
 	godotenv.Load()
 
 	benefit := r.URL.Query().Get("benefit");
