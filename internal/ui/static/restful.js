@@ -57,7 +57,7 @@ function createCustomer() {
             +"&tribalid="+tribalId+"&preffcontact="+preffContact+"&address="+address+"&city="+city
             +"&ssn="+ssn+"&programcode="+programCode+"&shipping_address="+shipping_address
             +"&shipping_city="+shipping_city+"&shipping_state="+shipping_state+"&shipping_zip="
-            +shipping_zip;
+            +shipping_zip+"&refNumber="+refNumber;
 
     request.open('POST', url, true);
     request.onload = function(){

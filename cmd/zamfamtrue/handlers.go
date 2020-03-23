@@ -46,8 +46,8 @@ func createCustomer(w http.ResponseWriter, r *http.Request) {
 	
 
 
-	refNumber := os.Getenv("123456")
-
+	//refNumber := os.Getenv("123456")
+	refNumber := r.URL.Query().Get("refNumber")
 
   	url := "https://www.vcareapi.com/vcareOssApi/CreateCustomer/"
   	method := "POST"
