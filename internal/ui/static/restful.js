@@ -8,6 +8,52 @@ document.addEventListener("DOMContentLoaded", function() {
   createCustomer();
 });
 
+/**
+ * convertImgToBase64
+ * @param  {String}   url
+ * @param  {Function} callback
+ * @param  {String}   [outputFormat='image/png']
+ * @author HaNdTriX
+ * @example
+  convertImgToBase64('http://goo.gl/AOxHAL', function(base64Img){
+    console.log('IMAGE:',base64Img);
+  })
+ */
+function convertImgToBase64(url){
+  var canvas = document.createElement('CANVAS');
+  var ctx = canvas.getContext('2d');
+  var img = new Image;
+  img.crossOrigin = 'Anonymous';
+  img.onload = function(){
+    canvas.height = img.height;
+    canvas.width = img.width;
+      ctx.drawImage(img,0,0);
+      var dataURL = canvas.toDataURL('image/png');
+      console.log("convertImgToBase64 anon function");
+      console.log(data)
+            //   $('.output')
+            // .find('textarea')
+            //     .val(dataURL)
+            //     .end()
+            // .find('a')
+            //     .attr('href', dataURL)
+            //     .text(dataURL)
+            //     .end()
+            // .find('img')
+            //     .attr('src', dataURL);
+      canvas = null; 
+  };
+  img.src = url;
+}
+
+// $('#img2b64').submit(function(event){
+//     var imageUrl = $(this).find('input[name=url]').val();
+//     console.log('imageUrl', imageUrl);
+//     convertImgToBase64(imageUrl);
+//     event.preventDefault();
+// });
+
+
 function uploadProof() {
     console.log("uploadProof js function");
 
@@ -17,7 +63,7 @@ function uploadProof() {
     var enrollmentId = document.getElementById("enrollment_id_b").value;
 
     // encode images 
-
+    convertImgToBase64(additionalProof);
 
     var request = new XMLHttpRequest();
     var url = "/uploadproof?photoid="+photoId+"&pob="+pob+"&additionalproof="+additionalProof+"&enrollmentid="+enrollmentId;
@@ -53,6 +99,8 @@ function createCustomer() {
   button = document.getElementById("vcare_submit");
 
   button.addEventListener("click", function(){
+    uploadProof()
+
     console.log("create customer js function");
     var zipCode = document.getElementById("vcare_zip_a").value;
     var state = document.getElementById("get_plan_state").value;
@@ -109,6 +157,8 @@ function createCustomer() {
       description = xmlDoc.getElementsByTagName("description")[0].innerHTML
       document.getElementById("final_display_window").innerHTML = "Description: " + description
 
+      // move this call into 'success statement'
+      
       if(description == "SUCCESS") {
           // MAKE CALL TO ENCODE IMAGES && UPLOAD PROOF
         document.getElementById("error_final_display_window").innerHTML = ""
@@ -352,35 +402,6 @@ function statusCheck() {
 function displayShippingFields(){
     document.getElementById("shipping_form").style.visibility = "hidden";
 }
-
-/**
- * convertImgToBase64
- * @param  {String}   url
- * @param  {Function} callback
- * @param  {String}   [outputFormat='image/png']
- * @author HaNdTriX
- * @example
-  convertImgToBase64('http://goo.gl/AOxHAL', function(base64Img){
-    console.log('IMAGE:',base64Img);
-  })
- */
-function convertImgToBase64(url, callback, outputFormat){
-  var canvas = document.createElement('CANVAS');
-  var ctx = canvas.getContext('2d');
-  var img = new Image;
-  img.crossOrigin = 'Anonymous';
-  img.onload = function(){
-    canvas.height = img.height;
-    canvas.width = img.width;
-      ctx.drawImage(img,0,0);
-      var dataURL = canvas.toDataURL(outputFormat || 'image/png');
-      //console.log(dataURL);
-      document.getElementById("status").innerHTML = dataURL;
-    return(dataURL);
-  };
-}
-
-
 
 
 function submitApplication(){
