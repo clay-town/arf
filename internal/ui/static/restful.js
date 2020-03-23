@@ -9,31 +9,6 @@ document.addEventListener("DOMContentLoaded", function() {
   clearFields();
 });
 
-function uploadProof() {
-  button = document.getElementById("status_submit");
-
-  button.addEventListener("click", function(){
-    var eligibilityCheckId = document.getElementById("status_check_id").value;
-    var request = new XMLHttpRequest();
-    console.log("status check js function");
-    var url = "/status?eligibilityCheckId="+eligibilityCheckId;
-
-    request.open('POST', url, true);
-    request.onload = function(){
-      var data = this.response;
-      console.log(data);
-      response=JSON.parse(data);
-      console.log(response.message);
-      statusCheckResponse(response);
-      console.log(JSON.parse(response).status);
-      console.log(JSON.parse(data));
-      
-      }
-      request.send();
-
-  });
-}
-
 function createCustomer() {
   button = document.getElementById("vcare_submit");
 
@@ -57,8 +32,6 @@ function createCustomer() {
     var pob = document.getElementById("vcare_insurance").value;
     var programCode = document.getElementById("vcare_benefits").value.split(' ')[1]
     var refNumber = uniqueIdentifierGenerator();
-    console.log(programCode);
-    console.log(refNumber)
 
     if(document.getElementById("shipping_physical").checked){
       var shipping_address = address;
@@ -99,7 +72,7 @@ function createCustomer() {
       document.getElementById("final_display_window").innerHTML = "Description: " + description
 
       if(description == "SUCCESS") {
-          // MAKE CALL TO ENCODE IMAGES && UPLOAD PROOF
+          
         document.getElementById("error_final_display_window").innerHTML = ""
       } else if(description == "FAIL"){
         errorDescription = xmlDoc.getElementsByTagName("errorDescription")[0].innerHTML
@@ -190,6 +163,7 @@ function checkServiceAvailability(){
   });
 }
 
+
 function sendEligibilityToManyChat(eligibilityCheckId, manychatID, fname, lname, tribalid, address, city, state, zip, ssn){
   var request = new XMLHttpRequest()
   var url = "https://hooks.zapier.com/hooks/catch/2550009/o1co8fq?manychatid="+manychatID+"&eligibilityCheckId="+eligibilityCheckId+"&fname="+fname+"&lname="+lname+"&tribalid="+tribalid+"&address="+address+"&city="+city+"&state="+state+"&zip="+zip+"&ssn="+ssn;
@@ -237,6 +211,9 @@ function applicationResponse(nv_response, manychatID, fname, lname, tribalid, ad
     document.getElementById("nv_errors").innerHTML = nv_response.message;
   }
 }
+
+
+
 
 function createApplication(){
   button = document.getElementById("nv_submit");
