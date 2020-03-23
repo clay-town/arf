@@ -12,30 +12,50 @@ import (
 	"strings"
 )
 
+func uploadProof(w http.ResponseWriter, r *http.Request) {
+	godotenv.Load()
+  	url := "https://www.vcareapi.com/vcareOssApi/UploadProof/"
+  	method := "POST"
+
+  	
+
+  	payload := strings.NewReader("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<VCAREOSSAPI xmlns=\"http://www.oss.vcarecorporation.com/oss\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">\n	<CREDENTIALS>\n	<VENDORID>Demo-Truewireless</VENDORID>\n	<USERNAME>Demo-TruewireUser</USERNAME>\n	<PASSWORD>Demo-TruewirewtK123hyutrw09</PASSWORD>\n	<PIN>Demo-63216741646566</PIN>\n	<REFERENCENUMBER>1541564620</REFERENCENUMBER>\n</CREDENTIALS>\n<VCAREOSS>\n<UPLOADPROOF>\n<ENROLLMENTID>AGT1080</ENROLLMENTID>\n	<SIGNATUREFILENAME></SIGNATUREFILENAME>\n	<PROOFFILE></PROOFFILE>\n	<BILLPROOF></BILLPROOF>\n	<IDPROOF></IDPROOF>\n	<ADDITIONALINFO></ADDITIONALINFO>\n	<ADDRESSPROOF></ADDRESSPROOF>\n	<ISBASE64CODE>Y</ISBASE64CODE>\n	<CUSTRESERT></CUSTRESERT>\n	<AGENTID>Justin</AGENTID>\n	<AGENTPASSWORD>Pass753.</AGENTPASSWORD>\n	<SOURCE></SOURCE>\n	</UPLOADPROOF>\n</VCAREOSS>\n</VCAREOSSAPI>")
+
+  	client := &http.Client {
+  	}
+  	req, err := http.NewRequest(method, url, payload)
+
+  	if err != nil {
+    	fmt.Println(err)
+  	}
+  	req.Header.Add("Content-Type", "application/xml")
+
+  	res, err := client.Do(req)
+  	defer res.Body.Close()
+  	body, err := ioutil.ReadAll(res.Body)
+  	
+  	fmt.Println(string(body))
+	json.NewEncoder(w).Encode(string(body))
+}
+
 func createCustomer(w http.ResponseWriter, r *http.Request) {
 	godotenv.Load()
 
-	zipCode := r.URL.Query().Get("vcare_zip_a")
-    state := r.URL.Query().Get("get_plan_state")
-    tribal := r.URL.Query().Get("vcare_tribal")
-    planId := r.URL.Query().Get("vcare_plan_id")
-    enrollmentId := r.URL.Query().Get("enrollment_id_b")
-    fname := r.URL.Query().Get("vcare_fname")
-    mname := r.URL.Query().Get("vcare_mname")
-    lname := r.URL.Query().Get("vcare_lname")
-    dob := r.URL.Query().Get("vcare_dob")
-
-    shipping_address := r.URL.Query().Get("shipping_address")
-    shipping_city := r.URL.Query().Get("shipping_city")
-    shipping_state := r.URL.Query().Get("shipping_state")
-    shipping_zip := r.URL.Query().Get("shipping_zip")
-
-   // tribalId := r.URL.Query().Get("vcare_tribal_ID")
-    preffContact := r.URL.Query().Get("vcare_preff_contact")
-    address := r.URL.Query().Get("vcare_address")
-    city := r.URL.Query().Get("vcare_city")
-    ssn := r.URL.Query().Get("vcare_ssn")
-    programCode := r.URL.Query().Get("programCode")
+	zipCode := r.URL.Query().Get("zipcode")
+    state := r.URL.Query().Get("state")
+    tribal := r.URL.Query().Get("tribal")
+    planId := r.URL.Query().Get("planid")
+    enrollmentId := r.URL.Query().Get("enrollmentId")
+    fname := r.URL.Query().Get("fname")
+    mname := r.URL.Query().Get("mname")
+    lname := r.URL.Query().Get("lname")
+    dob := r.URL.Query().Get("dob")
+   // tribalId := r.URL.Query().Get("tribalid")
+    preffContact := r.URL.Query().Get("preffcontact")
+    address := r.URL.Query().Get("address")
+    city := r.URL.Query().Get("city")
+    ssn := r.URL.Query().Get("ssn")
+    programCode := r.URL.Query().Get("programcode")
 
     agentLogin := os.Getenv("AGENTLOGIN")
     agentPassword := os.Getenv("AGENTPASSWORD")
@@ -125,9 +145,6 @@ func checkServiceAvailability(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(string(body))
 }
 
-func uploadProof(w http.ResponseWriter, r *http.Request) {
-	godotenv.Load()
-}
 
 func createApplication(w http.ResponseWriter, r *http.Request) {
 
