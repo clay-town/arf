@@ -135,7 +135,7 @@ function statusCheck() {
   button = document.getElementById("status_submit");
 
   button.addEventListener("click", function(){
-    var eligibilityCheckId = document.getElementById("status_check_id").value
+    var eligibilityCheckId = document.getElementById("status_check_id").value;
     var request = new XMLHttpRequest();
     console.log("status check js function");
     var url = "/status?eligibilityCheckId="+eligibilityCheckId;
@@ -156,12 +156,25 @@ function statusCheck() {
   });
 }
 
+function bit64encoder(URL){
+    var canvas = document.createElement("canvas");
+    canvas.width = URL.width;
+    canvas.height = URL.height;
+    var ctx = canvas.getContext("2d");
+    ctx.drawImage(URL, 0, 0);
+    var dataURL = canvas.toDataURL("image/png");
+    return dataURL.replace(/^data:image\/(png|jpg);base64,/, "");
+
+}
+
 function submitApplication(){
   button = document.getElementById("vcare_submit");
 
   button.addEventListener("click", function(){
-      //TO DO
+    var photoID = document.getElementById("vcare_photoID").value;
 
+    console.log("vacare submit button pushed");
+    console.log(bit64encoder(photoID));
   });
 }
 
