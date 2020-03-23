@@ -29,7 +29,10 @@ function createCustomer() {
     var ssn = document.getElementById("vcare_ssn").value;
     var photoId = document.getElementById("vcare_photoID").value;
     var pob = document.getElementById("vcare_insurance").value;
-    var programCode = "MEDIC";
+    var programCode = document.getElementById("vcare_benefits").value.split(' ')[1]
+    var refNumber = uniqueIdentifierGenerator();
+    console.log(programCode);
+    console.log(refNumber)
 
     if(document.getElementById("shipping_physical").checked){
       var shipping_address = address;
@@ -317,6 +320,9 @@ function displayShippingFields(){
     document.getElementById("shipping_form").style.visibility = "hidden";
 }
 
+function uniqueIdentifierGenerator(){
+  return seconds = new Date().getTime() / 1000;
+}
 /**
  * convertImgToBase64
  * @param  {String}   url
