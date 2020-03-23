@@ -5,6 +5,32 @@ document.addEventListener("DOMContentLoaded", function() {
   sendUserToManyChatFlowAfterApplicationCreation();
 });
 
+function checkServiceAvailability(){
+  
+  button = document.getElementById("check_sevice_submit");
+
+  button.addEventListener("click", function(){
+    var request = new XMLHttpRequest();
+    console.log("check_service js function");
+    
+    var url = "/checkservice";
+
+    request.open('POST', url, true);
+    request.onload = function(){
+      var data = this.response;
+      console.log(data);
+      obj=JSON.parse(data)
+      //document.getElementById("check_service").innerHTML = "check_service: " + JSON.parse(obj).message;
+      console.log(JSON.parse(data));
+      
+      }
+      request.send();
+
+  });
+  
+}
+
+
 function sendEligibilityToManyChat(eligibilityCheckId, manychatID, fname, lname, tribalid, address, city, state, zip, ssn){
   var request = new XMLHttpRequest()
   var url = "https://hooks.zapier.com/hooks/catch/2550009/o1co8fq?manychatid="+manychatID+"&eligibilityCheckId="+eligibilityCheckId+"&fname="+fname+"&lname="+lname+"&tribalid="+tribalid+"&address="+address+"&city="+city+"&state="+state+"&zip="+zip+"&ssn="+ssn;
