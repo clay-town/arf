@@ -3,7 +3,46 @@ document.addEventListener("DOMContentLoaded", function() {
   statusCheck();
   submitApplication();
   sendUserToManyChatFlowAfterApplicationCreation();
+  checkServiceAvailability()
 });
+
+function checkServiceAvailability(){
+  
+  button = document.getElementById("check_sevice_submit");
+
+  button.addEventListener("click", function(){
+    console.log("check_service js function");
+    var zipCode = 
+    var request = new XMLHttpRequest();
+    var url = "/checkservice";
+    var zipCode = 
+
+    request.open('POST', url, true);
+    request.onload = function(){
+      var data = this.response;
+      obj=JSON.parse(data)
+      parser = new DOMParser();
+
+      xmlDoc = parser.parseFromString(obj,"text/xml");
+
+      description = xmlDoc.getElementsByTagName("description")[0].innerHTML
+      enrollmentId = xmlDoc.getElementsByTagName("enrollmentId")[0].innerHTML
+
+      document.getElementById("check_service").innerHTML = "Description: " + description
+      // change this to populate the enrollment_id directly into the form after it's made
+      document.getElementById("enrollment_id").innerHTML = "Enrollment Id: " + enrollmentId
+      
+
+      console.log(obj)
+      console.log(xmlDoc.getElementsByTagName("description"))
+      console.log(xmlDoc.getElementsByTagName("description")[0].innerHTML)     
+      }
+      request.send();
+
+  });
+  
+}
+
 
 function sendEligibilityToManyChat(eligibilityCheckId, manychatID, fname, lname, tribalid, address, city, state, zip, ssn){
   var request = new XMLHttpRequest()

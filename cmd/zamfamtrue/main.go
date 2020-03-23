@@ -20,6 +20,11 @@ func main() {
 	mux.HandleFunc("/createcustomer", createCustomer)
 	mux.HandleFunc("/uploadproof", uploadProof)
 
+	mux.HandleFunc("/checkservice", checkServiceAvailability)
+	mux.HandleFunc("/getplanservice", getPlanService)
+	mux.HandleFunc("/createcustomer", createCustomer)
+	mux.HandleFunc("/upladproof", uploadProof)
+
 	godotenv.Load()
 	log.Println("Starting server on :"+os.Getenv("PORT"))
 	err := http.ListenAndServe(":"+os.Getenv("PORT"), mux)
