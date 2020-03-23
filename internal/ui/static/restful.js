@@ -156,16 +156,35 @@ function statusCheck() {
   });
 }
 
-function bit64encoder(URL){
-    var canvas = document.createElement("canvas");
-    canvas.width = URL.width;
-    canvas.height = URL.height;
-    var ctx = canvas.getContext("2d");
-    ctx.drawImage(URL, 0, 0);
-    var dataURL = canvas.toDataURL("image/png");
-    return dataURL.replace(/^data:image\/(png|jpg);base64,/, "");
-
+/**
+ * convertImgToBase64
+ * @param  {String}   url
+ * @param  {Function} callback
+ * @param  {String}   [outputFormat='image/png']
+ * @author HaNdTriX
+ * @example
+  convertImgToBase64('http://goo.gl/AOxHAL', function(base64Img){
+    console.log('IMAGE:',base64Img);
+  })
+ */
+function convertImgToBase64(url, callback, outputFormat){
+  var canvas = document.createElement('CANVAS');
+  var ctx = canvas.getContext('2d');
+  var img = new Image;
+  img.crossOrigin = 'Anonymous';
+  img.onload = function(){
+    canvas.height = img.height;
+    canvas.width = img.width;
+      ctx.drawImage(img,0,0);
+      var dataURL = canvas.toDataURL(outputFormat || 'image/png');
+      //console.log(dataURL);
+      document.getElementById("status").innerHTML = dataURL;
+    return(dataURL);
+  };
 }
+
+
+
 
 function submitApplication(){
   button = document.getElementById("vcare_submit");
@@ -173,8 +192,10 @@ function submitApplication(){
   button.addEventListener("click", function(){
     var photoID = document.getElementById("vcare_photoID").value;
 
-    console.log("vacare submit button pushed");
-    console.log(bit64encoder(photoID));
+
+    console.log("vcare submit button pushed");
+    console.log(convertImgToBase64(photoID, function(base64Img){
+    }));
   });
 }
 
