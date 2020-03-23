@@ -100,6 +100,12 @@
             <label for="ssn">Last 4 digits of SSN:</label>
             <input type="text" class="form-control" id="ssn" placeholder="1234">
           </div>
+
+          <div class="form-group">
+          <label for="ssn">Did the consumer grant you consent to use and share their Personal Identifiable Information?</label>
+          <input type="checkbox" id="user_consent" name="user_consent" value="Y">
+          <label for="user_consent">Yes</label><br>
+          </div>
           
        </form>
         <br>
@@ -112,7 +118,7 @@
 
 
         <br>
-        <h2>Step 2: Send form to User:</h2>
+        <h2>Step 2: Send form to User</h2>
         <div class="form-group">
             <label for="senduser_manychatID">ManyChat ID:</label>
             <input type="text" class="form-control" id="senduser_manychatID">
@@ -123,6 +129,12 @@
 
         <br>
         <h2>Step 3: Submit Status Check</h2>
+        <div class="form-group">
+            <label for="senduser_manychatID">Eligibility Check ID:</label>
+            <input type="text" class="form-control" id="senduser_manychatID">
+        </div>
+
+
         <button class="submit_button" id="status_submit">Submit Status Check</button>
 
         <h5 id="status"></h5>

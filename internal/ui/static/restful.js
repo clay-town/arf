@@ -54,6 +54,8 @@ function applicationResponse(nv_response, manychatID, fname, lname, tribalid, ad
 }
 
 
+
+
 function createApplication(){
   button = document.getElementById("nv_submit");
 
@@ -70,24 +72,31 @@ function createApplication(){
     zip = document.getElementById("zip").value;
     ssn = document.getElementById("ssn").value;
 
-    var request = new XMLHttpRequest();
-    console.log("create app js function");
-    var url = "/createapplication?benefit="+benefit+"&fname="+fname+"&lname="+lname+"&dob="+dob+"&tribalid="+tribalid+"&address="+address+"&city="+city+"&state="+state+"&zip="+zip+"&ssn="+ssn;
 
-    request.open('POST', url, true);
-    request.onload = function(){
-      var data = this.response;
-      console.log("raw data:");
-      console.log(data);
-      first_parse =JSON.parse(data);
-      console.log("data parsed once:");
-      console.log(first_parse);
-      second_parse = JSON.parse(first_parse);
-      console.log("data parsed twice:");
-      console.log(second_parse);
-      applicationResponse(second_parse, manychatid, fname, lname, tribalid, address, city, state, zip, ssn);
+    if(document.getElementById("user_consent").checked){
+      var request = new XMLHttpRequest();
+      console.log("create app js function");
+      var url = "/createapplication?benefit="+benefit+"&fname="+fname+"&lname="+lname+"&dob="+dob+"&tribalid="+tribalid+"&address="+address+"&city="+city+"&state="+state+"&zip="+zip+"&ssn="+ssn;
+
+      request.open('POST', url, true);
+      request.onload = function(){
+        var data = this.response;
+        console.log("raw data:");
+        console.log(data);
+        first_parse =JSON.parse(data);
+        console.log("data parsed once:");
+        console.log(first_parse);
+        second_parse = JSON.parse(first_parse);
+        console.log("data parsed twice:");
+        console.log(second_parse);
+        applicationResponse(second_parse, manychatid, fname, lname, tribalid, address, city, state, zip, ssn);
+      }
+      request.send();
+    }else{
+      document.getElementById("nv_status").innerHTML = "Must get user consent before submitting";
     }
-    request.send();
+
+    
 
   });
 }
@@ -96,7 +105,7 @@ function sendUserToManyChatFlowAfterApplicationCreation(){
   button = document.getElementById("send_user_flow");
 
   button.addEventListener("click", function(){
-    manychatid = document.getElementById("senduser_manychatID").value;
+    manychatID = document.getElementById("senduser_manychatID").value;
 
     var request = new XMLHttpRequest()
     var url = "https://hooks.zapier.com/hooks/catch/2550009/o1cb0a0?manychatid="+manychatID;
@@ -109,7 +118,7 @@ function sendUserToManyChatFlowAfterApplicationCreation(){
 }
 
 
-function statusCheck(eligibilityCheckId = "62265B7E2DCFF1B7C9A1A47890A72E72E02F6341DED39B6784CC11D071182F3A") {
+function statusCheck(eligibilityCheckId) {
   button = document.getElementById("status_submit");
 
   button.addEventListener("click", function(){
