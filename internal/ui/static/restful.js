@@ -12,7 +12,7 @@ function checkServiceAvailability(){
 
   button.addEventListener("click", function(){
     console.log("check_service js function");
-    var zipCode = 
+    var zipCode = document.getElementById("zip").value;
     var request = new XMLHttpRequest();
     var url = "/checkservice";
     var zipCode = 
@@ -30,7 +30,8 @@ function checkServiceAvailability(){
 
       document.getElementById("check_service").innerHTML = "Description: " + description
       // change this to populate the enrollment_id directly into the form after it's made
-      document.getElementById("enrollment_id").innerHTML = "Enrollment Id: " + enrollmentId
+      document.getElementById("enrollment_id_a").innerHTML = "Enrollment Id: " + enrollmentId
+      document.getElementById("enrollment_id_b").value = enrollmentId
       
 
       console.log(obj)

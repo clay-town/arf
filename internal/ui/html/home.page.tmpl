@@ -141,10 +141,24 @@
 
         <br>
         <h2>Step 4: Submit Application to Vcare</h2>
+
+         <div class="form-group">
+            <label for="vcare_zip_a">Zip Code:</label>
+            <input type="text" class="form-control" id="vcare_zip_a" placeholder="97702">
+        </div>
+        <button class="submit_button" id="check_sevice_submit">Check Service Availability</button>
+        <h5 id="check_service"></h5>
+        <h5 id="enrollment_id_a"></h5>
+
+        <div class="form-group">
+            <label for="vcare_fname">Plan ID STUFF HERE:</label>
+            <input type="text" class="form-control" id="vcare_fname" placeholder="John">
+        </div>
+        <button class="submit_button" id="check_sevice_submit">Get Plan ID</button>
+        <h5 id="plan_id"></h5>
+
         <form id= "vcare_form" >
-
           <div class="form-group">
-
             <label for="benefits">Please Select What Benefits They Recieve:</label>
 
             <select class="form-control" id="vcare_benefits" placeholer= "Optional">
@@ -163,8 +177,23 @@
           </div>
 
           <div class="form-group">
+            <label for="vcare_enrollment_id_a">Enrollment ID:</label>
+            <input type="text" class="form-control" id="enrollment_id_b" placeholder="1234">
+          </div>
+
+          <div class="form-group">
+            <label for="vcare_plan_id">Plan ID:</label>
+            <input type="text" class="form-control" id="vcare_ssn" placeholder="1234">
+          </div>
+
+          <div class="form-group">
             <label for="vcare_fname">First Name:</label>
             <input type="text" class="form-control" id="vcare_fname" placeholder="John">
+          </div>
+
+          <div class="form-group">
+            <label for="vcare_mname">Middle Name (optional):</label>
+            <input type="text" class="form-control" id="vcare_mname" placeholder="Clay">
           </div>
            
           <div class="form-group">
@@ -180,6 +209,11 @@
           <div class="form-group">
             <label for="vcare_tribalID">Tribal ID (optional):</label>
             <input type="text" class="form-control" id="vcare_tribalID" placeholder=" ">
+          </div>
+
+           <div class="form-group">
+            <label for="vcare_preff_conact">Best Way to Contact:</label>
+            <input type="text" class="form-control" id="vcare_preff_conact" placeholder="YYYY-MM-DD">
           </div>
           
           <div class="form-group">
@@ -198,8 +232,8 @@
           </div>
 
           <div class="form-group">
-            <label for="vcare_zip">Zip Code:</label>
-            <input type="text" class="form-control" id="vcare_zip" placeholder="12345">
+            <label for="vcare_zip_b">Zip Code:</label>
+            <input type="text" class="form-control" id="vcare_zip_b" placeholder="12345">
           </div>
           
           <div class="form-group">
@@ -216,15 +250,10 @@
             <label for="vcare_insurance">Proof of Insurance URL:</label>
             <input type="text" class="form-control" id="vcare_insurance">
           </div>
-          <img id=imageid src=https://www.google.de/images/srpr/logo11w.png>
-
-
-          
+                   
        </form>
         <button class="submit_button" id="vcare_submit">Submit to Vcare</button>
-        <button class="submit_button" id="check_sevice_submit">Check Service Availability</button>
-        <h5 id="check_service"></h5>
-        <h5 id="enrollment_id"></h5>
+        
       </div>
     </body>
 
