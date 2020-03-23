@@ -9,28 +9,44 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 function uploadProof() {
-  button = document.getElementById("status_submit");
+    console.log("uploadProof js function");
 
-  button.addEventListener("click", function(){
-    var eligibilityCheckId = document.getElementById("status_check_id").value;
+    var photoId= document.getElementById("vcare_photoID").value;
+    var pob = document.getElementById("vcare_pob").value;
+    var additionalProof = document.getElementById("vcare_additional_proof").value;
+    var enrollmentId = document.getElementById("enrollment_id_b").value;
+
+    // encode images 
+
+
     var request = new XMLHttpRequest();
-    console.log("status check js function");
-    var url = "/status?eligibilityCheckId="+eligibilityCheckId;
+    var url = "/uploadproof?photoid="+photoId+"&pob="+pob+"&additionalproof="+additionalProof+"&enrollmentid="+enrollmentId;
 
     request.open('POST', url, true);
     request.onload = function(){
       var data = this.response;
       console.log(data);
-      response=JSON.parse(data);
-      console.log(response.message);
-      statusCheckResponse(response);
-      console.log(JSON.parse(response).status);
-      console.log(JSON.parse(data));
       
-      }
-      request.send();
+      response=JSON.parse(data);
+      console.log(response);
 
-  });
+      parser = new DOMParser();
+      xmlDoc = parser.parseFromString(response,"text/xml");
+
+      description = xmlDoc.getElementsByTagName("description")[0].innerHTML
+      //document.getElementById("final_display_window").innerHTML = "Description: " + description
+
+      if(description == "SUCCESS") {
+          
+        //document.getElementById("error_final_display_window").innerHTML = ""
+      } else if(description == "FAIL"){
+        //errorDescription = xmlDoc.getElementsByTagName("errorDescription")[0].innerHTML
+        //document.getElementById("error_final_display_window").innerHTML = "Error Description: " + errorDescription;
+      }
+      console.log(response)
+      }
+    request.send();
+
 }
 
 function createCustomer() {
@@ -52,8 +68,7 @@ function createCustomer() {
     var address = document.getElementById("vcare_address").value;
     var city = document.getElementById("vcare_city").value;
     var ssn = document.getElementById("vcare_ssn").value;
-    var photoId = document.getElementById("vcare_photoID").value;
-    var pob = document.getElementById("vcare_insurance").value;
+    
     var programCode = "MEDIC";
 
     if(document.getElementById("shipping_physical").checked){
