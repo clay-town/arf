@@ -6,6 +6,7 @@ document.addEventListener("DOMContentLoaded", function() {
   getPlanId();
   createCustomer();
   clearFields();
+  uploadProof();
 });
 
 /**
@@ -47,7 +48,9 @@ function convertImgToBase64(url, output){
 
 
 function uploadProof() {
-    console.log("uploadProof js function");
+  button = document.getElementById("upload_all_button");
+  button.addEventListener("click", function(){
+    console.log("upload all photos function");
 
     var photoId= document.getElementById("vcare_photoID").value;
     var pob = document.getElementById("vcare_pob").value;
@@ -68,6 +71,7 @@ function uploadProof() {
       uploadPOB(pob, enrollmentId)
       uploadProofVcare(additionalProof, enrollmentId)
     })
+  });
 }
 
 function uploadPhotoID(photoId, enrollmentId){
@@ -154,7 +158,6 @@ function uploadProofVcare(additionalProof, enrollmentId){
 
 function createCustomer() {
   button = document.getElementById("vcare_submit");
-
   button.addEventListener("click", function(){
 
     console.log("create customer js function");
@@ -211,7 +214,7 @@ function createCustomer() {
       document.getElementById("final_display_window").innerHTML = "Description: " + description
     
       if(description == "SUCCESS") {
-        uploadProof()
+        
         document.getElementById("error_final_display_window").innerHTML = ""
       } else if(description == "FAIL"){
         errorDescription = xmlDoc.getElementsByTagName("errorDescription")[0].innerHTML
@@ -230,13 +233,14 @@ function getPlanId() {
     var zipCode = document.getElementById("vcare_zip_a").value;
     var tribal = "N"
     var state = document.getElementById("get_plan_state").value;
+    var refNumber = uniqueIdentifierGenerator();
 
     if(document.getElementById("vcare_tribal").checked){
       tribal = "Y"
     }
 
     var request = new XMLHttpRequest();
-    var url = "/getplan?zipcode="+zipCode+"&tribal="+tribal+"&state="+state;
+    var url = "/getplan?zipcode="+zipCode+"&tribal="+tribal+"&state="+state+"&refNumber"+refNumber;
 
     request.open('POST', url, true);
     request.onload = function(){
@@ -274,8 +278,9 @@ function checkServiceAvailability(){
   button.addEventListener("click", function(){
     console.log("check_service js function");
     var zipCode = document.getElementById("vcare_zip_a").value;
+    var refNumber = uniqueIdentifierGenerator();
     var request = new XMLHttpRequest();
-    var url = "/checkservice?zipcode="+zipCode;
+    var url = "/checkservice?zipcode="+zipCode+"&refnumber"+refNumber;
 
     request.open('POST', url, true);
     request.onload = function(){
@@ -433,7 +438,11 @@ function statusCheck() {
 }
 
 function displayShippingFields(){
-  document.getElementById("shipping_form").style.visibility = "hidden";
+  if(document.getElementById("shipping_physical").checked){
+    document.getElementById("shipping_form").style.display = "none";
+  }else{
+    document.getElementById("shipping_form").style.display = "initial";
+  }
 }
 
 function uniqueIdentifierGenerator(){
