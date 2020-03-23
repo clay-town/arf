@@ -118,6 +118,14 @@ function sendUserToManyChatFlowAfterApplicationCreation(){
 }
 
 
+function statusCheckResponse(response){
+  if(response.status ==  "BAD_REQUEST"){
+    document.getElementById("status").innerHTML = "Application Status: " + JSON.parse(response).message;
+  } else if(response.status == "IN_PROGRESS" || response.status == "PENDING_REVIEW "){
+    document.getElementById("status").innerHTML = "Application Status: " + response.status;
+  }
+}
+
 function statusCheck(eligibilityCheckId) {
   button = document.getElementById("status_submit");
 
@@ -130,9 +138,9 @@ function statusCheck(eligibilityCheckId) {
     request.onload = function(){
       var data = this.response;
       console.log(data);
-      obj=JSON.parse(data)
-      document.getElementById("status").innerHTML = "Application Status: " + JSON.parse(obj).message;
-      console.log(JSON.parse(data));
+      response=JSON.parse(data)
+      statusCheckResponse(response);
+      console.log(JSON.parse(response));
       
       }
       request.send();
