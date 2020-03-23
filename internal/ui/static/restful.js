@@ -242,14 +242,21 @@ function getPlanId() {
       xmlDoc = parser.parseFromString(response,"text/xml");
 
       description = xmlDoc.getElementsByTagName("description")[0].innerHTML
-      document.getElementById("plan_id").innerHTML = "Description: " + description
+      
 
       if(description == "SUCCESS") {
-          // iterate through plan names, looking to match based on hierarchy we get from cheesecake
-          // if i understand correctly, "TRUEMETRO" is the plan name I want
-          // planid = 
-        document.getElementById("get_plan_error_description").innerHTML = "Plan ID: 16"
-        document.getElementById("vcare_plan_id").value = "16"
+          txt = "";
+          var x = xmlDoc.getElementsByTagName("planName");
+          var y = xmlDoc.getElementsByTagName("planID");
+          document.getElementById("plan_id").innerHTML = "Description: " + description
+
+          for (i = 0; i < x.length; i++) {
+               console.log(x[i].childNodes[0].nodeValue);
+               console.log(y[i].childNodes[0].nodeValue);
+               $("#plan_id_options").append("<option value=\"" + y[i].childNodes[0].nodeValue + "\">" + x[i].childNodes[0].nodeValue + "</option>");
+
+          }
+        
       } else if(description == "FAIL"){
         errorDescription = xmlDoc.getElementsByTagName("errorDescription")[0].innerHTML
         document.getElementById("get_plan_error_description").innerHTML = "Error Description: " + errorDescription;

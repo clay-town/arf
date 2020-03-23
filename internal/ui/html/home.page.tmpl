@@ -150,7 +150,7 @@
 
         <br>
         <h2>Step 4: Submit Application to Vcare</h2>
-        <form id="submit_vcare_form">
+       <!--  <form id="submit_vcare_form"> -->
 
          <div class="form-group">
             <label for="vcare_zip_a">Zip Code:</label>
@@ -173,6 +173,11 @@
 
         <h5 id="get_plan_error_description"></h5>
         <h5 id="plan_id"></h5>
+        <select class="form-control" name="plan_id_options" id="plan_id_options">
+          <option value="">--</option>
+        </select>
+
+
         <button class="submit_button" id="plan_id_submit">Get Plan ID</button>
         
 
@@ -296,7 +301,7 @@
       <textarea style="display:none" class="form-control" id="photo_id_output"></textarea><br>
       <textarea style="display:none" class="form-control" id="additional_proof_output"></textarea><br>
       <textarea style="display:none" class="form-control" id="pob_output"></textarea><br>
-      </form>
+      <!-- </form> -->
     </body>
 
 
