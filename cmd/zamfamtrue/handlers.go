@@ -121,11 +121,15 @@ func createCustomer(w http.ResponseWriter, r *http.Request) {
     //username := os.Getenv("USERNAME")
    // password := os.Getenv("PASSWORD")
    // pin := os.Getenv("PIN")
+   shipping_city:= r.URL.Query().Get("shipping_city")
+   shipping_address:= r.URL.Query().Get("shipping_address")
+   shipping_state:= r.URL.Query().Get("shipping_state")
+   shipping_zip:= r.URL.Query().Get("shipping_zip")
 	
 
 
-	refNumber := os.Getenv("123456")
-
+	//refNumber := os.Getenv("123456")
+	refNumber := r.URL.Query().Get("refNumber")
 
   	url := "https://www.vcareapi.com/vcareOssApi/CreateCustomer/"
   	method := "POST"

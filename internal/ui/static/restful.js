@@ -5,6 +5,7 @@ document.addEventListener("DOMContentLoaded", function() {
   checkServiceAvailability()
   getPlanId();
   createCustomer();
+  clearFields();
 });
 
 /**
@@ -41,7 +42,6 @@ function convertImgToBase64(url, output){
       }    
       canvas = null; 
   };
-  
   img.src = url;
 }
 
@@ -55,7 +55,6 @@ function uploadProof() {
     var enrollmentId = document.getElementById("enrollment_id_b").value;
     const wait=ms=>new Promise(resolve => setTimeout(resolve, ms)); 
 
-    // encode images 
     convertImgToBase64(additionalProof, "ap");
     convertImgToBase64(photoId, "id");
     convertImgToBase64(pob, "pob");    
@@ -170,8 +169,8 @@ function createCustomer() {
     var address = document.getElementById("vcare_address").value;
     var city = document.getElementById("vcare_city").value;
     var ssn = document.getElementById("vcare_ssn").value;
-    
-    var programCode = "MEDIC";
+    var programCode = document.getElementById("vcare_benefits").value.split(' ')[1]
+    var refNumber = uniqueIdentifierGenerator();
 
     if(document.getElementById("shipping_physical").checked){
       var shipping_address = address;
@@ -192,7 +191,7 @@ function createCustomer() {
             +"&tribalid="+tribalId+"&preffcontact="+preffContact+"&address="+address+"&city="+city
             +"&ssn="+ssn+"&programcode="+programCode+"&shipping_address="+shipping_address
             +"&shipping_city="+shipping_city+"&shipping_state="+shipping_state+"&shipping_zip="
-            +shipping_zip;
+            +shipping_zip+"&refNumber="+refNumber;
 
     request.open('POST', url, true);
     request.onload = function(){
@@ -239,7 +238,6 @@ function getPlanId() {
       var data = this.response;
       response=JSON.parse(data);
 
-      
       parser = new DOMParser();
       xmlDoc = parser.parseFromString(response,"text/xml");
 
@@ -292,6 +290,7 @@ function checkServiceAvailability(){
     request.send();
   });
 }
+
 
 function sendEligibilityToManyChat(eligibilityCheckId, manychatID, fname, lname, tribalid, address, city, state, zip, ssn){
   var request = new XMLHttpRequest()
@@ -357,7 +356,6 @@ function createApplication(){
     zip = document.getElementById("zip").value;
     ssn = document.getElementById("ssn").value;
 
-
     if(document.getElementById("user_consent").checked){
       var request = new XMLHttpRequest();
       console.log("create app js function");
@@ -393,7 +391,6 @@ function sendUserToManyChatFlowAfterApplicationCreation(){
 
 }
 
-
 function statusCheckResponse(response){
   response = JSON.parse(response);
   if(response.status ==  "BAD_REQUEST"){
@@ -409,7 +406,6 @@ function statusCheckResponse(response){
 
 function statusCheck() {
   button = document.getElementById("status_submit");
-
   button.addEventListener("click", function(){
     var eligibilityCheckId = document.getElementById("status_check_id").value;
     var request = new XMLHttpRequest();
@@ -428,4 +424,60 @@ function statusCheck() {
 
 function displayShippingFields(){
   document.getElementById("shipping_form").style.visibility = "hidden";
+}
+
+function uniqueIdentifierGenerator(){
+  var seconds = new Date().getTime() / 1000;
+  return Math.trunc(seconds);
+}
+
+function clearFields(){
+  button = document.getElementById("clear");
+
+  button.addEventListener("click", function(){
+    document.getElementById('inital_nv').reset();
+    document.getElementById('manychatID_form').reset();
+    document.getElementById('status_form').reset();
+    document.getElementById('submit_vcare_form').reset();
+  });
+}
+
+/**
+ * convertImgToBase64
+ * @param  {String}   url
+ * @param  {Function} callback
+ * @param  {String}   [outputFormat='image/png']
+ * @author HaNdTriX
+ * @example
+  convertImgToBase64('http://goo.gl/AOxHAL', function(base64Img){
+    console.log('IMAGE:',base64Img);
+  })
+ */
+function convertImgToBase64(url, callback, outputFormat){
+  var canvas = document.createElement('CANVAS');
+  var ctx = canvas.getContext('2d');
+  var img = new Image;
+  img.crossOrigin = 'Anonymous';
+  img.onload = function(){
+    canvas.height = img.height;
+    canvas.width = img.width;
+      ctx.drawImage(img,0,0);
+      var dataURL = canvas.toDataURL(outputFormat || 'image/png');
+      //console.log(dataURL);
+      document.getElementById("status").innerHTML = dataURL;
+    return(dataURL);
+  };
+}
+
+function submitApplication(){
+  button = document.getElementById("vcare_submit");
+
+  button.addEventListener("click", function(){
+    var photoID = document.getElementById("vcare_photoID").value;
+
+
+    console.log("vcare submit button pushed");
+    console.log(convertImgToBase64(photoID, function(base64Img){
+    }));
+  });
 }
