@@ -1,7 +1,6 @@
 document.addEventListener("DOMContentLoaded", function() {
   createApplication();
   statusCheck();
-  submitApplication();
   sendUserToManyChatFlowAfterApplicationCreation();
   checkServiceAvailability()
   getPlanId();
@@ -239,6 +238,8 @@ function getPlanId() {
     request.onload = function(){
       var data = this.response;
       response=JSON.parse(data);
+
+      
       parser = new DOMParser();
       xmlDoc = parser.parseFromString(response,"text/xml");
 
