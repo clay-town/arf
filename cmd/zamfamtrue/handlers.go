@@ -27,7 +27,7 @@ func uploadProof(w http.ResponseWriter, r *http.Request) {
 
 
 func createApplication(w http.ResponseWriter, r *http.Request) {
-}
+
 	godotenv.Load()
 
 	benefit := r.URL.Query().Get("benefit");
