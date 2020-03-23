@@ -87,8 +87,9 @@ function uploadPhotoID(photoId, enrollmentId){
   console.log("pid: " + description);
     if(description == "SUCCESS") {
             
-          //document.getElementById("error_final_display_window").innerHTML = ""
+          document.getElementById("photo_id_status").innerHTML = "Photo ID Upload Successful"
     } else if(description == "FAIL"){
+          document.getElementById("photo_id_status").innerHTML = "Photo ID Upload Failed"
           //errorDescription = xmlDoc.getElementsByTagName("errorDescription")[0].innerHTML
           //document.getElementById("error_final_display_window").innerHTML = "Error Description: " + errorDescription;
     }
@@ -113,8 +114,9 @@ function uploadPOB(pob, enrollmentId){
     console.log("pob: " + description);
     if(description == "SUCCESS") {
             
-          //document.getElementById("error_final_display_window").innerHTML = ""
+          document.getElementById("pob_status").innerHTML = "Proof of Benefits Upload Successful"
     } else if(description == "FAIL"){
+          document.getElementById("pob_status").innerHTML = "Proof of Benefits Upload Failed"
           //errorDescription = xmlDoc.getElementsByTagName("errorDescription")[0].innerHTML
           //document.getElementById("error_final_display_window").innerHTML = "Error Description: " + errorDescription;
     }
@@ -140,8 +142,9 @@ function uploadProofVcare(additionalProof, enrollmentId){
     console.log("proof: " + description);
     if(description == "SUCCESS") {
             
-          //document.getElementById("error_final_display_window").innerHTML = ""
+          document.getElementById("additional_proof_status").innerHTML = "Additional Proof Upload Successful"
     } else if(description == "FAIL"){
+          document.getElementById("additional_proof_status").innerHTML = "Additional Proof Upload Failed"
           //errorDescription = xmlDoc.getElementsByTagName("errorDescription")[0].innerHTML
           //document.getElementById("error_final_display_window").innerHTML = "Error Description: " + errorDescription;
     }
@@ -158,7 +161,7 @@ function createCustomer() {
     var zipCode = document.getElementById("vcare_zip_a").value;
     var state = document.getElementById("get_plan_state").value;
     var tribal = document.getElementById("vcare_tribal").value;
-    var planId = document.getElementById("vcare_plan_id").value;
+    var planId = document.getElementById("plan_id_options").value;
     var enrollmentId = document.getElementById("enrollment_id_b").value;
     var fname = document.getElementById("vcare_fname").value;
     var mname = document.getElementById("vcare_mname").value;
@@ -177,12 +180,14 @@ function createCustomer() {
       var shipping_city = city;
       var shipping_state = state;
       var shipping_zip = zip;
+      console.log(planId);
     }else{
       var shipping_address = document.getElementById("vcare_shipping_address");
       var shipping_city = document.getElementById("vcare_shipping_city");
       var shipping_state = document.getElementById("vcare_shipping_state");
       var shipping_zip = document.getElementById("vcare_shipping_zip");
     }
+
 
     var request = new XMLHttpRequest();
     
@@ -251,7 +256,7 @@ function getPlanId() {
           document.getElementById("plan_id").innerHTML = "Description: " + description
 
           for (i = 0; i < x.length; i++) {
-               $("#plan_id_options").append("<option value=\"" + y[i].childNodes[0].nodeValue + "\">" + x[i].childNodes[0].nodeValue + "</option>");
+               $("#plan_id_options").append("<option value=\"" + y[i].childNodes[0].nodeValue + "\">" + x[i].childNodes[0].nodeValue +" id: "+ y[i].childNodes[0].nodeValue + "</option>");
 
           }
         
