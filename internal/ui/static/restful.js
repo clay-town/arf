@@ -251,8 +251,6 @@ function getPlanId() {
           document.getElementById("plan_id").innerHTML = "Description: " + description
 
           for (i = 0; i < x.length; i++) {
-               console.log(x[i].childNodes[0].nodeValue);
-               console.log(y[i].childNodes[0].nodeValue);
                $("#plan_id_options").append("<option value=\"" + y[i].childNodes[0].nodeValue + "\">" + x[i].childNodes[0].nodeValue + "</option>");
 
           }
