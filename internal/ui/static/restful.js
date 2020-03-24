@@ -104,10 +104,13 @@ var sendBase64ToServer = function(url, base64){
     httpPost.onreadystatechange = function(err) {
             if (httpPost.readyState == 4 && httpPost.status == 200){
                 console.log(httpPost.responseText);
-                document.getElementById("error_final_display_window").innerHTML.append(httpPost.responseText)
+                compositeString = document.getElementById("error_final_display_window").innerHTML + "\n"
+                document.getElementById("error_final_display_window").innerHTML = compositeString + httpPost.responseText
             } else {
                 console.log(err);
-                document.getElementById("error_final_display_window").innerHTML.append(httpPost.responseText)
+                compositeString = document.getElementById("error_final_display_window").innerHTML + "\n"
+                errorDescription = xmlDoc.getElementsByTagName("errorDescription")[0].innerHTML + "\n"
+                document.getElementById("error_final_display_window").innerHTML = compositeString + errorDescription + httpPost.responseText
             }
         };
     httpPost.open("POST", path, true);
