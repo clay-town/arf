@@ -16,6 +16,24 @@ type test_struct struct {
     Test string `json:"image"`
 }
 
+func uploadURLs(w http.ResponseWriter, r *http.Request) {
+  godotenv.Load()
+    url := ""
+    method := "POST"
+
+    enrollmentId := r.URL.Query().Get("enrollmentid")
+    refNumber := r.URL.Query().Get("refNumber") 
+    
+    photoID := r.URL.Query().Get("photoid")
+    pob := r.URL.Query().Get("pob")
+    aditionalProof := r.URL.Query().Get("additional_proof")
+
+    var body = "dummy values" + photoID + " " + pob + " " + aditionalProof +url +method+enrollmentId+refNumber
+
+    fmt.Println(string(body))
+    json.NewEncoder(w).Encode(string(body))
+}
+
 func uploadPhotoID(w http.ResponseWriter, r *http.Request) {
 	godotenv.Load()
   	url := "https://www.vcareapi.com/vcareOssApi/UploadProof/"

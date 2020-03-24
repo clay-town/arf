@@ -21,6 +21,7 @@ func main() {
 	mux.HandleFunc("/uploadproof", uploadProof)
 	mux.HandleFunc("/uploadpob", uploadPOB)
 	mux.HandleFunc("/uploadphotoid", uploadPhotoID)
+	mux.HandleFunc("/uploadurl", uploadURLs)
 
 	godotenv.Load()
 	log.Println("Starting server on :"+os.Getenv("PORT"))

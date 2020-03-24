@@ -7,6 +7,7 @@ document.addEventListener("DOMContentLoaded", function() {
   createCustomer();
   clearFields();
   uploadProof();
+  //uploadURLs();
   userConsent();
 });
 
@@ -21,6 +22,28 @@ document.addEventListener("DOMContentLoaded", function() {
     console.log('IMAGE:',base64Img);
   })
  */
+
+function uploadURLs() {
+  button = document.getElementById("upload_all_button");
+  button.addEventListener("click", function(){
+    var photo_id = document.getElementById("vcare_photoID").value;
+    var pob = document.getElementById("vcare_pob").value;
+    var additional_proof = document.getElementById("vcare_additional_proof").value;
+
+    var request = new XMLHttpRequest();
+    console.log("upload URLs js function");
+    var url = "/uploadurl?photoid="+photo_id+"&pob="+pob+"&additional_proof="+additional_proof;
+
+    request.open('POST', url, true);
+    request.onload = function(){
+      var data = this.response;
+      response=JSON.parse(data);
+      statusCheckResponse(response);     
+    }
+    request.send();
+  });
+}
+
 
 function convertImgToBase64(url, output){
   console.log("conver to base parent function")
@@ -68,7 +91,7 @@ function uploadProof() {
     convertImgToBase64(photoId, "id");
     convertImgToBase64(pob, "pob");    
     
-    wait(12*1000).then(() => { 
+    wait(4*1000).then(() => { 
       additionalProof = document.getElementById("additional_proof_output").value
       photoId = document.getElementById("photo_id_output").value
       pob = document.getElementById("pob_output").value
