@@ -22,11 +22,13 @@ document.addEventListener("DOMContentLoaded", function() {
  */
 
 function convertImgToBase64(url, output){
+  console.log("conver to base parent function")
   var canvas = document.createElement('CANVAS');
   var ctx = canvas.getContext('2d');
   var img = new Image;
   img.crossOrigin = 'Anonymous';
   img.onload = function(){
+    console.log("conver to base Anonymous function")
     canvas.height = img.height;
     canvas.width = img.width;
       ctx.drawImage(img,0,0);
@@ -62,7 +64,7 @@ function uploadProof() {
     convertImgToBase64(photoId, "id");
     convertImgToBase64(pob, "pob");    
     
-    wait(10*1000).then(() => { 
+    wait(12*1000).then(() => { 
       additionalProof = document.getElementById("additional_proof_output").value
       photoId = document.getElementById("photo_id_output").value
       pob = document.getElementById("pob_output").value
