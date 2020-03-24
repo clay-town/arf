@@ -103,20 +103,19 @@ var sendBase64ToServer = function(url, base64){
         data = JSON.stringify({image: base64});
         httpPost.onload = function(){
           var response_data = this.response;
-          response=JSON.parse(response_data);
+          response = JSON.parse(response_data);
           parser = new DOMParser();
           xmlDoc = parser.parseFromString(response,"text/xml");
 
           description = xmlDoc.getElementsByTagName("description")[0].innerHTML
 
-
           if(description == "SUCCESS") {  
-            compositeString = document.getElementById("error_final_display_window").innerHTML + "\n"
-            document.getElementById("error_final_display_window").innerHTML = compositeString + httpPost.responseText
+            compositeString = document.getElementById("photo_id_status").innerHTML + "\n"
+            document.getElementById("photo_id_status").innerHTML = compositeString + description
           } else if(description == "FAIL"){
-            compositeString = document.getElementById("error_final_display_window").innerHTML + "\n"
+            compositeString = document.getElementById("photo_id_status").innerHTML + "\n"
             errorDescription = xmlDoc.getElementsByTagName("errorDescription")[0].innerHTML + "\n"
-            document.getElementById("error_final_display_window").innerHTML = compositeString + errorDescription + httpPost.responseText
+            document.getElementById("photo_id_status").innerHTML = compositeString + errorDescription
           }
         };
 
