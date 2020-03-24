@@ -85,6 +85,18 @@ function uploadPhotoID(photoId, enrollmentId){
   sendBase64ToServer(url, photoId)
 }
 
+function uploadPOB(pob, enrollmentId){
+  var request = new XMLHttpRequest();
+  var url = "/uploadpob?&enrollmentid="+enrollmentId;
+  sendBase64ToServer(url, enrollmentId)
+}
+
+function uploadProofVcare(additionalProof, enrollmentId){
+  var request = new XMLHttpRequest();
+  var url = "/uploadproof?&enrollmentid="+enrollmentId;
+  sendBase64ToServer(url, enrollmentId)
+}
+
 var sendBase64ToServer = function(url, base64){
     var httpPost = new XMLHttpRequest(),
         path = url
@@ -92,89 +104,33 @@ var sendBase64ToServer = function(url, base64){
     httpPost.onreadystatechange = function(err) {
             if (httpPost.readyState == 4 && httpPost.status == 200){
                 console.log(httpPost.responseText);
+                document.getElementById("error_final_display_window").innerHTML.append(httpPost.responseText)
             } else {
                 console.log(err);
+                document.getElementById("error_final_display_window").innerHTML.append(httpPost.responseText)
             }
         };
-    // Set the content type of the request to json since that's what's being sent
     httpPost.open("POST", path, true);
     httpPost.setRequestHeader('Content-Type', 'application/json');
-  
     httpPost.send(data);
-};
+    httpPost.onload = function(){
+      var data = this.response;
+            
+      response=JSON.parse(data);
+      
+      parser = new DOMParser();
+      xmlDoc = parser.parseFromString(response,"text/xml");
 
-  // request.open('POST', url, true);
-  // request.onload = function(){
-  //   var data = this.response;
+      description = xmlDoc.getElementsByTagName("description")[0].innerHTML
           
-  //   response=JSON.parse(data);
-  //   parser = new DOMParser();
-  //   xmlDoc = parser.parseFromString(response,"text/xml");
-
-  //   description = xmlDoc.getElementsByTagName("description")[0].innerHTML
-  //   console.log("pid: " + description);
-  //   if(description == "SUCCESS") {
-            
-  //         document.getElementById("photo_id_status").innerHTML = "Photo ID Upload Successful"
-  //   } else if(description == "FAIL"){
-  //         document.getElementById("photo_id_status").innerHTML = "Photo ID Upload Failed"
-  //   }
-  // }
-  // request.send();
-
-
-function uploadPOB(pob, enrollmentId){
-  var request = new XMLHttpRequest();
-  var url = "/uploadpob?pob="+pob+"&enrollmentid="+enrollmentId;
-
-  request.open('POST', url, true);
-  request.onload = function(){
-    var data = this.response;
-      
-    response=JSON.parse(data);
-    parser = new DOMParser();
-    xmlDoc = parser.parseFromString(response,"text/xml");
-
-    description = xmlDoc.getElementsByTagName("description")[0].innerHTML
-        //document.getElementById("final_display_window").innerHTML = "Description: " + description
-    console.log("pob: " + description);
-    if(description == "SUCCESS") {
-            
-          document.getElementById("pob_status").innerHTML = "Proof of Benefits Upload Successful"
-    } else if(description == "FAIL"){
-          document.getElementById("pob_status").innerHTML = "Proof of Benefits Upload Failed"
-          //errorDescription = xmlDoc.getElementsByTagName("errorDescription")[0].innerHTML
-          //document.getElementById("error_final_display_window").innerHTML = "Error Description: " + errorDescription;
+      if(description == "SUCCESS") {  
+        document.getElementById("additional_proof_status").innerHTML.append = "\n "
+      } else if(description == "FAIL"){
+        errorDescription = xmlDoc.getElementsByTagName("errorDescription")[0].innerHTML
+        document.getElementById("additional_proof_status").innerHTML.append = "Error Description: " + errorDescription;
+      }
     }
-  }
-  request.send();
-}
-
-function uploadProofVcare(additionalProof, enrollmentId){
-  var request = new XMLHttpRequest();
-  var url = "/uploadproof?additionalproof="+additionalProof+"&enrollmentid="+enrollmentId;
-
-  request.open('POST', url, true);
-  request.onload = function(){
-    var data = this.response;
-      
-    response=JSON.parse(data);
-    parser = new DOMParser();
-    xmlDoc = parser.parseFromString(response,"text/xml");
-
-    description = xmlDoc.getElementsByTagName("description")[0].innerHTML
-        //document.getElementById("final_display_window").innerHTML = "Description: " + description
-    console.log("proof: " + description);
-    if(description == "SUCCESS") {
-          document.getElementById("additional_proof_status").innerHTML = "Additional Proof Upload Successful"
-    } else if(description == "FAIL"){
-          document.getElementById("additional_proof_status").innerHTML = "Additional Proof Upload Failed"
-          //errorDescription = xmlDoc.getElementsByTagName("errorDescription")[0].innerHTML
-          //document.getElementById("error_final_display_window").innerHTML = "Error Description: " + errorDescription;
-    }
-  }
-  request.send();
-}
+};
 
 function createCustomer() {
   button = document.getElementById("vcare_submit");

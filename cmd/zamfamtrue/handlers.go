@@ -31,14 +31,14 @@ func uploadPhotoID(w http.ResponseWriter, r *http.Request) {
    	pin 	 := os.Getenv("PIN")
 	telgooUsername := os.Getenv("TELGOOUSERNAME")
   	
-	decoder := json.NewDecoder(r.Body)
 
+
+	decoder := json.NewDecoder(r.Body)
   	var t test_struct
   	err:= decoder.Decode(&t)
   	if err != nil {
   		panic(err)
   	}
-  	
   	photoId := t.Test
 
 
@@ -66,7 +66,6 @@ func uploadPOB(w http.ResponseWriter, r *http.Request) {
 	godotenv.Load()
   	url := "https://www.vcareapi.com/vcareOssApi/UploadProof/"
   	method := "POST"
-    pob := r.URL.Query().Get("pob")
     enrollmentId := r.URL.Query().Get("enrollmentid")
     refNumber := r.URL.Query().Get("refNumber")	
 	
@@ -76,6 +75,15 @@ func uploadPOB(w http.ResponseWriter, r *http.Request) {
    	password := os.Getenv("PASSWORD")
    	pin 	 := os.Getenv("PIN")
 	telgooUsername := os.Getenv("TELGOOUSERNAME")
+
+	decoder := json.NewDecoder(r.Body)
+  	var t test_struct
+  	err:= decoder.Decode(&t)
+  	if err != nil {
+  		panic(err)
+  	}
+  	pob := t.Test
+
   	
   	payload := strings.NewReader("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<VCAREOSSAPI xmlns=\"http://www.oss.vcarecorporation.com/oss\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">\n	<CREDENTIALS>\n	<VENDORID>"+vendorId+"</VENDORID>\n	<USERNAME>"+telgooUsername+"</USERNAME>\n	<PASSWORD>"+password+"</PASSWORD>\n	<PIN>"+pin+"</PIN>\n	<REFERENCENUMBER>"+refNumber+"</REFERENCENUMBER>\n</CREDENTIALS>\n<VCAREOSS>\n<UPLOADPROOF>\n<ENROLLMENTID>"+enrollmentId+"</ENROLLMENTID>\n	<SIGNATUREFILENAME></SIGNATUREFILENAME>\n	<PROOFFILE>"+pob+"</PROOFFILE>\n	<BILLPROOF></BILLPROOF>\n	<IDPROOF></IDPROOF>\n	<ADDITIONALINFO></ADDITIONALINFO>\n	<ADDRESSPROOF></ADDRESSPROOF>\n	<ISBASE64CODE>Y</ISBASE64CODE>\n	<CUSTRESERT></CUSTRESERT>\n	<AGENTID>"+agentLogin+"</AGENTID>\n	<AGENTPASSWORD>"+agentPassword+"</AGENTPASSWORD>\n	<SOURCE></SOURCE>\n	</UPLOADPROOF>\n</VCAREOSS>\n</VCAREOSSAPI>")
   	fmt.Println(payload)
@@ -101,7 +109,6 @@ func uploadProof(w http.ResponseWriter, r *http.Request) {
 	godotenv.Load()
   	url := "https://www.vcareapi.com/vcareOssApi/UploadProof/"
   	method := "POST"
-    additionalProof := r.URL.Query().Get("additionalproof")
     enrollmentId := r.URL.Query().Get("enrollmentid")
 	refNumber := r.URL.Query().Get("refNumber")	
 
@@ -111,6 +118,15 @@ func uploadProof(w http.ResponseWriter, r *http.Request) {
    	password := os.Getenv("PASSWORD")
    	pin 	 := os.Getenv("PIN")
 	telgooUsername := os.Getenv("TELGOOUSERNAME")
+
+	decoder := json.NewDecoder(r.Body)
+  	var t test_struct
+  	err:= decoder.Decode(&t)
+  	if err != nil {
+  		panic(err)
+  	}
+  	additionalProof := t.Test
+
 
   	payload := strings.NewReader("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<VCAREOSSAPI xmlns=\"http://www.oss.vcarecorporation.com/oss\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">\n	<CREDENTIALS>\n	<VENDORID>"+vendorId+"</VENDORID>\n	<USERNAME>"+telgooUsername+"</USERNAME>\n	<PASSWORD>"+password+"</PASSWORD>\n	<PIN>"+pin+"</PIN>\n	<REFERENCENUMBER>"+refNumber+"</REFERENCENUMBER>\n</CREDENTIALS>\n<VCAREOSS>\n<UPLOADPROOF>\n<ENROLLMENTID>"+enrollmentId+"</ENROLLMENTID>\n	<SIGNATUREFILENAME></SIGNATUREFILENAME>\n	<PROOFFILE></PROOFFILE>\n	<BILLPROOF></BILLPROOF>\n	<IDPROOF></IDPROOF>\n	<ADDITIONALINFO>"+additionalProof+"</ADDITIONALINFO>\n	<ADDRESSPROOF></ADDRESSPROOF>\n	<ISBASE64CODE>Y</ISBASE64CODE>\n	<CUSTRESERT></CUSTRESERT>\n	<AGENTID>"+agentLogin+"</AGENTID>\n	<AGENTPASSWORD>"+agentPassword+"</AGENTPASSWORD>\n	<SOURCE></SOURCE>\n	</UPLOADPROOF>\n</VCAREOSS>\n</VCAREOSSAPI>")
   	fmt.Println(payload)
