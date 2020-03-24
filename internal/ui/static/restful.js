@@ -161,7 +161,7 @@ function createCustomer() {
     var zipCode = document.getElementById("vcare_zip_a").value;
     var state = document.getElementById("get_plan_state").value;
     var tribal = document.getElementById("vcare_tribal").value;
-    var planId = document.getElementById("vcare_plan_id").value;
+    var planId = document.getElementById("plan_id_options").value;
     var enrollmentId = document.getElementById("enrollment_id_b").value;
     var fname = document.getElementById("vcare_fname").value;
     var mname = document.getElementById("vcare_mname").value;
