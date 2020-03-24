@@ -433,7 +433,11 @@ function statusCheck() {
 }
 
 function displayShippingFields(){
-  document.getElementById("shipping_physical").style.visibility = "hidden";
+  if(document.getElementById("shipping_physical").checked){
+    document.getElementById("shipping_form").style.display = "none";
+  }else{
+    document.getElementById("shipping_form").style.display = "initial";
+  }
 }
 
 function uniqueIdentifierGenerator(){
