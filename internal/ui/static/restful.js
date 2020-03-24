@@ -110,11 +110,11 @@ var sendBase64ToServer = function(url, base64){
           description = xmlDoc.getElementsByTagName("description")[0].innerHTML
 
           if(description == "SUCCESS") {  
-            compositeString = document.getElementById("photo_id_status").innerHTML + "\n"
+            compositeString = document.getElementById("photo_id_status").innerHTML + "<br>"
             document.getElementById("photo_id_status").innerHTML = compositeString + description
           } else if(description == "FAIL"){
-            compositeString = document.getElementById("photo_id_status").innerHTML + "\n"
-            errorDescription = xmlDoc.getElementsByTagName("errorDescription")[0].innerHTML + "\n"
+            compositeString = document.getElementById("photo_id_status").innerHTML + "<br>"
+            errorDescription = xmlDoc.getElementsByTagName("errorDescription")[0].innerHTML + "<br>"
             document.getElementById("photo_id_status").innerHTML = compositeString + errorDescription
           }
         };
