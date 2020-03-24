@@ -6,6 +6,7 @@ document.addEventListener("DOMContentLoaded", function() {
   getPlanId();
   createCustomer();
   clearFields();
+  uploadProof();
 });
 
 /**
@@ -21,11 +22,13 @@ document.addEventListener("DOMContentLoaded", function() {
  */
 
 function convertImgToBase64(url, output){
+  console.log("conver to base parent function")
   var canvas = document.createElement('CANVAS');
   var ctx = canvas.getContext('2d');
   var img = new Image;
   img.crossOrigin = 'Anonymous';
   img.onload = function(){
+    console.log("conver to base Anonymous function")
     canvas.height = img.height;
     canvas.width = img.width;
       ctx.drawImage(img,0,0);
@@ -47,7 +50,9 @@ function convertImgToBase64(url, output){
 
 
 function uploadProof() {
-    console.log("uploadProof js function");
+  button = document.getElementById("upload_all_button");
+  button.addEventListener("click", function(){
+    console.log("upload all photos function");
 
     var photoId= document.getElementById("vcare_photoID").value;
     var pob = document.getElementById("vcare_pob").value;
@@ -55,11 +60,12 @@ function uploadProof() {
     var enrollmentId = document.getElementById("enrollment_id_b").value;
     const wait=ms=>new Promise(resolve => setTimeout(resolve, ms)); 
 
+    console.log("deeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeebug")
     convertImgToBase64(additionalProof, "ap");
     convertImgToBase64(photoId, "id");
     convertImgToBase64(pob, "pob");    
     
-    wait(10*1000).then(() => { 
+    wait(12*1000).then(() => { 
       additionalProof = document.getElementById("additional_proof_output").value
       photoId = document.getElementById("photo_id_output").value
       pob = document.getElementById("pob_output").value
@@ -67,94 +73,59 @@ function uploadProof() {
       uploadPhotoID(photoId, enrollmentId)
       uploadPOB(pob, enrollmentId)
       uploadProofVcare(additionalProof, enrollmentId)
+      console.log(photoId)
     })
+  });
 }
 
 function uploadPhotoID(photoId, enrollmentId){
   var request = new XMLHttpRequest();
-  var url = "/uploadphotoid?photoid="+photoId+"&enrollmentid="+enrollmentId;
-
-  request.open('POST', url, true);
-  request.onload = function(){
-    var data = this.response;
-          
-    response=JSON.parse(data);
-    parser = new DOMParser();
-    xmlDoc = parser.parseFromString(response,"text/xml");
-
-    description = xmlDoc.getElementsByTagName("description")[0].innerHTML
-        //document.getElementById("final_display_window").innerHTML = "Description: " + description
-  console.log("pid: " + description);
-    if(description == "SUCCESS") {
-            
-          document.getElementById("photo_id_status").innerHTML = "Photo ID Upload Successful"
-    } else if(description == "FAIL"){
-          document.getElementById("photo_id_status").innerHTML = "Photo ID Upload Failed"
-          //errorDescription = xmlDoc.getElementsByTagName("errorDescription")[0].innerHTML
-          //document.getElementById("error_final_display_window").innerHTML = "Error Description: " + errorDescription;
-    }
-  }
-  request.send();
+  //var url = "/uploadphotoid?photoid="+photoId+"&enrollmentid="+enrollmentId;
+  var url = "/uploadphotoid?enrollmentid="+enrollmentId;
+  sendBase64ToServer(url, photoId)
 }
 
 function uploadPOB(pob, enrollmentId){
   var request = new XMLHttpRequest();
-  var url = "/uploadpob?pob="+pob+"&enrollmentid="+enrollmentId;
-
-  request.open('POST', url, true);
-  request.onload = function(){
-    var data = this.response;
-      
-    response=JSON.parse(data);
-    parser = new DOMParser();
-    xmlDoc = parser.parseFromString(response,"text/xml");
-
-    description = xmlDoc.getElementsByTagName("description")[0].innerHTML
-        //document.getElementById("final_display_window").innerHTML = "Description: " + description
-    console.log("pob: " + description);
-    if(description == "SUCCESS") {
-            
-          document.getElementById("pob_status").innerHTML = "Proof of Benefits Upload Successful"
-    } else if(description == "FAIL"){
-          document.getElementById("pob_status").innerHTML = "Proof of Benefits Upload Failed"
-          //errorDescription = xmlDoc.getElementsByTagName("errorDescription")[0].innerHTML
-          //document.getElementById("error_final_display_window").innerHTML = "Error Description: " + errorDescription;
-    }
-  }
-  request.send();
+  var url = "/uploadpob?&enrollmentid="+enrollmentId;
+  sendBase64ToServer(url, enrollmentId)
 }
-
 
 function uploadProofVcare(additionalProof, enrollmentId){
   var request = new XMLHttpRequest();
-  var url = "/uploadproof?additionalproof="+additionalProof+"&enrollmentid="+enrollmentId;
-
-  request.open('POST', url, true);
-  request.onload = function(){
-    var data = this.response;
-      
-    response=JSON.parse(data);
-    parser = new DOMParser();
-    xmlDoc = parser.parseFromString(response,"text/xml");
-
-    description = xmlDoc.getElementsByTagName("description")[0].innerHTML
-        //document.getElementById("final_display_window").innerHTML = "Description: " + description
-    console.log("proof: " + description);
-    if(description == "SUCCESS") {
-            
-          document.getElementById("additional_proof_status").innerHTML = "Additional Proof Upload Successful"
-    } else if(description == "FAIL"){
-          document.getElementById("additional_proof_status").innerHTML = "Additional Proof Upload Failed"
-          //errorDescription = xmlDoc.getElementsByTagName("errorDescription")[0].innerHTML
-          //document.getElementById("error_final_display_window").innerHTML = "Error Description: " + errorDescription;
-    }
-  }
-  request.send();
+  var url = "/uploadproof?&enrollmentid="+enrollmentId;
+  sendBase64ToServer(url, enrollmentId)
 }
+
+var sendBase64ToServer = function(url, base64){
+    var httpPost = new XMLHttpRequest(),
+        path = url
+        data = JSON.stringify({image: base64});
+        httpPost.onload = function(){
+          var response_data = this.response;
+          response = JSON.parse(response_data);
+          parser = new DOMParser();
+          xmlDoc = parser.parseFromString(response,"text/xml");
+
+          description = xmlDoc.getElementsByTagName("description")[0].innerHTML
+
+          if(description == "SUCCESS") {  
+            compositeString = document.getElementById("photo_id_status").innerHTML + "\n"
+            document.getElementById("photo_id_status").innerHTML = compositeString + description
+          } else if(description == "FAIL"){
+            compositeString = document.getElementById("photo_id_status").innerHTML + "\n"
+            errorDescription = xmlDoc.getElementsByTagName("errorDescription")[0].innerHTML + "\n"
+            document.getElementById("photo_id_status").innerHTML = compositeString + errorDescription
+          }
+        };
+
+        httpPost.open("POST", path, true);
+        httpPost.setRequestHeader('Content-Type', 'application/json');
+        httpPost.send(data);
+};
 
 function createCustomer() {
   button = document.getElementById("vcare_submit");
-
   button.addEventListener("click", function(){
 
     console.log("create customer js function");
@@ -179,15 +150,13 @@ function createCustomer() {
       var shipping_address = address;
       var shipping_city = city;
       var shipping_state = state;
-      var shipping_zip = zip;
-      console.log(planId);
+      var shipping_zip = zipCode;
     }else{
       var shipping_address = document.getElementById("vcare_shipping_address");
       var shipping_city = document.getElementById("vcare_shipping_city");
       var shipping_state = document.getElementById("vcare_shipping_state");
       var shipping_zip = document.getElementById("vcare_shipping_zip");
     }
-
 
     var request = new XMLHttpRequest();
     
@@ -211,7 +180,7 @@ function createCustomer() {
       document.getElementById("final_display_window").innerHTML = "Description: " + description
     
       if(description == "SUCCESS") {
-        uploadProof()
+        
         document.getElementById("error_final_display_window").innerHTML = ""
       } else if(description == "FAIL"){
         errorDescription = xmlDoc.getElementsByTagName("errorDescription")[0].innerHTML
@@ -230,13 +199,14 @@ function getPlanId() {
     var zipCode = document.getElementById("vcare_zip_a").value;
     var tribal = "N"
     var state = document.getElementById("get_plan_state").value;
+    var refNumber = uniqueIdentifierGenerator();
 
     if(document.getElementById("vcare_tribal").checked){
       tribal = "Y"
     }
 
     var request = new XMLHttpRequest();
-    var url = "/getplan?zipcode="+zipCode+"&tribal="+tribal+"&state="+state;
+    var url = "/getplan?zipcode="+zipCode+"&tribal="+tribal+"&state="+state+"&refNumber"+refNumber;
 
     request.open('POST', url, true);
     request.onload = function(){
@@ -274,8 +244,9 @@ function checkServiceAvailability(){
   button.addEventListener("click", function(){
     console.log("check_service js function");
     var zipCode = document.getElementById("vcare_zip_a").value;
+    var refNumber = uniqueIdentifierGenerator();
     var request = new XMLHttpRequest();
-    var url = "/checkservice?zipcode="+zipCode;
+    var url = "/checkservice?zipcode="+zipCode+"&refnumber"+refNumber;
 
     request.open('POST', url, true);
     request.onload = function(){
@@ -433,7 +404,11 @@ function statusCheck() {
 }
 
 function displayShippingFields(){
-  document.getElementById("shipping_form").style.visibility = "hidden";
+  if(document.getElementById("shipping_physical").checked){
+    document.getElementById("shipping_form").style.display = "none";
+  }else{
+    document.getElementById("shipping_form").style.display = "initial";
+  }
 }
 
 function uniqueIdentifierGenerator(){
@@ -450,33 +425,6 @@ function clearFields(){
     document.getElementById('status_form').reset();
     document.getElementById('submit_vcare_form').reset();
   });
-}
-
-/**
- * convertImgToBase64
- * @param  {String}   url
- * @param  {Function} callback
- * @param  {String}   [outputFormat='image/png']
- * @author HaNdTriX
- * @example
-  convertImgToBase64('http://goo.gl/AOxHAL', function(base64Img){
-    console.log('IMAGE:',base64Img);
-  })
- */
-function convertImgToBase64(url, callback, outputFormat){
-  var canvas = document.createElement('CANVAS');
-  var ctx = canvas.getContext('2d');
-  var img = new Image;
-  img.crossOrigin = 'Anonymous';
-  img.onload = function(){
-    canvas.height = img.height;
-    canvas.width = img.width;
-      ctx.drawImage(img,0,0);
-      var dataURL = canvas.toDataURL(outputFormat || 'image/png');
-      //console.log(dataURL);
-      document.getElementById("status").innerHTML = dataURL;
-    return(dataURL);
-  };
 }
 
 function submitApplication(){

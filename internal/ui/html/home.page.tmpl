@@ -150,7 +150,7 @@
 
         <br>
         <h2>Step 4: Submit Application to Vcare</h2>
-       <!--  <form id="submit_vcare_form"> -->
+
 
          <div class="form-group">
             <label for="vcare_zip_a">Zip Code:</label>
@@ -182,6 +182,7 @@
         </select>
         
          <br>
+      <form id="submit_vcare_form">
         <form id= "vcare_form" >
           <div class="form-group">
             <label for="benefits">Please Select What Benefits They Recieve:</label>
@@ -272,7 +273,16 @@
             <label for="vcare_ssn">Last 4 digits of SSN:</label>
             <input type="text" class="form-control" id="vcare_ssn" placeholder="1234">
           </div>
+           
+        <h5 id="final_display_window"></h5>
+        <h5 id="error_final_display_window"></h5>
+        </form>
+      </form>
+      
+        <button class="submit_button" id="vcare_submit">Submit to Vcare</button>
 
+  
+  <h2>Step 5: Upload Photos To Vcare</h2>
           <div class="form-group">
             <label for="vcare_photoID">Photo ID URL:</label>
             <input type="text" class="form-control" id="vcare_photoID">
@@ -287,23 +297,19 @@
             <label for="vcare_additional_proof">Additional Proof URL:</label>
             <input type="text" class="form-control" id="vcare_additional_proof">
           </div>
-            
-       </form>
-        <h5 id="final_display_window"></h5>
-        <h5 id="error_final_display_window"></h5>
+
         <h5 id="photo_id_status"></h5>
         <h5 id="pob_status"></h5>
         <h5 id="additional_proof_status"></h5>
-        <button class="submit_button" id="vcare_submit">Submit to Vcare</button>
+          
+        <button class="submit_button" id="upload_all_button">Upload Photos</button>
         
       </div>
-      <textarea style="display:none" class="form-control" id="photo_id_output"></textarea><br>
+      <textarea  class="form-control" id="photo_id_output"></textarea><br>
       <textarea style="display:none" class="form-control" id="additional_proof_output"></textarea><br>
       <textarea style="display:none" class="form-control" id="pob_output"></textarea><br>
       <!-- </form> -->
     </body>
-
-
 
     <script type="text/javascript"></script>
 
