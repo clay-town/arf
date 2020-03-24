@@ -85,15 +85,17 @@ function uploadPhotoID(photoId, enrollmentId){
 
   //var about=escape( $("#editorAbout").text());
   $.ajax({
-      url: url
+      url: url,
       type:"post",
       async: false,
       data: {
           about: photoId
       },
-      success: function(response){                                       
+      success: function(response){       
+        document.getElementById("photo_id_status").innerHTML = "Photo ID Upload Successful"                                
       },
       error:function(xhr, ajaxOptions, thrownError){alert(xhr.responseText); ShowMessage("??? ?? ?????? ??????? ????","fail");}
+      
   });
 
 
