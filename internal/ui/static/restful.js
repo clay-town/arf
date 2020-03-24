@@ -119,7 +119,6 @@ function uploadPhotoID(photoId, enrollmentId){
   //   }
   // }
   // request.send();
-}
 
 
 function uploadPOB(pob, enrollmentId){
