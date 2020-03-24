@@ -101,38 +101,28 @@ var sendBase64ToServer = function(url, base64){
     var httpPost = new XMLHttpRequest(),
         path = url
         data = JSON.stringify({image: base64});
-    httpPost.onreadystatechange = function(err) {
-            if (httpPost.readyState == 4 && httpPost.status == 200){
-                console.log(httpPost.responseText);
-                compositeString = document.getElementById("error_final_display_window").innerHTML + "\n"
-                document.getElementById("error_final_display_window").innerHTML = compositeString + httpPost.responseText
-            } else {
-                console.log(err);
-                compositeString = document.getElementById("error_final_display_window").innerHTML + "\n"
-                errorDescription = xmlDoc.getElementsByTagName("errorDescription")[0].innerHTML + "\n"
-                document.getElementById("error_final_display_window").innerHTML = compositeString + errorDescription + httpPost.responseText
-            }
-        };
-    httpPost.open("POST", path, true);
-    httpPost.setRequestHeader('Content-Type', 'application/json');
-    httpPost.send(data);
-    httpPost.onload = function(){
-      var data = this.response;
-            
-      response=JSON.parse(data);
-      
-      parser = new DOMParser();
-      xmlDoc = parser.parseFromString(response,"text/xml");
+        httpPost.onload = function(){
+          var response_data = this.response;
+          response=JSON.parse(response_data);
+          parser = new DOMParser();
+          xmlDoc = parser.parseFromString(response,"text/xml");
 
-      description = xmlDoc.getElementsByTagName("description")[0].innerHTML
-          
-      if(description == "SUCCESS") {  
-        document.getElementById("additional_proof_status").innerHTML.append = "\n "
-      } else if(description == "FAIL"){
-        errorDescription = xmlDoc.getElementsByTagName("errorDescription")[0].innerHTML
-        document.getElementById("additional_proof_status").innerHTML.append = "Error Description: " + errorDescription;
-      }
-    }
+          description = xmlDoc.getElementsByTagName("description")[0].innerHTML
+
+
+          if(description == "SUCCESS") {  
+            compositeString = document.getElementById("error_final_display_window").innerHTML + "\n"
+            document.getElementById("error_final_display_window").innerHTML = compositeString + httpPost.responseText
+          } else if(description == "FAIL"){
+            compositeString = document.getElementById("error_final_display_window").innerHTML + "\n"
+            errorDescription = xmlDoc.getElementsByTagName("errorDescription")[0].innerHTML + "\n"
+            document.getElementById("error_final_display_window").innerHTML = compositeString + errorDescription + httpPost.responseText
+          }
+        };
+
+        httpPost.open("POST", path, true);
+        httpPost.setRequestHeader('Content-Type', 'application/json');
+        httpPost.send(data);
 };
 
 function createCustomer() {
