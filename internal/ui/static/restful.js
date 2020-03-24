@@ -54,6 +54,8 @@ function uploadProof() {
   button.addEventListener("click", function(){
     console.log("upload all photos function");
 
+    document.getElementById('photo_id_status').innerHTML = "";
+
     var photoId= document.getElementById("vcare_photoID").value;
     var pob = document.getElementById("vcare_pob").value;
     var additionalProof = document.getElementById("vcare_additional_proof").value;
