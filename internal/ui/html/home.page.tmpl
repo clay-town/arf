@@ -35,12 +35,19 @@
       <button class="submit_button" id="clear">Clear All Fields</button>
 
       <h2>Step 1: Applicational for National Verifier </h2>  
-        
-        <form id= "inital_nv" >
+
 
           <div class="form-group">
+            <label for="ssn">Did the consumer grant you consent to use and share their Personal Identifiable Information?</label>
+            <input type="checkbox" id="user_consent" name="user_consent" value="Y"select onchange="userConsent()">
+            <label for="user_consent">Yes</label><br>
+          </div>
+        
+        <form id= "inital_nv">
 
             <label for="benefits">Please Select What Benefits They Recieve:</label>
+
+          <div class="form-group">
 
             <select class="form-control" id="benefits" placeholer= "Optional">
               <option>E1</option>
@@ -105,12 +112,6 @@
           <div class="form-group">
             <label for="ssn">Last 4 digits of SSN:</label>
             <input type="text" class="form-control" id="ssn" placeholder="1234">
-          </div>
-
-          <div class="form-group">
-          <label for="ssn">Did the consumer grant you consent to use and share their Personal Identifiable Information?</label>
-          <input type="checkbox" id="user_consent" name="user_consent" value="Y">
-          <label for="user_consent">Yes</label><br>
           </div>
           
        </form>

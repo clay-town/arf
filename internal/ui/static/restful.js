@@ -7,6 +7,7 @@ document.addEventListener("DOMContentLoaded", function() {
   createCustomer();
   clearFields();
   uploadProof();
+  userConsent();
 });
 
 /**
@@ -410,6 +411,34 @@ function displayShippingFields(){
     document.getElementById("shipping_form").style.display = "none";
   }else{
     document.getElementById("shipping_form").style.display = "initial";
+  }
+}
+
+function userConsent(){
+  if(document.getElementById("user_consent").checked){
+    document.getElementById("benefits").disabled = false;
+    document.getElementById("manychatID").disabled = false;
+    document.getElementById("fname").disabled = false;
+    document.getElementById("lname").disabled = false;
+    document.getElementById("dob").disabled = false;
+    document.getElementById("tribalID").disabled = false;
+    document.getElementById("address").disabled = false;
+    document.getElementById("city").disabled = false;
+    document.getElementById("state").disabled = false;
+    document.getElementById("zip").disabled = false;
+    document.getElementById("ssn").disabled = false;
+  }else{
+    document.getElementById("benefits").disabled = true;
+    document.getElementById("manychatID").disabled = true;
+    document.getElementById("fname").disabled = true;
+    document.getElementById("lname").disabled = true;
+    document.getElementById("dob").disabled = true;
+    document.getElementById("tribalID").disabled = true;
+    document.getElementById("address").disabled = true;
+    document.getElementById("city").disabled = true;
+    document.getElementById("state").disabled = true;
+    document.getElementById("zip").disabled = true;
+    document.getElementById("ssn").disabled = true;
   }
 }
 
