@@ -96,8 +96,9 @@ var sendBase64ToServer = function(url, base64){
             }
         };
     // Set the content type of the request to json since that's what's being sent
-    httpPost.setHeader('Content-Type', 'application/json');
     httpPost.open("POST", path, true);
+    httpPost.setRequestHeader('Content-Type', 'application/json');
+  
     httpPost.send(data);
 };
 
