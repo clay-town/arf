@@ -70,6 +70,7 @@ function uploadProof() {
       uploadPhotoID(photoId, enrollmentId)
       uploadPOB(pob, enrollmentId)
       uploadProofVcare(additionalProof, enrollmentId)
+      console.log(photoId)
     })
   });
 }
@@ -91,14 +92,16 @@ function uploadPhotoID(photoId, enrollmentId){
   console.log("pid: " + description);
     if(description == "SUCCESS") {
             
-          //document.getElementById("error_final_display_window").innerHTML = ""
+          document.getElementById("photo_id_status").innerHTML = "Photo ID Upload Successful"
     } else if(description == "FAIL"){
+          document.getElementById("photo_id_status").innerHTML = "Photo ID Upload Failed"
           //errorDescription = xmlDoc.getElementsByTagName("errorDescription")[0].innerHTML
           //document.getElementById("error_final_display_window").innerHTML = "Error Description: " + errorDescription;
     }
   }
   request.send();
 }
+
 
 function uploadPOB(pob, enrollmentId){
   var request = new XMLHttpRequest();
@@ -117,15 +120,15 @@ function uploadPOB(pob, enrollmentId){
     console.log("pob: " + description);
     if(description == "SUCCESS") {
             
-          //document.getElementById("error_final_display_window").innerHTML = ""
+          document.getElementById("pob_status").innerHTML = "Proof of Benefits Upload Successful"
     } else if(description == "FAIL"){
+          document.getElementById("pob_status").innerHTML = "Proof of Benefits Upload Failed"
           //errorDescription = xmlDoc.getElementsByTagName("errorDescription")[0].innerHTML
           //document.getElementById("error_final_display_window").innerHTML = "Error Description: " + errorDescription;
     }
   }
   request.send();
 }
-
 
 function uploadProofVcare(additionalProof, enrollmentId){
   var request = new XMLHttpRequest();
@@ -143,9 +146,9 @@ function uploadProofVcare(additionalProof, enrollmentId){
         //document.getElementById("final_display_window").innerHTML = "Description: " + description
     console.log("proof: " + description);
     if(description == "SUCCESS") {
-            
-          //document.getElementById("error_final_display_window").innerHTML = ""
+          document.getElementById("additional_proof_status").innerHTML = "Additional Proof Upload Successful"
     } else if(description == "FAIL"){
+          document.getElementById("additional_proof_status").innerHTML = "Additional Proof Upload Failed"
           //errorDescription = xmlDoc.getElementsByTagName("errorDescription")[0].innerHTML
           //document.getElementById("error_final_display_window").innerHTML = "Error Description: " + errorDescription;
     }
