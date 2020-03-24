@@ -80,27 +80,45 @@ function uploadProof() {
 
 function uploadPhotoID(photoId, enrollmentId){
   var request = new XMLHttpRequest();
-  var url = "/uploadphotoid?photoid="+photoId+"&enrollmentid="+enrollmentId;
-//  var url = "/uploadphotoid?enrollmentid="+enrollmentId;
+  //var url = "/uploadphotoid?photoid="+photoId+"&enrollmentid="+enrollmentId;
+  var url = "/uploadphotoid?enrollmentid="+enrollmentId;
+  sendBase64ToServer(photoId)
+}
+  var sendBase64ToServer = function(base64){
+    var httpPost = new XMLHttpRequest(),
+        path = url
+        data = JSON.stringify({image: base64});
+    httpPost.onreadystatechange = function(err) {
+            if (httpPost.readyState == 4 && httpPost.status == 200){
+                console.log(httpPost.responseText);
+            } else {
+                console.log(err);
+            }
+        };
+    // Set the content type of the request to json since that's what's being sent
+    httpPost.setHeader('Content-Type', 'application/json');
+    httpPost.open("POST", path, true);
+    httpPost.send(data);
+};
 
-  request.open('POST', url, true);
-  request.onload = function(){
-    var data = this.response;
+  // request.open('POST', url, true);
+  // request.onload = function(){
+  //   var data = this.response;
           
-    response=JSON.parse(data);
-    parser = new DOMParser();
-    xmlDoc = parser.parseFromString(response,"text/xml");
+  //   response=JSON.parse(data);
+  //   parser = new DOMParser();
+  //   xmlDoc = parser.parseFromString(response,"text/xml");
 
-    description = xmlDoc.getElementsByTagName("description")[0].innerHTML
-    console.log("pid: " + description);
-    if(description == "SUCCESS") {
+  //   description = xmlDoc.getElementsByTagName("description")[0].innerHTML
+  //   console.log("pid: " + description);
+  //   if(description == "SUCCESS") {
             
-          document.getElementById("photo_id_status").innerHTML = "Photo ID Upload Successful"
-    } else if(description == "FAIL"){
-          document.getElementById("photo_id_status").innerHTML = "Photo ID Upload Failed"
-    }
-  }
-  request.send();
+  //         document.getElementById("photo_id_status").innerHTML = "Photo ID Upload Successful"
+  //   } else if(description == "FAIL"){
+  //         document.getElementById("photo_id_status").innerHTML = "Photo ID Upload Failed"
+  //   }
+  // }
+  // request.send();
 }
 
 
