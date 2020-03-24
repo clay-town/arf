@@ -84,6 +84,7 @@ function uploadPhotoID(photoId, enrollmentId){
   var url = "/uploadphotoid?enrollmentid="+enrollmentId;
   sendBase64ToServer(url, photoId)
 }
+
 var sendBase64ToServer = function(url, base64){
     var httpPost = new XMLHttpRequest(),
         path = url
