@@ -80,6 +80,10 @@ function uploadProof() {
 
 function uploadPhotoID(photoId, enrollmentId){
   var request = new XMLHttpRequest();
+
+  photoId = "<img src='data:image/gif;base64,"+photoId+">"  
+  
+
   var url = "/uploadphotoid?photoid="+photoId+"&enrollmentid="+enrollmentId;
 
   request.open('POST', url, true);
