@@ -302,9 +302,17 @@ function checkServiceAvailability(){
       document.getElementById("check_service").innerHTML = "Description: " + description
 
       if(description == "SUCCESS") {
+        manychatID = document.getElementById("enrollment_manychat").value;
         enrollmentId = xmlDoc.getElementsByTagName("enrollmentId")[0].innerHTML
+
         document.getElementById("enrollment_id_a").innerHTML = "Enrollment Id: " + enrollmentId
         document.getElementById("enrollment_id_b").value = enrollmentId
+
+        var request = new XMLHttpRequest()
+        var url = "https://hooks.zapier.com/hooks/catch/2550009/o1jkabb?manychatid="+manychatID+"&enrollmentid="+enrollmentId;
+
+        request.open('POST', url, true);
+        request.send();
       } else if(description == "FAIL"){
         errorDescription = xmlDoc.getElementsByTagName("errorDescription")[0].innerHTML
         document.getElementById("enrollment_id_a").innerHTML = "Error Description: " + errorDescription;
@@ -367,6 +375,10 @@ function createApplication(){
   button = document.getElementById("nv_submit");
 
   button.addEventListener("click", function(){
+    document.getElementById("nv_status").innerHTML = "";
+    document.getElementById("nv_eligibility_id").innerHTML = "";
+    document.getElementById("nv_errors").innerHTML = "";
+
     benefit=document.getElementById("benefits").value;
     manychatid = document.getElementById("manychatID").value;
     fname = document.getElementById("fname").value;
@@ -378,9 +390,8 @@ function createApplication(){
     state = document.getElementById("state").value;
     zip = document.getElementById("zip").value;
     ssn = document.getElementById("ssn").value;
-    document.getElementById("nv_status").innerHTML = "";
-    document.getElementById("nv_eligibility_id").innerHTML = "";
-    document.getElementById("nv_errors").innerHTML = "";
+    enrollmentid = document.getElementById("").value;
+  
 
     if(document.getElementById("user_consent").checked){
       var request = new XMLHttpRequest();
