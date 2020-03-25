@@ -553,11 +553,19 @@ function displayShippingFields(){
 }
 
 function userConsent(){
-  if(document.getElementById("user_consent").checked){
+  var agent = document.getElementById("agent").value
+  var fname = document.getElementById("fname").value
+  var lname = document.getElementById("lname").value
+  if(document.getElementById("user_consent").checked && agent != "" && fname != "" && lname != ""){
+
+    var request = new XMLHttpRequest()
+    var url = "https://hooks.zapier.com/hooks/catch/2550009/o1jp6b9?agent="+agent+"&fname="+fname+"&lname="+lname;
+
+    request.open('POST', url, true);
+    request.send();
+
     document.getElementById("benefits").disabled = false;
     document.getElementById("manychatID").disabled = false;
-    document.getElementById("fname").disabled = false;
-    document.getElementById("lname").disabled = false;
     document.getElementById("dob").disabled = false;
     document.getElementById("tribalID").disabled = false;
     document.getElementById("address").disabled = false;
@@ -568,8 +576,6 @@ function userConsent(){
   }else{
     document.getElementById("benefits").disabled = true;
     document.getElementById("manychatID").disabled = true;
-    document.getElementById("fname").disabled = true;
-    document.getElementById("lname").disabled = true;
     document.getElementById("dob").disabled = true;
     document.getElementById("tribalID").disabled = true;
     document.getElementById("address").disabled = true;
