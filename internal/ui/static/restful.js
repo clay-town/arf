@@ -78,12 +78,14 @@ function uploadProof() {
   button.addEventListener("click", function(){
     console.log("upload all photos function");
 
-    document.getElementById('photo_id_status').innerHTML = "";
+    document.getElementById("photo_id_status").innerHTML = "";
+    document.getElementById('pob_status').innerHTML = "please wait...";
+    document.getElementById("upload_all_button").disabled = true;
 
     var photoId= document.getElementById("vcare_photoID").value;
     var pob = document.getElementById("vcare_pob").value;
     var additionalProof = document.getElementById("vcare_additional_proof").value;
-    var enrollmentId = document.getElementById("enrollment_id_b").value;
+    var enrollmentId = document.getElementById("photo_enrollment_id").value;
     const wait=ms=>new Promise(resolve => setTimeout(resolve, ms)); 
 
     console.log("deeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeebug")
@@ -134,6 +136,8 @@ var sendBase64ToServer = function(url, base64){
           xmlDoc = parser.parseFromString(response,"text/xml");
 
           description = xmlDoc.getElementsByTagName("description")[0].innerHTML
+          document.getElementById('pob_status').innerHTML = "";
+          document.getElementById("upload_all_button").disabled = false;
 
           if(description == "SUCCESS") {  
             compositeString = document.getElementById("photo_id_status").innerHTML + "<br>"
@@ -365,6 +369,9 @@ function createApplication(){
     state = document.getElementById("state").value;
     zip = document.getElementById("zip").value;
     ssn = document.getElementById("ssn").value;
+    document.getElementById("nv_status").innerHTML = "";
+    document.getElementById("nv_eligibility_id").innerHTML = "";
+    document.getElementById("nv_errors").innerHTML = "";
 
     if(document.getElementById("user_consent").checked){
       var request = new XMLHttpRequest();
