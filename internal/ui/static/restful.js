@@ -11,6 +11,27 @@ document.addEventListener("DOMContentLoaded", function() {
   userConsent();
 });
 
+var Step_1_Completed = 16950972;
+var Step_2_Completed = 16950974;
+var Step_3_Completed = 16950977;
+var Step_4_Completed = 16950982;
+var Step_5_Completed = 16950986;
+
+var mc_address = 2865544;
+var mc_city = 2865546;
+var mc_dob = 2865548;
+var mc_enrollmentID = 3079819;
+var mc_fname =2865542;
+var mc_lname = 2865543;
+var mc_ssn = 2865723;
+var mc_state = 2865545;
+var mc_tribalID = 2865742;
+var mc_zip = 2865547;
+var mc_eligibility_checkID = 2853139;
+var mc_eligibility_exp = 2853143;
+var mc_nv_status = 2853140;
+
+
 /**
  * convertImgToBase64
  * @param  {String}   url
@@ -86,6 +107,7 @@ function uploadProof() {
     var pob = document.getElementById("vcare_pob").value;
     var additionalProof = document.getElementById("vcare_additional_proof").value;
     var enrollmentId = document.getElementById("photo_enrollment_id").value;
+    var manychatID = document.getElementById("photo_manychat").value;
     const wait=ms=>new Promise(resolve => setTimeout(resolve, ms)); 
 
     console.log("deeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeebug")
@@ -101,6 +123,7 @@ function uploadProof() {
       uploadPhotoID(photoId, enrollmentId)
       uploadPOB(pob, enrollmentId)
       uploadProofVcare(additionalProof, enrollmentId)
+      addTagToUser(manychatID, Step_5_Completed);
       console.log(photoId)
     })
   });
@@ -213,6 +236,7 @@ function createCustomer() {
       document.getElementById("final_display_window").innerHTML = "Description: " + description
     
       if(description == "SUCCESS") {
+        addTagToUser(manychatID, Step_4_Completed);
 
         var request = new XMLHttpRequest()
         var url = "https://hooks.zapier.com/hooks/catch/2550009/o1j9i4n/?manychatid=" +manychatID;
@@ -220,11 +244,19 @@ function createCustomer() {
         request.open('POST', url, true);
         request.send();
 
-        var request = new XMLHttpRequest()
-        var url = "https://hooks.zapier.com/hooks/catch/2550009/o1co8fq?manychatid="+manychatID+"&fname=***&lname=***&tribalid=***&address=***&city=***&state=***&zip=***&ssn=***";
+        // var request = new XMLHttpRequest()
+        // var url = "https://hooks.zapier.com/hooks/catch/2550009/o1co8fq?manychatid="+manychatID+"&fname=***&lname=***&tribalid=***&address=***&city=***&state=***&zip=***&ssn=***";
 
-        request.open('POST', url, true);
-        request.send();
+        // request.open('POST', url, true);
+        // request.send();
+        setManyChatField(manychatID, mc_fname, "***");
+        setManyChatField(manychatID, mc_lname, "***");
+        setManyChatField(manychatID, mc_tribalID, "***");
+        setManyChatField(manychatID, mc_address, "***");
+        setManyChatField(manychatID, mc_city, "***");
+        setManyChatField(manychatID, mc_state, "***");
+        setManyChatField(manychatID, mc_zip, "***");
+        setManyChatField(manychatID, mc_ssn, "***");
         
         document.getElementById("error_final_display_window").innerHTML = ""
         $("#plan_id_options").empty();
@@ -322,11 +354,12 @@ function checkServiceAvailability(){
         document.getElementById("enrollment_id_a").innerHTML = "Enrollment Id: " + enrollmentId
         document.getElementById("enrollment_id_b").value = enrollmentId
 
-        var request = new XMLHttpRequest()
-        var url = "https://hooks.zapier.com/hooks/catch/2550009/o1jkabb?manychatid="+manychatID+"&enrollmentid="+enrollmentId;
+        // var request = new XMLHttpRequest()
+        // var url = "https://hooks.zapier.com/hooks/catch/2550009/o1jkabb?manychatid="+manychatID+"&enrollmentid="+enrollmentId;
 
-        request.open('POST', url, true);
-        request.send();
+        // request.open('POST', url, true);
+        // request.send();
+        setManyChatField(manychatID, mc_enrollmentID, enrollmentId);
       } else if(description == "FAIL"){
         errorDescription = xmlDoc.getElementsByTagName("errorDescription")[0].innerHTML
         document.getElementById("enrollment_id_a").innerHTML = "Error Description: " + errorDescription;
@@ -338,11 +371,20 @@ function checkServiceAvailability(){
 
 
 function sendEligibilityToManyChat(eligibilityCheckId, manychatID, fname, lname, tribalid, address, city, state, zip, ssn){
-  var request = new XMLHttpRequest()
-  var url = "https://hooks.zapier.com/hooks/catch/2550009/o1co8fq?manychatid="+manychatID+"&eligibilityCheckId="+eligibilityCheckId+"&fname="+fname+"&lname="+lname+"&tribalid="+tribalid+"&address="+address+"&city="+city+"&state="+state+"&zip="+zip+"&ssn="+ssn;
+  // var request = new XMLHttpRequest()
+  // var url = "https://hooks.zapier.com/hooks/catch/2550009/o1co8fq?manychatid="+manychatID+"&eligibilityCheckId="+eligibilityCheckId+"&fname="+fname+"&lname="+lname+"&tribalid="+tribalid+"&address="+address+"&city="+city+"&state="+state+"&zip="+zip+"&ssn="+ssn;
 
-  request.open('POST', url, true);
-  request.send();
+  // request.open('POST', url, true);
+  // request.send();
+  setManyChatField(manychatID, mc_eligibility_checkID, eligibilityCheckId);
+  setManyChatField(manychatID, mc_fname, fname);
+  setManyChatField(manychatID, mc_lname, lname);
+  setManyChatField(manychatID, mc_tribalID, tribalid);
+  setManyChatField(manychatID, mc_address, address);
+  setManyChatField(manychatID, mc_city, city);
+  setManyChatField(manychatID, mc_state, state);
+  setManyChatField(manychatID, mc_zip, zip);
+  setManyChatField(manychatID, mc_ssn, ssn);
 }
 
 function applicationResponse(nv_response, manychatID, fname, lname, tribalid, address, city, state, zip, ssn) {
@@ -359,6 +401,7 @@ function applicationResponse(nv_response, manychatID, fname, lname, tribalid, ad
     document.getElementById("nv_errors").innerHTML = "ERRORS: " + errors;
     
   }else if(status == "PENDING_RESOLUTION" || status == "PENDING_ELIGIBILITY") {
+    addTagToUser(manychatID, Step_1_Completed);
     document.getElementById("nv_status").innerHTML = "National Verifier Status: " + status;
     document.getElementById("nv_eligibility_id").innerHTML = "eligibilityCheckId:" + eligibilityCheckId;
     errors = "";
@@ -374,6 +417,7 @@ function applicationResponse(nv_response, manychatID, fname, lname, tribalid, ad
     sendEligibilityToManyChat(eligibilityCheckId, manychatID, fname, lname, tribalid, address, city, state, zip, ssn);
 
   }else if(status == "COMPLETE" || status == "PENDING_REVIEW" ){
+    addTagToUser(manychatID, Step_1_Completed);
     document.getElementById("nv_status").innerHTML = "National Verifier Status: " + status;
     document.getElementById("nv_eligibility_id").innerHTML = "eligibility CheckId:" + eligibilityCheckId;
     document.getElementById("nv_errors").innerHTML = "eligibility Expiration Date:" + nv_response.eligibilityExpirationDate;
@@ -404,7 +448,6 @@ function createApplication(){
     state = document.getElementById("state").value;
     zip = document.getElementById("zip").value;
     ssn = document.getElementById("ssn").value;
-    enrollmentid = document.getElementById("").value;
   
 
     if(document.getElementById("user_consent").checked){
@@ -441,6 +484,9 @@ function sendUserToManyChatFlowAfterApplicationCreation(){
 
       request.open('POST', url, true);
       request.send();
+
+      addTagToUser(manychatID, Step_2_Completed);
+
       document.getElementById("sent_status").innerHTML = "Application form sent to user!";
     }else{
       document.getElementById("sent_status").innerHTML = "Please enter a ManyChat ID";
@@ -451,7 +497,7 @@ function sendUserToManyChatFlowAfterApplicationCreation(){
 
 }
 
-function statusCheckResponse(response){
+function statusCheckResponse(response, manychatID){
   response = JSON.parse(response);
   if(response.status ==  "BAD_REQUEST"){
     document.getElementById("status").innerHTML = "Application Status: "+response.status;
@@ -466,6 +512,9 @@ function statusCheckResponse(response){
       errors += "\n" + response.failures[i]+"\n";
     }
     document.getElementById("status_failures").innerHTML = "ERRORS: " + errors;
+  }else if(response.status == "COMPLETE"){
+    document.getElementById("status").innerHTML = "Application Status: "+response.status;
+    addTagToUser(manychatID, Step_3_Completed);
   }else{
      document.getElementById("status").innerHTML = "Application Status: " + response.message;
   }
@@ -479,6 +528,8 @@ function statusCheck() {
     document.getElementById("status_failures").innerHTML="";
 
     var eligibilityCheckId = document.getElementById("status_check_id").value;
+    var manychatID = document.getElementById("status_manychatID").value;
+
     var request = new XMLHttpRequest();
     console.log("status check js function");
     var url = "/status?eligibilityCheckId="+eligibilityCheckId;
@@ -487,7 +538,7 @@ function statusCheck() {
     request.onload = function(){
       var data = this.response;
       response=JSON.parse(data);
-      statusCheckResponse(response);  
+      statusCheckResponse(response, manychatID);  
     }
     request.send();
   });
@@ -571,6 +622,22 @@ function clearFields(){
     document.getElementById("user_consent").checked = false;
     userConsent();
   });
+}
+
+function addTagToUser(manychatID, tagName) {
+  var request = new XMLHttpRequest()
+  var url = "https://hooks.zapier.com/hooks/catch/2550009/o1jq4dp?manychatid="+manychatID+"&tagName="+tagName;
+
+  request.open('POST', url, true);
+  request.send();
+}
+
+function setManyChatField(manychatID, customField, value){
+  var request = new XMLHttpRequest()
+  var url = "https://hooks.zapier.com/hooks/catch/2550009/o1j05sb?manychatid="+manychatID+"&customField="+customField+"&value="+value;
+
+  request.open('POST', url, true);
+  request.send();
 }
 
 function submitApplication(){
