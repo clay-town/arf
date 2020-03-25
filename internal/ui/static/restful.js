@@ -404,11 +404,18 @@ function sendUserToManyChatFlowAfterApplicationCreation(){
 function statusCheckResponse(response){
   response = JSON.parse(response);
   if(response.status ==  "BAD_REQUEST"){
-    document.getElementById("status").innerHTML = "Application Status: " + response.status;
+    document.getElementById("status").innerHTML = "Application Status: "+response.status;
   } else if(response.status == "IN_PROGRESS" || response.status == "PENDING_REVIEW "){
-    document.getElementById("status").innerHTML = "Application Status: " + response.status;
-  }else if(response.status == "PENDING_CERT" || response.status == "PENDING_ELIGIBILITY" || response.status == "PENDING_RESOLUTION"){
-    document.getElementById("status").innerHTML = "Application Status: " + response.status +" Please resend form to user.";
+    document.getElementById("status").innerHTML = "Application Status: "+response.status;
+  }else if(response.status == "PENDING_CERT" || response.status == "PENDING_ELIGIBILITY"){
+    document.getElementById("status").innerHTML = "Application Status: " + response.status + " Please resend form to user.";
+  }else if(response.status == "PENDING_RESOLUTION"){
+    document.getElementById("status").innerHTML = "Application Status: " + response.status + " Please resend form to user.";
+    errors = "";
+    for(i in response.failures){
+      errors += "\n" + response.failures[i]+"\n";
+    }
+    document.getElementById("status_failures").innerHTML = "ERRORS: " + errors;
   }else{
      document.getElementById("status").innerHTML = "Application Status: " + response.message;
   }
@@ -426,7 +433,7 @@ function statusCheck() {
     request.onload = function(){
       var data = this.response;
       response=JSON.parse(data);
-      statusCheckResponse(response);     
+      statusCheckResponse(response);  
     }
     request.send();
   });
