@@ -208,6 +208,9 @@ function createCustomer() {
       if(description == "SUCCESS") {
         
         document.getElementById("error_final_display_window").innerHTML = ""
+        $("#plan_id_options").empty();
+        $("#plan_id_options").append('<option value="">Select Plan ID</option>');
+
       } else if(description == "FAIL"){
         errorDescription = xmlDoc.getElementsByTagName("errorDescription")[0].innerHTML
         document.getElementById("error_final_display_window").innerHTML = "Error Description: " + errorDescription;
@@ -480,6 +483,30 @@ function clearFields(){
     document.getElementById('submit_vcare_form').reset();
     document.getElementById('vcare_zip_a').value = "";
     document.getElementById('get_plan_state').value = "";
+    document.getElementById("nv_status").innerHTML = "";
+    document.getElementById("nv_eligibility_id").innerHTML="";
+    document.getElementById("nv_errors").innerHTML="";
+    document.getElementById("sent_status").innerHTML="";
+    document.getElementById("status").innerHTML="";
+    document.getElementById("check_service").innerHTML="";
+    document.getElementById("enrollment_id_a").innerHTML="";
+    document.getElementById("get_plan_error_description").innerHTML="";
+    document.getElementById("plan_id").innerHTML="";
+    document.getElementById("final_display_window").innerHTML="";
+    document.getElementById("error_final_display_window").innerHTML="";
+    document.getElementById("photo_id_status").innerHTML="";
+    document.getElementById("pob_status").innerHTML="";
+    document.getElementById("additional_proof_status").innerHTML="";
+    document.getElementById("vcare_photoID").value="";
+    document.getElementById("vcare_pob").value="";
+    document.getElementById("vcare_additional_proof").value="";
+    document.getElementById("photo_id_output").value="";
+    document.getElementById("additional_proof_output").value="";
+    document.getElementById("pob_output").value="";
+    $("#plan_id_options").empty();
+    $("#plan_id_options").append('<option value="">Select Plan ID</option>');
+    document.getElementById("user_consent").checked = false;
+    userConsent();
   });
 }
 
