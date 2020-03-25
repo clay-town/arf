@@ -76,11 +76,11 @@ function convertImgToBase64(url, output){
 function uploadProof() {
   button = document.getElementById("upload_all_button");
   button.addEventListener("click", function(){
-    console.log("upload all photos function");
-
     document.getElementById("photo_id_status").innerHTML = "";
     document.getElementById('pob_status').innerHTML = "please wait...";
     document.getElementById("upload_all_button").disabled = true;
+
+    console.log("upload all photos function");
 
     var photoId= document.getElementById("vcare_photoID").value;
     var pob = document.getElementById("vcare_pob").value;
@@ -157,6 +157,8 @@ var sendBase64ToServer = function(url, base64){
 function createCustomer() {
   button = document.getElementById("vcare_submit");
   button.addEventListener("click", function(){
+    document.getElementById("final_display_window").innerHTML="";
+    document.getElementById("error_final_display_window").innerHTML="";
 
     console.log("create customer js function");
     var zipCode = document.getElementById("vcare_zip_a").value;
@@ -228,6 +230,9 @@ function getPlanId() {
   button = document.getElementById("plan_id_submit");
 
   button.addEventListener("click", function(){
+    document.getElementById("get_plan_error_description").innerHTML="";
+    document.getElementById("plan_id").innerHTML="";
+
     console.log("get plan id js function");
     var zipCode = document.getElementById("vcare_zip_a").value;
     var tribal = "N"
@@ -274,7 +279,11 @@ function getPlanId() {
 
 function checkServiceAvailability(){
   button = document.getElementById("check_sevice_submit");
+
   button.addEventListener("click", function(){
+    document.getElementById("check_service").innerHTML="";
+    document.getElementById("enrollment_id_a").innerHTML="";
+
     console.log("check_service js function");
     var zipCode = document.getElementById("vcare_zip_a").value;
     var refNumber = uniqueIdentifierGenerator();
@@ -396,14 +405,23 @@ function sendUserToManyChatFlowAfterApplicationCreation(){
   button = document.getElementById("send_user_flow");
 
   button.addEventListener("click", function(){
+
+    document.getElementById("sent_status").innerHTML="";
+
     manychatID = document.getElementById("senduser_manychatID").value;
 
-    var request = new XMLHttpRequest()
-    var url = "https://hooks.zapier.com/hooks/catch/2550009/o1cb0a0?manychatid="+manychatID;
+    if(manychatID != ""){
+      var request = new XMLHttpRequest()
+      var url = "https://hooks.zapier.com/hooks/catch/2550009/o1cb0a0?manychatid="+manychatID;
 
-    request.open('POST', url, true);
-    request.send();
-    document.getElementById("sent_status").innerHTML = "Application form sent to user!";
+      request.open('POST', url, true);
+      request.send();
+      document.getElementById("sent_status").innerHTML = "Application form sent to user!";
+    }else{
+      document.getElementById("sent_status").innerHTML = "Please enter a ManyChat ID";
+    }
+
+    
   });
 
 }
@@ -430,7 +448,11 @@ function statusCheckResponse(response){
 
 function statusCheck() {
   button = document.getElementById("status_submit");
+
   button.addEventListener("click", function(){
+    document.getElementById("status").innerHTML="";
+    document.getElementById("status_failures").innerHTML="";
+
     var eligibilityCheckId = document.getElementById("status_check_id").value;
     var request = new XMLHttpRequest();
     console.log("status check js function");
