@@ -176,6 +176,7 @@ function createCustomer() {
     var city = document.getElementById("vcare_city").value;
     var ssn = document.getElementById("vcare_ssn").value;
     var programCode = document.getElementById("vcare_benefits").value.split(' ')[1]
+    var manychatID = document.getElementById("enrollment_manychat").value;
     var refNumber = uniqueIdentifierGenerator();
 
     if(document.getElementById("shipping_physical").checked){
@@ -212,12 +213,25 @@ function createCustomer() {
       document.getElementById("final_display_window").innerHTML = "Description: " + description
     
       if(description == "SUCCESS") {
+
+        var request = new XMLHttpRequest()
+        var url = "https://hooks.zapier.com/hooks/catch/2550009/o1j9i4n/?manychatid=" +manychatID;
+
+        request.open('POST', url, true);
+        request.send();
+
+        var request = new XMLHttpRequest()
+        var url = "https://hooks.zapier.com/hooks/catch/2550009/o1co8fq?manychatid="+manychatID+"&fname=***&lname=***&tribalid=***&address=***&city=***&state=***&zip=***&ssn=***";
+
+        request.open('POST', url, true);
+        request.send();
         
         document.getElementById("error_final_display_window").innerHTML = ""
         $("#plan_id_options").empty();
         $("#plan_id_options").append('<option value="">Select Plan ID</option>');
 
       } else if(description == "FAIL"){
+
         errorDescription = xmlDoc.getElementsByTagName("errorDescription")[0].innerHTML
         document.getElementById("error_final_display_window").innerHTML = "Error Description: " + errorDescription;
       }
@@ -524,6 +538,7 @@ function clearFields(){
   button = document.getElementById("clear");
 
   button.addEventListener("click", function(){
+
     document.getElementById('inital_nv').reset();
     document.getElementById('manychatID_form').reset();
     document.getElementById('status_form').reset();
