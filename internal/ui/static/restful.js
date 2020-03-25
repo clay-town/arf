@@ -83,7 +83,7 @@ function uploadProof() {
     var photoId= document.getElementById("vcare_photoID").value;
     var pob = document.getElementById("vcare_pob").value;
     var additionalProof = document.getElementById("vcare_additional_proof").value;
-    var enrollmentId = document.getElementById("enrollment_id_b").value;
+    var enrollmentId = document.getElementById("photo_enrollment_id").value;
     const wait=ms=>new Promise(resolve => setTimeout(resolve, ms)); 
 
     console.log("deeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeebug")
