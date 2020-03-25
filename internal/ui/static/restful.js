@@ -495,6 +495,7 @@ function clearFields(){
     document.getElementById("nv_errors").innerHTML="";
     document.getElementById("sent_status").innerHTML="";
     document.getElementById("status").innerHTML="";
+    document.getElementById("status_failures").innerHTML="";
     document.getElementById("check_service").innerHTML="";
     document.getElementById("enrollment_id_a").innerHTML="";
     document.getElementById("get_plan_error_description").innerHTML="";
