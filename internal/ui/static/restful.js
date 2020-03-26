@@ -426,6 +426,8 @@ function applicationResponse(nv_response, manychatID, fname, lname, tribalid, ad
   }else if(status == "INTERNAL_SERVER_ERROR"){
     document.getElementById("nv_status").innerHTML = "National Verifier Status: " + status;
     document.getElementById("nv_errors").innerHTML = nv_response.message;
+  }else{
+    document.getElementById("nv_errors").innerHTML = "net::ERR_CONNECTION_REFUSED";
   }
 }
 
@@ -603,6 +605,7 @@ function clearFields(){
     document.getElementById("agent").value="";
     document.getElementById("fname").value="";
     document.getElementById("lname").value="";
+    document.getElementById("enrollment_manychat").value="";
     document.getElementById('vcare_zip_a').value = "";
     document.getElementById('get_plan_state').value = "";
     document.getElementById("nv_status").innerHTML = "";
@@ -620,6 +623,8 @@ function clearFields(){
     document.getElementById("photo_id_status").innerHTML="";
     document.getElementById("pob_status").innerHTML="";
     document.getElementById("additional_proof_status").innerHTML="";
+    document.getElementById("photo_manychat").value="";
+    document.getElementById("photo_enrollment_id").value="";
     document.getElementById("vcare_photoID").value="";
     document.getElementById("vcare_pob").value="";
     document.getElementById("vcare_additional_proof").value="";
