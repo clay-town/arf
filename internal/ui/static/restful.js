@@ -6,8 +6,8 @@ document.addEventListener("DOMContentLoaded", function() {
   getPlanId();
   createCustomer();
   clearFields();
-  uploadProof();
-  //uploadURLs();
+  //uploadProof();
+  uploadURLs();
   userConsent();
 });
 
@@ -50,18 +50,55 @@ function uploadURLs() {
     var photo_id = document.getElementById("vcare_photoID").value;
     var pob = document.getElementById("vcare_pob").value;
     var additional_proof = document.getElementById("vcare_additional_proof").value;
+    var enrollmentId = document.getElementById("photo_enrollment_id").value;
 
-    var request = new XMLHttpRequest();
+    var id_request = new XMLHttpRequest();
     console.log("upload URLs js function");
-    var url = "/uploadurl?photoid="+photo_id+"&pob="+pob+"&additional_proof="+additional_proof;
+    var url = "/uploadurl?imageURL="+photo_id+"&enrollmentid="+enrollmentId;
 
-    request.open('POST', url, true);
-    request.onload = function(){
+    id_request.open('POST', url, true);
+    id_request.onload = function(){
       var data = this.response;
       response=JSON.parse(data);
-      statusCheckResponse(response);     
+      if(response != ""){
+        document.getElementById("photo_id_status").innerHTML = "Photo ID upload: "+response;
+      }else{
+        document.getElementById("photo_id_status").innerHTML = "Photo ID upload FAILED.";
+      }       
     }
-    request.send();
+    id_request.send();
+
+    var pob_request = new XMLHttpRequest();
+    console.log("upload URLs js function");
+    var url = "/uploadurl?imageURL="+pob+"&enrollmentid="+enrollmentId;
+
+    pob_request.open('POST', url, true);
+    pob_request.onload = function(){
+      var data = this.response;
+      response=JSON.parse(data);
+      if(response != ""){
+        document.getElementById("pob_status").innerHTML = "POB upload: "+response;
+      }else{
+        document.getElementById("pob_status").innerHTML = "POB upload FAILED.";
+      }     
+    }
+    pob_request.send();
+
+    var proof_request = new XMLHttpRequest();
+    console.log("upload URLs js function");
+    var url = "/uploadurl?imageURL="+additional_proof+"&enrollmentid="+enrollmentId;
+
+    proof_request.open('POST', url, true);
+    proof_request.onload = function(){
+      var data = this.response;
+      response=JSON.parse(data);
+      if(response != ""){
+        document.getElementById("additional_proof_status").innerHTML = "Additional Proof upload: "+response;
+      }else{
+        document.getElementById("additional_proof_status").innerHTML = "Additional Proof upload FAILED.";
+      }       
+    }
+    proof_request.send();
   });
 }
 
