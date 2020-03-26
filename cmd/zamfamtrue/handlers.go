@@ -18,17 +18,31 @@ type test_struct struct {
 
 func uploadURLs(w http.ResponseWriter, r *http.Request) {
   godotenv.Load()
-    url := ""
-    method := "POST"
 
     enrollmentId := r.URL.Query().Get("enrollmentid")
-    refNumber := r.URL.Query().Get("refNumber") 
+    //refNumber := r.URL.Query().Get("refNumber") 
     
-    photoID := r.URL.Query().Get("photoid")
-    pob := r.URL.Query().Get("pob")
-    aditionalProof := r.URL.Query().Get("additional_proof")
+    imageURL := r.URL.Query().Get("imageURL")
 
-    var body = "dummy values" + photoID + " " + pob + " " + aditionalProof +url +method+enrollmentId+refNumber
+    //var body = "dummy values" + photoID + " " + pob + " " + aditionalProof +url +method+enrollmentId+refNumber
+    url := "https://truewireless.secure-order-forms.com/fb_url/endpoint.php"
+    method := "POST"
+
+    payload := strings.NewReader("{\n\"enrollment_id\":\""+enrollmentId+"\",\n\"fb_url\":\""+imageURL+"\"\n}\n")
+
+    client := &http.Client {
+    }
+    req, err := http.NewRequest(method, url, payload)
+
+    if err != nil {
+      fmt.Println(err)
+    }
+    req.Header.Add("Content-Type", "text/plain")
+    req.Header.Add("Cookie", "__cfduid=db287c8625157482e8a1ebae6a0aaeaea1585242913")
+
+    res, err := client.Do(req)
+    defer res.Body.Close()
+    body, err := ioutil.ReadAll(res.Body)
 
     fmt.Println(string(body))
     json.NewEncoder(w).Encode(string(body))

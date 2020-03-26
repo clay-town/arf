@@ -34,8 +34,22 @@
 
       <button class="submit_button" id="clear">Clear All Fields</button>
 
-      <h2>Step 1: Application for National Verifier </h2>  
+      <h2>Step 1: Application for National Verifier </h2>
 
+          <div class="form-group">
+            <label for="agent">Agent Name:</label>
+            <input type="text" class="form-control" id="agent" placeholder="John Doe">
+          </div>
+
+          <div class="form-group">
+            <label for="fname">First Name:</label>
+            <input type="text" class="form-control" id="fname" placeholder="John">
+          </div>
+           
+          <div class="form-group">
+            <label for="lname">Last Name:</label>
+            <input type="text" class="form-control" id="lname" placeholder="Doe">
+          </div>
 
           <div class="form-group">
             <label for="ssn">Did the consumer grant you consent to use and share their Personal Identifiable Information?</label>
@@ -67,16 +81,6 @@
           <div class="form-group">
             <label for="manychatID">ManyChat ID:</label>
             <input type="text" class="form-control" id="manychatID">
-          </div>
-
-          <div class="form-group">
-            <label for="fname">First Name:</label>
-            <input type="text" class="form-control" id="fname" placeholder="John">
-          </div>
-           
-          <div class="form-group">
-            <label for="lname">Last Name:</label>
-            <input type="text" class="form-control" id="lname" placeholder="Doe">
           </div>
           
           <div class="form-group">
@@ -139,6 +143,12 @@
         <br>
         <h2>Step 3: Submit Status Check</h2>
         <form id="status_form">
+
+        <div class="form-group">
+            <label for="status_manychatID">ManyChat ID:</label>
+            <input type="text" class="form-control" id="status_manychatID">
+        </div>
+
         <div class="form-group">
             <label for="status_check_id">Eligibility Check ID:</label>
             <input type="text" class="form-control" id="status_check_id">
@@ -152,6 +162,11 @@
 
         <br>
         <h2>Step 4: Submit Application to Vcare</h2>
+
+        <div class="form-group">
+            <label for="enrollment_manychat">ManyChat ID:</label>
+            <input type="text" class="form-control" id="enrollment_manychat">
+        </div>
 
 
          <div class="form-group">
@@ -168,6 +183,7 @@
             <label for="get_plan_state">Two-letter State Code:</label>
             <input type="text" class="form-control" id="get_plan_state" placeholder="OR">
         </div>
+
         <div class="form-group">
             <label for="get_plan_state">Check box if this is a tribal customer:</label>
             <input type="checkbox" id="vcare_tribal" name="tribalID" value="Y">
@@ -286,6 +302,11 @@
   
   <h2>Step 5: Upload Photos To Vcare</h2>
           <div class="form-group">
+            <label for="photo_manychat">ManyChat ID:</label>
+            <input type="text" class="form-control" id="photo_manychat">
+          </div>
+
+          <div class="form-group">
             <label for="photo_enrollment_id">Enrollment ID:</label>
             <input type="text" class="form-control" id="photo_enrollment_id">
           </div>
@@ -312,9 +333,9 @@
         <button class="submit_button" id="upload_all_button">Upload Photos</button>
         
       </div>
-      <textarea  class="form-control" id="photo_id_output"></textarea><br>
-      <textarea class="form-control" id="additional_proof_output"></textarea><br>
-      <textarea class="form-control" id="pob_output"></textarea><br>
+      <textarea style="visibility: hidden" class="form-control" id="photo_id_output"></textarea><br>
+      <textarea style="visibility: hidden" class="form-control" id="additional_proof_output"></textarea><br>
+      <textarea style="visibility: hidden" class="form-control" id="pob_output"></textarea><br>
       <!-- </form> -->
     </body>
 
