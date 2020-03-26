@@ -600,6 +600,9 @@ function clearFields(){
     document.getElementById('manychatID_form').reset();
     document.getElementById('status_form').reset();
     document.getElementById('submit_vcare_form').reset();
+    document.getElementById("agent").value="";
+    document.getElementById("fname").value="";
+    document.getElementById("lname").value="";
     document.getElementById('vcare_zip_a').value = "";
     document.getElementById('get_plan_state').value = "";
     document.getElementById("nv_status").innerHTML = "";
