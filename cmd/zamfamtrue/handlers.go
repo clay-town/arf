@@ -16,7 +16,7 @@ type test_struct struct {
 
 func statusCheck(w http.ResponseWriter, r *http.Request) {
 	// APIKEY := os.Getenv("APIKEY");
-	eligibilityCheckId := r.URL.Query().Get("eligibilityCheckId");
+	// eligibilityCheckId := r.URL.Query().Get("eligibilityCheckId");
 
 
 	url := "";
