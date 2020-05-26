@@ -1,4 +1,4 @@
-package main
+package arf
 
 type Item struct {
 	Title string `xml:"title"`
