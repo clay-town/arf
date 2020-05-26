@@ -42,8 +42,9 @@ function statusCheck() {
     request.open('POST', url, true);
     request.onload = function(){
       var data = this.response;
-      response=JSON.parse(data);
-      statusCheckResponse(response, manychatID);  
+      console.log(data)
+      // response=JSON.parse(data);
+      // statusCheckResponse(response, manychatID);  
     }
     request.send();
   });
