@@ -5,7 +5,8 @@ import (
 	"net/http"
 	"html/template"
 	"encoding/json"
-	"io/ioutil"
+	"encoding/xml"
+	// "io/ioutil"
 	"fmt"
 	// "strings"
 )
@@ -25,7 +26,21 @@ func statusCheck(w http.ResponseWriter, r *http.Request) {
    fmt.Println(err)
   } 
   defer resp.Body.Close()
-  data, err := ioutil.ReadAll(resp.Body)
+
+  items := Items{}
+	decoder := xml.NewDecoder(resp.Body)
+
+	err = decoder.Decode(&rss)
+
+	if err != nil {
+   fmt.Println(err)
+  } 
+
+  fmt.Println(items)
+  //fmt.Println(string(data))
+  // fmt.Println(resp)
+  // data, err := ioutil.ReadAll(resp.Body)
+
   if err != nil {
    fmt.Println(err)
   } 
