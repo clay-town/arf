@@ -7,7 +7,6 @@ import (
 	"encoding/json"
 	"io/ioutil"
 	"os"
-	"github.com/joho/godotenv"
 	"fmt"
 	"strings"
 )
@@ -17,7 +16,7 @@ type test_struct struct {
 }
 
 func statusCheck(w http.ResponseWriter, r *http.Request) {
-	APIKEY := os.Getenv("APIKEY");
+	// APIKEY := os.Getenv("APIKEY");
 	eligibilityCheckId := r.URL.Query().Get("eligibilityCheckId");
 
 
@@ -35,7 +34,7 @@ func statusCheck(w http.ResponseWriter, r *http.Request) {
   	// req.Header.Add("accept", "application/json")
   	// req.Header.Add("accept-language", "en-US,en;q=0.8")
   	// req.Header.Add("content-type", "application/json")
-  	// res, err := client.Do(req)
+  	res, err := client.Do(req)
   	defer res.Body.Close()
   	body, err := ioutil.ReadAll(res.Body)
 	json.NewEncoder(w).Encode(string(body))
