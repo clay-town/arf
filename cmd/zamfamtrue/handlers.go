@@ -24,7 +24,7 @@ func statusCheck(w http.ResponseWriter, r *http.Request) {
   if err != nil {
    fmt.Println(err)
   } 
-  defer response.Body.Close()
+  defer resp.Body.Close()
   data, err := ioutil.ReadAll(resp.Body)
   if err != nil {
    fmt.Println(err)
