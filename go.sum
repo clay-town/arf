@@ -1,5 +1,6 @@
+github.com/clay-town/arf v0.0.0-20200526224100-a10d521a7bc5 h1:EqsiroOc4uWryYqgAR3zbRAuq02bl9KQ5x+MxYO0PTs=
+github.com/clay-town/arf v0.0.0-20200526224829-36cd8c9a0e00 h1:aewL+qm1/S6injzpV+yBvcYlSLwVqxUnIp29toCHtfg=
 github.com/gorilla/mux v1.7.3 h1:gnP5JzjVOuiZD07fKKToCAOjS0yOpj/qPETTXCCS6hw=
 github.com/gorilla/mux v1.7.3/go.mod h1:1lud6UwP+6orDFRuTfBEV8e9/aOM/c4fVVCaMa2zaAs=
 github.com/joho/godotenv v1.3.0 h1:Zjp+RcGpHhGlrMbJzXTrZZPrWj+1vfm90La1wgB6Bhc=
 github.com/joho/godotenv v1.3.0/go.mod h1:7hK45KPybAkOC6peb+G5yklZfMxEjkZhHbwpqxOKXbg=
-

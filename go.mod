@@ -1,4 +1,4 @@
-module github.com/clay-town/zamfam-true
+module github.com/clay-town/arf
 
 go 1.13
 
