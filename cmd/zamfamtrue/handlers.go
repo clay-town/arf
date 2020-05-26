@@ -5,9 +5,9 @@ import (
 	"net/http"
 	"html/template"
 	"encoding/json"
-	"io/ioutil"
-	"fmt"
-	"strings"
+	// "io/ioutil"
+	// "fmt"
+	// "strings"
 )
 
 type test_struct struct {
@@ -20,24 +20,24 @@ func statusCheck(w http.ResponseWriter, r *http.Request) {
 
 
 	url := "https://www.ar15.com/forums/rss.html?b=7&f=133";
-  	method := "GET"
-  	// payload := strings.NewReader("")
+  // method := "GET"
+  // payload := strings.NewReader("")
   	
-  	client := &http.Client {}
-  	req, err := http.NewRequest(method, url) //, payload)
+  // client := &http.Client {}
+  // req, err := http.NewRequest(method, url) , payload)
 
-  	if err != nil {
-		fmt.Println(err)
-  	} 
-  	// req.Header.Add("authorization", APIKEY)
-  	// req.Header.Add("accept", "application/json")
-  	// req.Header.Add("accept-language", "en-US,en;q=0.8")
-  	// req.Header.Add("content-type", "application/json")
-  	res, err := client.Do(req)
-  	defer res.Body.Close()
-  	body, err := ioutil.ReadAll(res.Body)
-
-	json.NewEncoder(w).Encode(string(body))
+  // if err != nil {
+	 // fmt.Println(err)
+  // } 
+  // 	// req.Header.Add("authorization", APIKEY)
+  // 	// req.Header.Add("accept", "application/json")
+  // 	// req.Header.Add("accept-language", "en-US,en;q=0.8")
+  // 	// req.Header.Add("content-type", "application/json")
+  // res, err := client.Do(req)
+  // defer res.Body.Close()
+  // body, err := ioutil.ReadAll(res.Body)
+  resp, err := http.Get(url)
+	json.NewEncoder(w).Encode(string(resp))
 }
 
 
