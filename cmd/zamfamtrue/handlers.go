@@ -19,12 +19,12 @@ func statusCheck(w http.ResponseWriter, r *http.Request) {
 	// eligibilityCheckId := r.URL.Query().Get("eligibilityCheckId");
 
 
-	url := "";
-  	method := "POST"
-  	payload := strings.NewReader("")
+	url := "https://www.ar15.com/forums/rss.html?b=7&f=133";
+  	method := "GET"
+  	// payload := strings.NewReader("")
   	
   	client := &http.Client {}
-  	req, err := http.NewRequest(method, url, payload)
+  	req, err := http.NewRequest(method, url) //, payload)
 
   	if err != nil {
 		fmt.Println(err)
@@ -36,6 +36,7 @@ func statusCheck(w http.ResponseWriter, r *http.Request) {
   	res, err := client.Do(req)
   	defer res.Body.Close()
   	body, err := ioutil.ReadAll(res.Body)
+
 	json.NewEncoder(w).Encode(string(body))
 }
 
