@@ -5,7 +5,7 @@ import (
 	"net/http"
 	"html/template"
 	"encoding/json"
-	// "io/ioutil"
+	"io/ioutil"
 	"fmt"
 	// "strings"
 )
@@ -20,6 +20,17 @@ func statusCheck(w http.ResponseWriter, r *http.Request) {
 
 
 	url := "https://www.ar15.com/forums/rss.html?b=7&f=133";
+  resp, err := http.Get(url)
+  if err != nil {
+   fmt.Println(err)
+  } 
+  defer response.Body.Close()
+  data, err := ioutil.ReadAll(resp.Body)
+  if err != nil {
+   fmt.Println(err)
+  } 
+
+  json.NewEncoder(w).Encode(string(data))
   // method := "GET"
   // payload := strings.NewReader("")
   	
@@ -37,11 +48,7 @@ func statusCheck(w http.ResponseWriter, r *http.Request) {
   // defer res.Body.Close()
   // body, err := ioutil.ReadAll(res.Body)
 
-  resp, err := http.Get(url)
-  if err != nil {
-   fmt.Println(err)
-  } 
-	json.NewEncoder(w).Encode(string(resp))
+  
 }
 
 
