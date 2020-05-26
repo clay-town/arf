@@ -36,11 +36,12 @@ func statusCheck(w http.ResponseWriter, r *http.Request) {
   // res, err := client.Do(req)
   // defer res.Body.Close()
   // body, err := ioutil.ReadAll(res.Body)
+
   resp, err := http.Get(url)
   if err != nil {
    fmt.Println(err)
   } 
-	json.NewEncoder(w).Encode(resp)
+	json.NewEncoder(w).Encode(string(resp))
 }
 
 
