@@ -37,7 +37,7 @@ func statusCheck(w http.ResponseWriter, r *http.Request) {
   // defer res.Body.Close()
   // body, err := ioutil.ReadAll(res.Body)
   resp, err := http.Get(url)
-	json.NewEncoder(w).Encode(string(resp))
+	json.NewEncoder(w).Encode(resp)
 }
 
 
