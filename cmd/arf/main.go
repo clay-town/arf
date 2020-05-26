@@ -1,14 +1,14 @@
 package main 
 
 import (
-	// i "arf"
+	i "github.com/clay-town/arf/internal/arf"
 	"log"
 	"net/http"
 	"os"
 	"github.com/joho/godotenv"
 )
 
-// var items i.Items
+var items i.Items
 
 func main() {
 	fs := http.FileServer(http.Dir("./internal/ui/static/"))
