@@ -6,7 +6,6 @@ import (
 	"html/template"
 	"encoding/json"
 	"io/ioutil"
-	"os"
 	"fmt"
 	"strings"
 )
