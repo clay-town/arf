@@ -42,7 +42,7 @@ function statusCheck() {
     request.open('POST', url, true);
     request.onload = function(){
       var data = this.response;
-      console.log(data)
+      console.log(JSON.parse(data));
       // response=JSON.parse(data);
       // statusCheckResponse(response, manychatID);  
     }
