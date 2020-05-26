@@ -1,147 +1,43 @@
 <!doctype html>
 <html lang='en'>
     <head>
-      <link rel="icon" 
-      type="image/png" 
-      href="https://cdn2.hubspot.net/hubfs/6835969/MM-icon-onecolor-black.png">
-        <script type="text/javascript" src="./../static/restful.js"></script>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-        <meta charset='utf-8'>
-        <title>True Wireless Form</title>
-        <style type="text/css">
-          .submit_button{
-            background-color: #63CFE3;
-            color: white;
-            border-radius: 5px;
-          }
-          h1, h2, h3, h4, h5, h6 {
-            font-family: 'Lato';
-          }
-          #body_div {
-            margin-top: 50px;
-            margin-bottom: 50px;
-            margin-right: 15%;
-            margin-left: 15%;
-          }
-          ::placeholder {
-            color: red !important;
-          }
+      <script type="text/javascript" src="./../static/restful.js"></script>
+       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+       <meta charset='utf-8'>
+       <title>True Wireless Form</title>
+       <style type="text/css">
+         .submit_button{
+           background-color: #63CFE3;
+           color: white;
+           border-radius: 5px;
+         }
+         h1, h2, h3, h4, h5, h6 {
+           font-family: 'Lato';
+         }
+         #body_div {
+           margin-top: 50px;
+           margin-bottom: 50px;
+           margin-right: 15%;
+           margin-left: 15%;
+         }
+         ::placeholder {
+           color: red !important;
+         }
         </style>
     </head>
     <body>
       <div id="body_div">
       <br>
 
-      <button class="submit_button" id="clear">Clear All Fields</button>
+      <button class="submit_button" id="test_button">Test button</button>
 
-      <h2>Step 1: Application for National Verifier </h2>
-
-          <div class="form-group">
-            <label for="agent">Agent Name:</label>
-            <input type="text" class="form-control" id="agent" placeholder="John Doe">
-          </div>
-
-          <div class="form-group">
-            <label for="fname">First Name:</label>
-            <input type="text" class="form-control" id="fname" placeholder="John">
-          </div>
-           
-          <div class="form-group">
-            <label for="lname">Last Name:</label>
-            <input type="text" class="form-control" id="lname" placeholder="Doe">
-          </div>
-
-          <div class="form-group">
-            <label for="ssn">Did the consumer grant you consent to use and share their Personal Identifiable Information?</label>
-            <input type="checkbox" id="user_consent" name="user_consent" value="Y"select onchange="userConsent()">
-            <label for="user_consent">Yes</label><br>
-          </div>
-        
-        <form id= "inital_nv">
-
-            <label for="benefits">Please Select What Benefits They Recieve:</label>
-
-          <div class="form-group">
-
-            <select class="form-control" id="benefits" placeholer= "Optional">
-              <option>E1</option>
-              <option>E2</option>
-              <option>E3</option>
-              <option>E4</option>
-              <option>E8</option>
-              <option>E9</option>
-              <option>E10</option>
-              <option>E11</option>
-              <option>E13</option>
-              <option>E15</option>
-            </select>
-          
-          </div>
-          
-          <div class="form-group">
-            <label for="manychatID">ManyChat ID:</label>
-            <input type="text" class="form-control" id="manychatID">
-          </div>
-          
-          <div class="form-group">
-            <label for="dob">Date of Birth:</label>
-            <input type="text" class="form-control" id="dob" placeholder="YYYY-MM-DD">
-          </div>
-          
-          <div class="form-group">
-            <label for="tribalID">Tribal ID (optional):</label>
-            <input type="text" class="form-control" id="tribalID" placeholder=" ">
-          </div>
-          
-          <div class="form-group">
-            <label for="address">Street Address:</label>
-            <input type="text" class="form-control" id="address" placeholder="336 SW Lane Way">
-          </div>
-          
-          <div class="form-group">
-            <label for="city">City:</label>
-            <input type="text" class="form-control" id="city" placeholder="Portland">
-          </div>
-
-          <div class="form-group">
-            <label for="state">State:</label>
-            <input type="text" class="form-control" id="state" placeholder="OR">
-          </div>
-
-          <div class="form-group">
-            <label for="zip">Zip Code:</label>
-            <input type="text" class="form-control" id="zip" placeholder="12345">
-          </div>
-          
-          <div class="form-group">
-            <label for="ssn">Last 4 digits of SSN:</label>
-            <input type="text" class="form-control" id="ssn" placeholder="1234">
-          </div>
-          
-       </form>
-        <br>
-
-        <button class="submit_button" id="nv_submit">Submit to National Verifier</button>
-
-        <h5 id="nv_status"></h5>
-        <p id ="nv_eligibility_id"></p>
-        <p id ="nv_errors"></p>
-
-
-        <br>
-        <h2>Step 2: Send form to User</h2>
-        <form id="manychatID_form">
-        <div class="form-group">
-            <label for="senduser_manychatID">ManyChat ID:</label>
-            <input type="text" class="form-control" id="senduser_manychatID">
-        </div>
-      </form>
 
         <button class="submit_button" id="send_user_flow">Send Form to User</button>
         <h5 id="sent_status"></h5>
 
         <br>
         <h2>Step 3: Submit Status Check</h2>
+
         <form id="status_form">
 
         <div class="form-group">
@@ -161,183 +57,10 @@
         <h5 id="status_failures"></h5>
 
         <br>
-        <h2>Step 4: Submit Application to Vcare</h2>
-
-        <div class="form-group">
-            <label for="enrollment_manychat">ManyChat ID:</label>
-            <input type="text" class="form-control" id="enrollment_manychat">
-        </div>
-
-
-         <div class="form-group">
-            <label for="vcare_zip_a">Zip Code:</label>
-            <input type="text" class="form-control" id="vcare_zip_a" placeholder="97702">
-        </div>
-      
-        <h5 id="check_service"></h5>
-        <h5 id="enrollment_id_a"></h5>
-        <button class="submit_button" id="check_sevice_submit">Check Service Availability</button>
-        
-
-        <div class="form-group">
-            <label for="get_plan_state">Two-letter State Code:</label>
-            <input type="text" class="form-control" id="get_plan_state" placeholder="OR">
-        </div>
-
-        <div class="form-group">
-            <label for="get_plan_state">Check box if this is a tribal customer:</label>
-            <input type="checkbox" id="vcare_tribal" name="tribalID" value="Y">
-        </div>
-
-        <button class="submit_button" id="plan_id_submit">Get Plan IDs</button>
-         <br>
-
-        <h5 id="get_plan_error_description"></h5>
-        <h5 id="plan_id"></h5>
-        
-        <select class="form-control" name="plan_id_options" id="plan_id_options">
-          <option value="">Select Plan ID</option>
-        </select>
-        
-         <br>
-      <form id="submit_vcare_form">
-        <form id= "vcare_form" >
-          <div class="form-group">
-            <label for="benefits">Please Select What Benefits They Recieve:</label>
-
-            <select class="form-control" id="vcare_benefits" placeholer= "Optional">
-              <option>E1 MEDIC</option>
-              <option>E2 SNAP</option>
-              <option>E3 SSI</option>
-              <option>E4 FPH</option>
-              <option>E8 BIAGA</option>
-              <option>E9 TATAN</option>
-              <option>E10 TFDP</option>
-              <option>E11 HEADS</option>
-              <option>E13 LIEAP</option>
-              <option>E15 VPSBP</option>
-            </select>
-          
-          </div>
-
-          <div class="form-group">
-            <label for="vcare_enrollment_id_a">Enrollment ID:</label>
-            <input type="text" class="form-control" id="enrollment_id_b" placeholder="1234">
-          </div>
-
-          <div class="form-group">
-            <label for="vcare_fname">First Name:</label>
-            <input type="text" class="form-control" id="vcare_fname" placeholder="John">
-          </div>
-
-          <div class="form-group">
-            <label for="vcare_mname">Middle Name (optional):</label>
-            <input type="text" class="form-control" id="vcare_mname" placeholder="Clay">
-          </div>
-           
-          <div class="form-group">
-            <label for="vcare_lname">Last Name:</label>
-            <input type="text" class="form-control" id="vcare_lname" placeholder="Doe">
-          </div>
-          
-          <div class="form-group">
-            <label for="vcare_dob">Date of Birth:</label>
-            <input type="text" class="form-control" id="vcare_dob" placeholder="YYYY-MM-DD">
-          </div>
-          
-          <div class="form-group">
-            <label for="vcare_tribal_ID">Tribal ID (optional):</label>
-            <input type="text" class="form-control" id="vcare_tribal_ID" placeholder=" ">
-          </div>
-
-           <div class="form-group">
-            <label for="vcare_preff_conact">Best Way to Contact:</label>
-            <input type="text" class="form-control" id="vcare_preff_contact" placeholder="Phone">
-          </div>
-          
-          <div class="form-group">
-            <label for="vcare_address">Street Address:</label>
-            <input type="text" class="form-control" id="vcare_address" placeholder="336 SW Lane Way">
-          </div>
-          
-          <div class="form-group">
-            <label for="vcare_city">City:</label>
-            <input type="text" class="form-control" id="vcare_city" placeholder="Portland">
-          </div>
-
-          <div class="form-group">
-          <label for="shipping_physical">Is shipping address same as physical?</label>
-          <input type="checkbox" id="shipping_physical" name="shipping_physical" value="Y" select onchange="displayShippingFields()">
-          <label for="shipping_physical">Yes</label><br>
-          </div>
-
-          <div class="form-group" id="shipping_form">
-
-            <label for="vcare_shipping_address">Shipping Street Address:</label>
-            <input type="text" class="form-control" id="vcare_shipping_address" placeholder="336 SW Lane Way">
        
-            <label for="vcare_shipping_city">Shipping City:</label>
-            <input type="text" class="form-control" id="vcare_shipping_city" placeholder="Portland">
-
-            <label for="vcare_shipping_state">Shipping State:</label>
-            <input type="text" class="form-control" id="vcare_shipping_state" placeholder="OR">
-
-            <label for="vcare_shipping_zip">Shipping zip:</label>
-            <input type="text" class="form-control" id="vcare_shipping_zip" placeholder="12345">
-
-          </div>
-          
-          <div class="form-group">
-            <label for="vcare_ssn">Last 4 digits of SSN:</label>
-            <input type="text" class="form-control" id="vcare_ssn" placeholder="1234">
-          </div>
-           
-        <h5 id="final_display_window"></h5>
-        <h5 id="error_final_display_window"></h5>
-        </form>
-      </form>
       
-        <button class="submit_button" id="vcare_submit">Submit to Vcare</button>
 
   
-  <h2>Step 5: Upload Photos To Vcare</h2>
-          <div class="form-group">
-            <label for="photo_manychat">ManyChat ID:</label>
-            <input type="text" class="form-control" id="photo_manychat">
-          </div>
-
-          <div class="form-group">
-            <label for="photo_enrollment_id">Enrollment ID:</label>
-            <input type="text" class="form-control" id="photo_enrollment_id">
-          </div>
-
-          <div class="form-group">
-            <label for="vcare_photoID">Photo ID URL:</label>
-            <input type="text" class="form-control" id="vcare_photoID">
-          </div>
-
-          <div class="form-group">
-            <label for="vcare_pob">Proof of Benefits URL:</label>
-            <input type="text" class="form-control" id="vcare_pob">
-          </div>
-
-          <div class="form-group">
-            <label for="vcare_additional_proof">Additional Proof URL:</label>
-            <input type="text" class="form-control" id="vcare_additional_proof">
-          </div>
-
-        <h5 id="photo_id_status"></h5>
-        <h5 id="pob_status"></h5>
-        <h5 id="additional_proof_status"></h5>
-          
-        <button class="submit_button" id="upload_all_button">Upload Photos</button>
-        
-      </div>
-      <textarea style="visibility: hidden" class="form-control" id="photo_id_output"></textarea><br>
-      <textarea style="visibility: hidden" class="form-control" id="additional_proof_output"></textarea><br>
-      <textarea style="visibility: hidden" class="form-control" id="pob_output"></textarea><br>
-      <!-- </form> -->
-    </body>
 
     <script type="text/javascript"></script>
 
