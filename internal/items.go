@@ -1,5 +1,5 @@
 package arf
 
 type Items struct {
-	Items []Item `xml:"item"`
+	Item []Item `xml:"item"`
 }

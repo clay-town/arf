@@ -1,15 +1,19 @@
 package main
 
 import (
+  i "github.com/clay-town/arf/internal"
 	"log"
 	"net/http"
 	"html/template"
 	"encoding/json"
 	"encoding/xml"
-	// "io/ioutil"
+  "golang.org/x/net/html/charset"
+  "bytes"
+	"io/ioutil"
 	"fmt"
 	// "strings"
 )
+
 
 type test_struct struct {
     Test string `json:"image"`
@@ -18,52 +22,39 @@ type test_struct struct {
 func statusCheck(w http.ResponseWriter, r *http.Request) {
 	// APIKEY := os.Getenv("APIKEY");
 	// eligibilityCheckId := r.URL.Query().Get("eligibilityCheckId");
-
-
+  
 	url := "https://www.ar15.com/forums/rss.html?b=7&f=133";
   resp, err := http.Get(url)
   if err != nil {
    fmt.Println(err)
-  } 
+   return
+  }
   defer resp.Body.Close()
 
-  items := Items{}
-	decoder := xml.NewDecoder(resp.Body)
-
-	err = decoder.Decode(&rss)
-
-	if err != nil {
-   fmt.Println(err)
-  } 
-
-  fmt.Println(items)
-  //fmt.Println(string(data))
-  // fmt.Println(resp)
-  // data, err := ioutil.ReadAll(resp.Body)
-
+  data, err := ioutil.ReadAll(resp.Body)
   if err != nil {
    fmt.Println(err)
+   return
   } 
 
-  json.NewEncoder(w).Encode(string(data))
-  // method := "GET"
-  // payload := strings.NewReader("")
-  	
-  // client := &http.Client {}
-  // req, err := http.NewRequest(method, url) , payload)
-
-  // if err != nil {
-	 // fmt.Println(err)
-  // } 
-  // 	// req.Header.Add("authorization", APIKEY)
-  // 	// req.Header.Add("accept", "application/json")
-  // 	// req.Header.Add("accept-language", "en-US,en;q=0.8")
-  // 	// req.Header.Add("content-type", "application/json")
-  // res, err := client.Do(req)
-  // defer res.Body.Close()
-  // body, err := ioutil.ReadAll(res.Body)
-
+  reader := bytes.NewReader(data)
+  decoder := xml.NewDecoder(reader)
+  decoder.CharsetReader = charset.NewReaderLabel
   
+  rss := i.Rss{}  
+  err = decoder.Decode(&rss)
+  if err != nil {
+   fmt.Println(err)
+   return
+  } 
+
+
+  posts := rss.Channel.Items
+  for i := 0; i < len(posts); i++{
+    fmt.Println(posts[i].Title)
+  }
+
+  json.NewEncoder(w).Encode(string("hello world"))
 }
 
 
