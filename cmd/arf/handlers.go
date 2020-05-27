@@ -48,7 +48,14 @@ func statusCheck(w http.ResponseWriter, r *http.Request) {
    return
   } 
 
+  // just a sample loop
+  // 
+  // for futher proof of concept we should now move this into another function,
+  //  loop through the titles, 
+  //    clean them of common words
+  //    parse into words and check them against the subscriptions hash (not built yet)
 
+  //        
   posts := rss.Channel.Items
   for i := 0; i < len(posts); i++{
     fmt.Println(posts[i].Title)

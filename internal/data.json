@@ -1,0 +1,17 @@
+  // categories 
+  //	category_name => subscriptions
+
+  // 					subscriptions
+  //						keywords => emails
+  // 
+
+  // users hash
+  //	email => ??
+  //	
+
+  // data.json could hold the user  // subscriptions hash holds users emails
+  // data.json could hold the users' information, including current subscriptions
+  //    when a user opts out of a subsription, we should remove them from the subs hash
+  //      and remove that suscription from the users hashs' information, including current subscriptions
+  //    when a user opts out of a subsription, we should remove them from the subs hash
+  //      and remove that suscription from the users hash
