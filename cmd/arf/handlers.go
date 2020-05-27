@@ -1,7 +1,7 @@
 package main
 
 import (
-  i "github.com/clay-town/arf/internal"
+  i "github.com/clay-town/arf"
 	"log"
 	"net/http"
 	"html/template"
